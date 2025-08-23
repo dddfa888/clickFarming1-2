@@ -271,7 +271,9 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
     @Override
     public MUser getUserOne(String loginAccount, String loginPassword) {
         LambdaQueryWrapper<MUser> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(MUser::getLoginAccount, loginAccount);
+        // 关键：将数据库中的login_account字段转为小写，与处理后的小写账号匹配
+        // 无论数据库中是大写（如ADMIN）还是小写（如admin），都会被转为小写比对
+        wrapper.apply("LOWER(login_account) = {0}", loginAccount);
         MUser user = this.getOne(wrapper);
         if (user == null) {
             throw new ServiceException("没有该用户");//user
