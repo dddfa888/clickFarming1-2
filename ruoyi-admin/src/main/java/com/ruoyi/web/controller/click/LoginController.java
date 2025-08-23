@@ -41,7 +41,12 @@ public class LoginController {
 
     @PostMapping("/login")
     public AjaxResult login(@Validated @RequestBody LoginModel model) {
-        MUser user = mUserService.getUserOne(model.getLoginAccount(), model.getLoginPassword());
+        // 1. 将前端传入的账号转为小写（统一格式）
+        String loginAccount = model.getLoginAccount();
+        if (loginAccount != null) {
+            loginAccount = loginAccount.toLowerCase(); // 转为小写，也可使用toUpperCase()转为大写
+        }
+        MUser user = mUserService.getUserOne(loginAccount, model.getLoginPassword());
 
         if (user.getStatus()==0) {
             return AjaxResult.warn("用户被禁用");
