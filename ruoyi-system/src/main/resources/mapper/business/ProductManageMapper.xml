@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.business.mapper.ProductManageMapper">
+    
+    <resultMap type="ProductManage" id="ProductManageResult">
+        <result property="id"    column="id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="content"    column="content"    />
+        <result property="price"    column="price"    />
+        <result property="imageUrl"    column="image_url"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectProductManageVo">
+        select id, product_name, content, price, image_url, create_by, create_time, update_by, update_time from m_product_manage
+    </sql>
+
+    <select id="selectProductManageList" parameterType="ProductManage" resultMap="ProductManageResult">
+        <include refid="selectProductManageVo"/>
+        <where>  
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="imageUrl != null  and imageUrl != ''"> and image_url = #{imageUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectProductManageById" parameterType="Long" resultMap="ProductManageResult">
+        <include refid="selectProductManageVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="countNum" parameterType="ProductManage" resultType="java.lang.Long">
+        select count(1) n from m_product_manage
+        <where>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="imageUrl != null  and imageUrl != ''"> and image_url = #{imageUrl}</if>
+        </where>
+    </select>
+
+    <select id="selectProductManageByLimit" parameterType="java.util.Map" resultMap="ProductManageResult">
+        <include refid="selectProductManageVo"/>
+        LIMIT #{beginIndex}, #{num}
+    </select>
+
+    <select id="selectProductManageByRandom" resultMap="ProductManageResult">
+        <include refid="selectProductManageVo"/>
+        WHERE id >= (SELECT CEIL(MAX(id) * RAND()) FROM m_product_manage) LIMIT 1
+    </select>
+
+    <insert id="insertProductManage" parameterType="ProductManage">
+        insert into m_product_manage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="productName != null and productName != ''">product_name,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="price != null">price,</if>
+            <if test="imageUrl != null">image_url,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="productName != null and productName != ''">#{productName},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="price != null">#{price},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProductManage" parameterType="ProductManage">
+        update m_product_manage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productName != null and productName != ''">product_name = #{productName},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProductManageById" parameterType="Long">
+        delete from m_product_manage where id = #{id}
+    </delete>
+
+    <delete id="deleteProductManageByIds" parameterType="String">
+        delete from m_product_manage where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 根据条件查询符合条件的数据id -->
+    <select id="getIdList" parameterType="java.util.Map" resultType="java.lang.Long">
+        select id from m_product_manage
+        <where>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="imageUrl != null  and imageUrl != ''"> and image_url = #{imageUrl}</if>
+
+            <if test="price_Ge != null "> and price <![CDATA[ >= ]]> #{price_Ge}</if>
+            <if test="price_Le != null "> and price <![CDATA[ <= ]]> #{price_Le}</if>
+        </where>
+    </select>
+
+    <!-- 根据条件查询符合条件的数据id -->
+    <select id="getIdListByOrderSet" parameterType="java.util.Map" resultType="java.lang.Long">
+        select id from m_product_manage
+        where price <![CDATA[ <= ]]> #{max_half} or (price <![CDATA[ >= ]]> #{min} and price <![CDATA[ <= ]]> #{max})
+    </select>
+
+</mapper>

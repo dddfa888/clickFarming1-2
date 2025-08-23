@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.business.mapper.MRewardRecordMapper">
+    
+    <resultMap type="MRewardRecord" id="MRewardRecordResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="rewardTime"    column="reward_time"    />
+        <result property="rewardAmount"    column="reward_amount"    />
+        <result property="balanceBefore"    column="balance_before"    />
+        <result property="balanceAfter"    column="balance_after"    />
+        <result property="description"    column="description"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMRewardRecordVo">
+        select id, user_id, user_name, reward_time, reward_amount, balance_before, balance_after, description, create_by, create_time, update_by, update_time from m_reward_record
+    </sql>
+
+    <select id="selectMRewardRecordList" parameterType="MRewardRecord" resultMap="MRewardRecordResult">
+        <include refid="selectMRewardRecordVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="rewardTime != null "> and reward_time = #{rewardTime}</if>
+            <if test="rewardAmount != null "> and reward_amount = #{rewardAmount}</if>
+            <if test="balanceBefore != null "> and balance_before = #{balanceBefore}</if>
+            <if test="balanceAfter != null "> and balance_after = #{balanceAfter}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectMRewardRecordById" parameterType="Long" resultMap="MRewardRecordResult">
+        <include refid="selectMRewardRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <!-- 查询一个用户的奖励记录 -->
+    <select id="selectByUserId" parameterType="Long" resultMap="MRewardRecordResult">
+        <include refid="selectMRewardRecordVo"/>
+        where user_id = #{userId}
+        order by create_time desc
+    </select>
+
+    <!-- 查询一个用户的奖励记录，用于前端，无多余字段 -->
+    <select id="selectSimpleByUserId" parameterType="Long" resultType="java.util.Map">
+        select id, ROUND(reward_amount,2) as "amount", ROUND(balance_after,2) as "accountBack", description from m_reward_record
+        where user_id = #{userId} and description = '订单奖励'
+        order by create_time desc
+    </select>
+
+    <insert id="insertMRewardRecord" parameterType="MRewardRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into m_reward_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="rewardTime != null">reward_time,</if>
+            <if test="rewardAmount != null">reward_amount,</if>
+            <if test="balanceBefore != null">balance_before,</if>
+            <if test="balanceAfter != null">balance_after,</if>
+            <if test="description != null">description,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="rewardTime != null">#{rewardTime},</if>
+            <if test="rewardAmount != null">#{rewardAmount},</if>
+            <if test="balanceBefore != null">#{balanceBefore},</if>
+            <if test="balanceAfter != null">#{balanceAfter},</if>
+            <if test="description != null">#{description},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMRewardRecord" parameterType="MRewardRecord">
+        update m_reward_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="rewardTime != null">reward_time = #{rewardTime},</if>
+            <if test="rewardAmount != null">reward_amount = #{rewardAmount},</if>
+            <if test="balanceBefore != null">balance_before = #{balanceBefore},</if>
+            <if test="balanceAfter != null">balance_after = #{balanceAfter},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMRewardRecordById" parameterType="Long">
+        delete from m_reward_record where id = #{id}
+    </delete>
+
+    <delete id="deleteMRewardRecordByIds" parameterType="String">
+        delete from m_reward_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

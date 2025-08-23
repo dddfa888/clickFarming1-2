@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.business.mapper.MSettingGlobalMapper">
+    
+    <resultMap type="MSettingGlobal" id="MSettingGlobalResult">
+        <result property="id"    column="id"    />
+        <result property="titleName"    column="title_name"    />
+        <result property="currencyType"    column="currency_type"    />
+        <result property="content"    column="content"    />
+        <result property="iconImageUrl"    column="icon_image_url"    />
+        <result property="linkSupport"    column="link_support"    />
+        <result property="language"    column="language"    />
+        <result property="ejectImageUrl"    column="eject_image_url"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMSettingGlobalVo">
+        select id, title_name, currency_type, content, icon_image_url, link_support, language, eject_image_url, create_by, create_time, update_by, update_time from m_setting_global
+    </sql>
+
+    <select id="selectMSettingGlobalList" parameterType="MSettingGlobal" resultMap="MSettingGlobalResult">
+        <include refid="selectMSettingGlobalVo"/>
+        <where>  
+            <if test="titleName != null  and titleName != ''"> and title_name like concat('%', #{titleName}, '%')</if>
+            <if test="currencyType != null  and currencyType != ''"> and currency_type = #{currencyType}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="iconImageUrl != null  and iconImageUrl != ''"> and icon_image_url = #{iconImageUrl}</if>
+            <if test="linkSupport != null  and linkSupport != ''"> and link_support = #{linkSupport}</if>
+            <if test="language != null  and language != ''"> and language = #{language}</if>
+            <if test="ejectImageUrl != null  and ejectImageUrl != ''"> and eject_image_url = #{ejectImageUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectMSettingGlobalById" parameterType="Long" resultMap="MSettingGlobalResult">
+        <include refid="selectMSettingGlobalVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertMSettingGlobal" parameterType="MSettingGlobal" useGeneratedKeys="true" keyProperty="id">
+        insert into m_setting_global
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="titleName != null and titleName != ''">title_name,</if>
+            <if test="currencyType != null and currencyType != ''">currency_type,</if>
+            <if test="content != null">content,</if>
+            <if test="iconImageUrl != null">icon_image_url,</if>
+            <if test="linkSupport != null">link_support,</if>
+            <if test="language != null">language,</if>
+            <if test="ejectImageUrl != null">eject_image_url,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="titleName != null and titleName != ''">#{titleName},</if>
+            <if test="currencyType != null and currencyType != ''">#{currencyType},</if>
+            <if test="content != null">#{content},</if>
+            <if test="iconImageUrl != null">#{iconImageUrl},</if>
+            <if test="linkSupport != null">#{linkSupport},</if>
+            <if test="language != null">#{language},</if>
+            <if test="ejectImageUrl != null">#{ejectImageUrl},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMSettingGlobal" parameterType="MSettingGlobal">
+        update m_setting_global
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="titleName != null and titleName != ''">title_name = #{titleName},</if>
+            <if test="currencyType != null and currencyType != ''">currency_type = #{currencyType},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="iconImageUrl != null">icon_image_url = #{iconImageUrl},</if>
+            <if test="linkSupport != null">link_support = #{linkSupport},</if>
+            <if test="language != null">language = #{language},</if>
+            <if test="ejectImageUrl != null">eject_image_url = #{ejectImageUrl},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMSettingGlobalById" parameterType="Long">
+        delete from m_setting_global where id = #{id}
+    </delete>
+
+    <delete id="deleteMSettingGlobalByIds" parameterType="String">
+        delete from m_setting_global where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <!-- 根据语种查询 -->
+    <select id="selectByLang" parameterType="String" resultMap="MSettingGlobalResult">
+        <include refid="selectMSettingGlobalVo"/>
+        where language = #{language}
+        order by create_time
+        limit 1
+    </select>
+
+</mapper>

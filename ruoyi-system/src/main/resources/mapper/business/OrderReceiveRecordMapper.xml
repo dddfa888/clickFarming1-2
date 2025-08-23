@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.business.mapper.OrderReceiveRecordMapper">
+    
+    <resultMap type="OrderReceiveRecord" id="OrderReceiveRecordResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="productImageUrl"    column="product_image_url"    />
+        <result property="unitPrice"    column="unit_price"    />
+        <result property="number"    column="number"    />
+        <result property="totalAmount"    column="total_amount"    />
+        <result property="profit"    column="profit"    />
+        <result property="refundAmount"    column="refund_amount"    />
+        <result property="processStatus"    column="process_status"    />
+        <result property="numTarget"    column="num_target"    />
+        <result property="numSeq"    column="num_seq"    />
+        <result property="multiType"    column="multi_type"    />
+        <result property="multiId"    column="multi_id"    />
+        <result property="freezeStatus"    column="freeze_status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+    <resultMap type="OrderReceiveRecordVo" id="OrderReceiveRecordResultVo">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="productId"    column="product_id"    />
+        <result property="productName"    column="product_name"    />
+        <result property="productImageUrl"    column="product_image_url"    />
+        <result property="unitPrice"    column="unit_price"    />
+        <result property="number"    column="number"    />
+        <result property="totalAmount"    column="total_amount"    />
+        <result property="profit"    column="profit"    />
+        <result property="refundAmount"    column="refund_amount"    />
+        <result property="processStatus"    column="process_status"    />
+        <result property="numTarget"    column="num_target"    />
+        <result property="numSeq"    column="num_seq"    />
+        <result property="multiType"    column="multi_type"    />
+        <result property="multiId"    column="multi_id"    />
+        <result property="freezeStatus"    column="freeze_status"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectOrderReceiveRecordVo">
+        select
+            id, user_id, user_name, product_id, product_name, product_image_url, unit_price, number, total_amount, profit,
+            refund_amount, process_status, num_target,num_seq, multi_type, multi_id, freeze_status,
+            create_by, create_time, update_by, update_time
+        from m_order_receive_record
+    </sql>
+
+    <select id="selectOrderReceiveRecordList" parameterType="OrderReceiveRecord" resultMap="OrderReceiveRecordResult">
+        <include refid="selectOrderReceiveRecordVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productImageUrl != null  and productImageUrl != ''"> and product_image_url = #{productImageUrl}</if>
+            <if test="unitPrice != null "> and unit_price = #{unitPrice}</if>
+            <if test="number != null "> and number = #{number}</if>
+            <if test="totalAmount != null "> and total_amount = #{totalAmount}</if>
+            <if test="profit != null "> and profit = #{profit}</if>
+            <if test="refundAmount != null "> and refund_amount = #{refundAmount}</if>
+            <if test="processStatus != null  and processStatus != ''"> and process_status = #{processStatus}</if>
+            <if test="numTarget != null  and numTarget != ''"> and num_target = #{numTarget}</if>
+            <if test="numSeq != null  and numSeq != ''"> and num_seq = #{numSeq}</if>
+            <if test="multiType != null  and multiType != ''"> and multi_type = #{multiType}</if>
+            <if test="multiId != null "> and multi_id = #{multiId}</if>
+            <if test="freezeStatus != null  and freezeStatus != ''"> and freeze_status = #{freezeStatus}</if>
+        </where>
+    </select>
+
+    <select id="selectOrderListOrderDescId" parameterType="OrderReceiveRecord" resultMap="OrderReceiveRecordResult">
+        <include refid="selectOrderReceiveRecordVo"/>
+        <where>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productImageUrl != null  and productImageUrl != ''"> and product_image_url = #{productImageUrl}</if>
+            <if test="unitPrice != null "> and unit_price = #{unitPrice}</if>
+            <if test="number != null "> and number = #{number}</if>
+            <if test="totalAmount != null "> and total_amount = #{totalAmount}</if>
+            <if test="profit != null "> and profit = #{profit}</if>
+            <if test="refundAmount != null "> and refund_amount = #{refundAmount}</if>
+            <if test="processStatus != null  and processStatus != ''"> and process_status = #{processStatus}</if>
+            <if test="numTarget != null  and numTarget != ''"> and num_target = #{numTarget}</if>
+            <if test="numSeq != null  and numSeq != ''"> and num_seq = #{numSeq}</if>
+            <if test="multiType != null  and multiType != ''"> and multi_type = #{multiType}</if>
+            <if test="multiId != null "> and multi_id = #{multiId}</if>
+            <if test="freezeStatus != null  and freezeStatus != ''"> and freeze_status = #{freezeStatus}</if>
+        </where>
+        order by id desc
+    </select>
+
+    <!-- 倒序查询 -->
+    <select id="selectListOrderDesc" parameterType="java.util.Map" resultMap="OrderReceiveRecordResult">
+        <include refid="selectOrderReceiveRecordVo"/>
+        <where>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productImageUrl != null  and productImageUrl != ''"> and product_image_url = #{productImageUrl}</if>
+            <if test="unitPrice != null "> and unit_price = #{unitPrice}</if>
+            <if test="number != null "> and number = #{number}</if>
+            <if test="totalAmount != null "> and total_amount = #{totalAmount}</if>
+            <if test="profit != null "> and profit = #{profit}</if>
+            <if test="refundAmount != null "> and refund_amount = #{refundAmount}</if>
+            <if test="processStatus != null  and processStatus != ''"> and process_status = #{processStatus}</if>
+            <if test="numTarget != null  and numTarget != ''"> and num_target = #{numTarget}</if>
+            <if test="numSeq != null  and numSeq != ''"> and num_seq = #{numSeq}</if>
+            <if test="multiType != null  and multiType != ''"> and multi_type = #{multiType}</if>
+            <if test="multiId != null "> and multi_id = #{multiId}</if>
+            <if test="freezeStatus != null  and freezeStatus != ''"> and freeze_status = #{freezeStatus}</if>
+        </where>
+        order by create_time desc
+    </select>
+    <!-- 倒序查询 -->
+    <select id="selectListOrderDescVo" parameterType="java.util.Map" resultMap="OrderReceiveRecordResultVo">
+        <include refid="selectOrderReceiveRecordVo"/>
+        <where>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productImageUrl != null  and productImageUrl != ''"> and product_image_url = #{productImageUrl}</if>
+            <if test="unitPrice != null "> and unit_price = #{unitPrice}</if>
+            <if test="number != null "> and number = #{number}</if>
+            <if test="totalAmount != null "> and total_amount = #{totalAmount}</if>
+            <if test="profit != null "> and profit = #{profit}</if>
+            <if test="refundAmount != null "> and refund_amount = #{refundAmount}</if>
+            <if test="processStatus != null  and processStatus != ''"> and process_status = #{processStatus}</if>
+            <if test="numTarget != null  and numTarget != ''"> and num_target = #{numTarget}</if>
+            <if test="numSeq != null  and numSeq != ''"> and num_seq = #{numSeq}</if>
+            <if test="multiType != null  and multiType != ''"> and multi_type = #{multiType}</if>
+            <if test="multiId != null "> and multi_id = #{multiId}</if>
+            <if test="freezeStatus != null  and freezeStatus != ''"> and freeze_status = #{freezeStatus}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <select id="selectOrderReceiveRecordById" parameterType="Long" resultMap="OrderReceiveRecordResult">
+        <include refid="selectOrderReceiveRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertOrderReceiveRecord" parameterType="OrderReceiveRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into m_order_receive_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="productId != null">product_id,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="productImageUrl != null">product_image_url,</if>
+            <if test="unitPrice != null">unit_price,</if>
+            <if test="number != null">number,</if>
+            <if test="totalAmount != null">total_amount,</if>
+            <if test="profit != null">profit,</if>
+            <if test="refundAmount != null">refund_amount,</if>
+            <if test="processStatus != null">process_status,</if>
+            <if test="numTarget != null">num_target,</if>
+            <if test="numSeq != null">num_seq,</if>
+            <if test="multiType != null">multi_type,</if>
+            <if test="multiId != null">multi_id,</if>
+            <if test="freezeStatus != null">freeze_status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="productId != null">#{productId},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="productImageUrl != null">#{productImageUrl},</if>
+            <if test="unitPrice != null">#{unitPrice},</if>
+            <if test="number != null">#{number},</if>
+            <if test="totalAmount != null">#{totalAmount},</if>
+            <if test="profit != null">#{profit},</if>
+            <if test="refundAmount != null">#{refundAmount},</if>
+            <if test="processStatus != null">#{processStatus},</if>
+            <if test="numTarget != null">#{numTarget},</if>
+            <if test="numSeq != null">#{numSeq},</if>
+            <if test="multiType != null">#{multiType},</if>
+            <if test="multiId != null">#{multiId},</if>
+            <if test="freezeStatus != null">#{freezeStatus},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOrderReceiveRecord" parameterType="OrderReceiveRecord">
+        update m_order_receive_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="productImageUrl != null">product_image_url = #{productImageUrl},</if>
+            <if test="unitPrice != null">unit_price = #{unitPrice},</if>
+            <if test="number != null">number = #{number},</if>
+            <if test="totalAmount != null">total_amount = #{totalAmount},</if>
+            <if test="profit != null">profit = #{profit},</if>
+            <if test="refundAmount != null">refund_amount = #{refundAmount},</if>
+            <if test="processStatus != null">process_status = #{processStatus},</if>
+            <if test="numTarget != null">num_target = #{numTarget},</if>
+            <if test="numSeq != null">num_seq = #{numSeq},</if>
+            <if test="multiType != null">multi_type = #{multiType},</if>
+            <if test="multiId != null">multi_id = #{multiId},</if>
+            <if test="freezeStatus != null">freeze_status = #{freezeStatus},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOrderReceiveRecordById" parameterType="Long">
+        delete from m_order_receive_record where id = #{id}
+    </delete>
+
+    <delete id="deleteOrderReceiveRecordByIds" parameterType="String">
+        delete from m_order_receive_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="countNum" parameterType="OrderReceiveRecord" resultType="java.lang.Long">
+        select count(1) n from m_order_receive_record
+        <where>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="productImageUrl != null  and productImageUrl != ''"> and product_image_url = #{productImageUrl}</if>
+            <if test="unitPrice != null "> and unit_price = #{unitPrice}</if>
+            <if test="number != null "> and number = #{number}</if>
+            <if test="totalAmount != null "> and total_amount = #{totalAmount}</if>
+            <if test="profit != null "> and profit = #{profit}</if>
+            <if test="refundAmount != null "> and refund_amount = #{refundAmount}</if>
+            <if test="processStatus != null  and processStatus != ''"> and process_status = #{processStatus}</if>
+            <if test="numTarget != null  and numTarget != ''"> and num_target = #{numTarget}</if>
+            <if test="numSeq != null  and numSeq != ''"> and num_seq = #{numSeq}</if>
+            <if test="multiType != null  and multiType != ''"> and multi_type = #{multiType}</if>
+            <if test="multiId != null "> and multi_id = #{multiId}</if>
+            <if test="freezeStatus != null  and freezeStatus != ''"> and freeze_status = #{freezeStatus}</if>
+        </where>
+    </select>
+
+    <!-- 统计一个用户当日的订单数量 -->
+    <select id="countNumByUserDate" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(1) n from m_order_receive_record
+        where user_id = #{userId}
+        and update_time <![CDATA[ >= ]]> #{date1} and update_time  <![CDATA[ < ]]> #{date2}
+        <if test="processStatus != null  and processStatus != ''"> and process_status = #{processStatus}</if>
+    </select>
+
+    <!-- 一个用户一天内的利润总计 -->
+    <select id="sumAmountByUserDate" parameterType="java.util.Map" resultType="java.math.BigDecimal">
+        select IFNULL(sum(profit),0) n from m_order_receive_record
+        where user_id = #{userId}
+        and update_time <![CDATA[ >= ]]> #{date1} and update_time  <![CDATA[ < ]]> #{date2}
+        <if test="processStatus != null  and processStatus != ''"> and process_status = #{processStatus}</if>
+    </select>
+
+</mapper>

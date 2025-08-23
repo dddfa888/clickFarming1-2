@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.click.mapper.UserGradeMapper">
+
+    <resultMap type="UserGrade" id="UserGradeResult">
+        <result property="id"    column="id"    />
+        <result property="sortNum"    column="sort_num"    />
+        <result property="gradeName"    column="grade_name"    />
+        <result property="joinCost"    column="join_cost"    />
+        <result property="minBalance"    column="min_balance"    />
+        <result property="buyProdNum"    column="buy_prod_num"    />
+        <result property="minBonus"    column="min_bonus"    />
+        <result property="maxBonus"    column="max_bonus"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectUserGradeVo">
+        select id, sort_num, grade_name, join_cost, min_balance, buy_prod_num, min_bonus, max_bonus, create_time, update_time from m_user_grade
+    </sql>
+
+    <select id="selectUserGradeList" parameterType="UserGrade" resultMap="UserGradeResult">
+        <include refid="selectUserGradeVo"/>
+        <where>
+            <if test="sortNum != null "> and sort_num = #{sortNum}</if>
+            <if test="gradeName != null  and gradeName != ''"> and grade_name like concat('%', #{gradeName}, '%')</if>
+            <if test="joinCost != null  and joinCost != ''"> and join_cost = #{joinCost}</if>
+            <if test="minBalance != null "> and min_balance = #{minBalance}</if>
+            <if test="buyProdNum != null "> and buy_prod_num = #{buyProdNum}</if>
+            <if test="minBonus != null "> and min_bonus = #{minBonus}</if>
+            <if test="maxBonus != null  and maxBonus != ''"> and max_bonus = #{maxBonus}</if>
+        </where>
+        ORDER BY sort_num ASC
+
+    </select>
+
+    <select id="selectUserGradeById" parameterType="Long" resultMap="UserGradeResult">
+        <include refid="selectUserGradeVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectUserGradeBySortNum" parameterType="Integer" resultMap="UserGradeResult">
+        <include refid="selectUserGradeVo"/>
+        where sort_num = #{sortNum}
+    </select>
+
+    <insert id="insertUserGrade" parameterType="UserGrade">
+        insert into m_user_grade
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="sortNum != null">sort_num,</if>
+            <if test="gradeName != null and gradeName != ''">grade_name,</if>
+            <if test="joinCost != null">join_cost,</if>
+            <if test="minBalance != null">min_balance,</if>
+            <if test="buyProdNum != null">buy_prod_num,</if>
+            <if test="minBonus != null">min_bonus,</if>
+            <if test="maxBonus != null">max_bonus,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="sortNum != null">#{sortNum},</if>
+            <if test="gradeName != null and gradeName != ''">#{gradeName},</if>
+            <if test="joinCost != null">#{joinCost},</if>
+            <if test="minBalance != null">#{minBalance},</if>
+            <if test="buyProdNum != null">#{buyProdNum},</if>
+            <if test="minBonus != null">#{minBonus},</if>
+            <if test="maxBonus != null">#{maxBonus},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUserGrade" parameterType="UserGrade">
+        update m_user_grade
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sortNum != null">sort_num = #{sortNum},</if>
+            <if test="gradeName != null and gradeName != ''">grade_name = #{gradeName},</if>
+            <if test="joinCost != null">join_cost = #{joinCost},</if>
+            <if test="minBalance != null">min_balance = #{minBalance},</if>
+            <if test="buyProdNum != null">buy_prod_num = #{buyProdNum},</if>
+            <if test="minBonus != null">min_bonus = #{minBonus},</if>
+            <if test="maxBonus != null">max_bonus = #{maxBonus},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUserGradeById" parameterType="Long">
+        delete from m_user_grade where id = #{id}
+    </delete>
+
+    <delete id="deleteUserGradeByIds" parameterType="String">
+        delete from m_user_grade where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.business.mapper.MUserOrderSetMapper">
+    
+    <resultMap type="MUserOrderSet" id="MUserOrderSetResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="minNum"    column="min_num"    />
+        <result property="maxNum"    column="max_num"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectMUserOrderSetVo">
+        select id, user_id, order_num, min_num, max_num, create_time from m_user_order_set
+    </sql>
+
+    <select id="selectMUserOrderSetList" parameterType="MUserOrderSet" resultMap="MUserOrderSetResult">
+        <include refid="selectMUserOrderSetVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="orderNum != null "> and order_num = #{orderNum}</if>
+            <if test="minNum != null "> and min_num = #{minNum}</if>
+            <if test="maxNum != null "> and max_num = #{maxNum}</if>
+        </where>
+    </select>
+
+    <select id="selectByUserId" parameterType="Long" resultMap="MUserOrderSetResult">
+        <include refid="selectMUserOrderSetVo"/>
+        where user_id = #{userId}
+        order by id
+    </select>
+
+    <select id="selectMUserOrderSetById" parameterType="Long" resultMap="MUserOrderSetResult">
+        <include refid="selectMUserOrderSetVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertMUserOrderSet" parameterType="MUserOrderSet" useGeneratedKeys="true" keyProperty="id">
+        insert into m_user_order_set
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="minNum != null">min_num,</if>
+            <if test="maxNum != null">max_num,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="minNum != null">#{minNum},</if>
+            <if test="maxNum != null">#{maxNum},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <insert id="insertBatch" parameterType="MUserOrderSet" useGeneratedKeys="true" keyProperty="id">
+        insert into m_user_order_set (user_id, order_num, min_num, max_num, create_time)
+        values
+        <foreach collection="list" item="item" separator=",">
+          ( #{item.userId},
+            #{item.orderNum},
+            #{item.minNum},
+            #{item.maxNum},
+            #{item.createTime} )
+        </foreach>
+    </insert>
+
+    <update id="updateMUserOrderSet" parameterType="MUserOrderSet">
+        update m_user_order_set
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="minNum != null">min_num = #{minNum},</if>
+            <if test="maxNum != null">max_num = #{maxNum},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMUserOrderSetById" parameterType="Long">
+        delete from m_user_order_set where id = #{id}
+    </delete>
+
+    <delete id="deleteByUserId" parameterType="Long">
+        delete from m_user_order_set where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteMUserOrderSetByIds" parameterType="String">
+        delete from m_user_order_set where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

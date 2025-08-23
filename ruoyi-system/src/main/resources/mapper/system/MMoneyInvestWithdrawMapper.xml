@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.click.mapper.MMoneyInvestWithdrawMapper">
+
+    <resultMap type="MMoneyInvestWithdraw" id="MMoneyInvestWithdrawResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
+        <result property="userType"    column="user_type" />
+        <result property="amount"    column="amount"    />
+        <result property="bankName"    column="bank_name"    />
+        <result property="bankAccountName"    column="bank_account_name"    />
+        <result property="bankAccountNumber"    column="bank_account_number"    />
+        <result property="type"    column="type"    />
+        <result property="reasonForRejection"    column="reason_for_rejection"    />
+        <result property="status"    column="status"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="accountForward" column="account_forward" />
+        <result property="accountBack"    column="account_back"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectMMoneyInvestWithdrawVo">
+        select id, user_id, user_name, user_type, amount, bank_name, bank_account_name, bank_account_number, type, reason_for_rejection, status, order_id, account_forward,account_back, create_time, update_time from m_money_invest_withdraw
+    </sql>
+
+    <select id="selectMMoneyInvestWithdrawList" parameterType="MMoneyInvestWithdraw" resultMap="MMoneyInvestWithdrawResult">
+        <include refid="selectMMoneyInvestWithdrawVo"/>
+        <where>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
+            <if test="userType != null "> and user_type = #{userType}</if>
+            <if test="amount != null "> and amount = #{amount}</if>
+            <if test="bankName != null  and bankName != ''"> and bank_name like concat('%', #{bankName}, '%')</if>
+            <if test="bankAccountName != null  and bankAccountName != ''"> and bank_account_name like concat('%', #{bankAccountName}, '%')</if>
+            <if test="bankAccountNumber != null  and bankAccountNumber != ''"> and bank_account_number = #{bankAccountNumber}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="reasonForRejection != null  and reasonForRejection != ''"> and reason_for_rejection = #{reasonForRejection}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
+            <if test="accountForward != null "> and account_forward = #{accountForward}</if>
+            <if test="accountBack != null "> and account_back = #{accountBack}</if>
+        </where>
+        ORDER BY
+        CASE WHEN status = 0 THEN 0 ELSE 1 END,
+        create_time DESC
+
+    </select>
+
+    <select id="selectMMoneyInvestWithdrawById" parameterType="Long" resultMap="MMoneyInvestWithdrawResult">
+        <include refid="selectMMoneyInvestWithdrawVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertMMoneyInvestWithdraw" parameterType="MMoneyInvestWithdraw">
+        insert into m_money_invest_withdraw
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="userName != null">user_name,</if>
+            <if test="userType != null">user_type,</if>
+            <if test="amount != null">amount,</if>
+            <if test="bankName != null">bank_name,</if>
+            <if test="bankAccountName != null">bank_account_name,</if>
+            <if test="bankAccountNumber != null">bank_account_number,</if>
+            <if test="type != null">type,</if>
+            <if test="reasonForRejection != null">reason_for_rejection,</if>
+            <if test="status != null">status,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="accountForward != null">account_forward,</if>
+            <if test="accountBack != null">account_back,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="userName != null">#{userName},</if>
+            <if test="userType != null">#{userType},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="bankName != null">#{bankName},</if>
+            <if test="bankAccountName != null">#{bankAccountName},</if>
+            <if test="bankAccountNumber != null">#{bankAccountNumber},</if>
+            <if test="type != null">#{type},</if>
+            <if test="reasonForRejection != null">#{reasonForRejection},</if>
+            <if test="status != null">#{status},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="accountForward != null">#{accountForward},</if>
+            <if test="accountBack != null">#{accountBack},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMMoneyInvestWithdraw" parameterType="MMoneyInvestWithdraw">
+        update m_money_invest_withdraw
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="userType != null">user_type = #{userType},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="bankName != null">bank_name = #{bankName},</if>
+            <if test="bankAccountName != null">bank_account_name = #{bankAccountName},</if>
+            <if test="bankAccountNumber != null">bank_account_number = #{bankAccountNumber},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="reasonForRejection != null">reason_for_rejection = #{reasonForRejection},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="accountForward != null">account_forward = #{accountForward},</if>
+            <if test="accountBack != null">account_back = #{accountBack},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMMoneyInvestWithdrawById" parameterType="Long">
+        delete from m_money_invest_withdraw where id = #{id}
+    </delete>
+
+    <delete id="deleteMMoneyInvestWithdrawByIds" parameterType="String">
+        delete from m_money_invest_withdraw where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- 一个用户一天内的取现或充值数额总计 -->
+    <select id="sumAmountByUserDateType" parameterType="java.util.Map" resultType="java.math.BigDecimal">
+        select IFNULL(sum(amount),0) n from m_money_invest_withdraw
+        where user_id = #{userId}
+        and create_time <![CDATA[ >= ]]> #{date1} and create_time  <![CDATA[ < ]]> #{date2}
+        <if test="type != null  and type != ''"> and type = #{type}</if>
+    </select>
+
+    <!-- 根据用户id修改用户信息-->
+    <update id="updateUserInfoByUserId" parameterType="java.util.Map">
+        update m_money_invest_withdraw
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userName != null">user_name = #{userName},</if>
+            <if test="userType != null">user_type = #{userType},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+</mapper>

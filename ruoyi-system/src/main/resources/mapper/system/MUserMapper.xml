@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.click.mapper.MUserMapper">
+
+    <resultMap type="MUser" id="MUserResult">
+        <result property="uid"    column="uid"    />
+        <result property="level"    column="level"    />
+        <result property="loginAccount"    column="login_account"    />
+        <result property="loginPassword"    column="login_password"    />
+        <result property="fundPassword"    column="fund_password"    />
+        <result property="withdrawalAddress"    column="withdrawal_address"    />
+        <result property="registerType"    column="register_type"    />
+        <result property="phoneNumber"    column="phone_number"    />
+        <result property="phoneNumberType"    column="phone_number_type"    />
+        <result property="accountBalance"    column="account_balance"    />
+        <result property="invitationCode"    column="invitation_code"    />
+        <result property="inviter"    column="inviter"    />
+        <result property="inviterCode"    column="inviter_code"    />
+        <result property="inviterName"    column="inviter_name"    />
+        <result property="status"    column="status"    />
+        <result property="bankName"    column="bank_name"    />
+        <result property="bankAccountName"    column="bank_account_name"    />
+        <result property="bankAccountNumber"    column="bank_account_number"    />
+        <result property="higherUid"    column="higher_uid"    />
+        <result property="lastLoginIp"    column="last_login_ip"    />
+        <result property="lastLoginIpAddress"    column="last_login_ip_address"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="brushNumber"    column="brush_number"    />
+        <result property="multiOrderNum"    column="multi_order_num"    />
+    </resultMap>
+
+    <sql id="selectMUserVo">
+        select uid, head_img,level, login_account, login_password, fund_password, withdrawal_address, register_type, phone_number, phone_number_type, account_balance, invitation_code, inviter, inviter_code, inviter_name, status, bank_name, bank_account_name, bank_account_number, higher_uid, last_login_ip, last_login_ip_address, create_time, update_time, brush_number,multi_order_num from m_user
+    </sql>
+
+    <select id="selectMUserList" parameterType="MUser" resultMap="MUserResult">
+        <include refid="selectMUserVo"/>
+        <where>
+            <if test="level != null "> and `level` = #{level}</if>
+            <if test="loginAccount != null  and loginAccount != ''"> and login_account = #{loginAccount}</if>
+            <if test="loginPassword != null  and loginPassword != ''"> and login_password = #{loginPassword}</if>
+            <if test="fundPassword != null  and fundPassword != ''"> and fund_password = #{fundPassword}</if>
+            <if test="withdrawalAddress != null  and withdrawalAddress != ''"> and withdrawal_address = #{withdrawalAddress}</if>
+            <if test="registerType != null  and registerType != ''"> and register_type = #{registerType}</if>
+            <if test="phoneNumber != null  and phoneNumber != ''"> and phone_number = #{phoneNumber}</if>
+            <if test="phoneNumberType != null  and phoneNumberType != ''"> and phone_number_type = #{phoneNumberType}</if>
+            <if test="accountBalance != null "> and account_balance = #{accountBalance}</if>
+            <if test="invitationCode != null  and invitationCode != ''"> and invitation_code = #{invitationCode}</if>
+            <if test="inviter != null  and inviter != ''"> and inviter = #{inviter}</if>
+            <if test="inviterCode != null  and inviterCode != ''"> and inviter_code = #{inviterCode}</if>
+            <if test="inviterName != null  and inviterName != ''"> and inviter_name like concat('%', #{inviterName}, '%')</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="bankName != null  and bankName != ''"> and bank_name like concat('%', #{bankName}, '%')</if>
+            <if test="bankAccountName != null  and bankAccountName != ''"> and bank_account_name like concat('%', #{bankAccountName}, '%')</if>
+            <if test="bankAccountNumber != null  and bankAccountNumber != ''"> and bank_account_number = #{bankAccountNumber}</if>
+            <if test="higherUid != null "> and higher_uid = #{higherUid}</if>
+            <if test="lastLoginIp != null  and lastLoginIp != ''"> and last_login_ip = #{lastLoginIp}</if>
+            <if test="lastLoginIpAddress != null  and lastLoginIpAddress != ''"> and last_login_ip_address = #{lastLoginIpAddress}</if>
+            <if test="brushNumber != null "> and brush_number = #{brushNumber}</if>
+            <if test="multiOrderNum != null "> and multi_order_num = #{multiOrderNum}</if>
+        </where>
+    </select>
+
+    <select id="selectMUserByUid" parameterType="Long" resultMap="MUserResult">
+        <include refid="selectMUserVo"/>
+        where uid = #{uid}
+    </select>
+
+    <insert id="insertMUser" parameterType="MUser">
+        insert into m_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">uid,</if>
+            <if test="headImg != null">head_img,</if>
+            <if test="level != null">`level`,</if>
+            <if test="loginAccount != null and loginAccount != ''">login_account,</if>
+            <if test="loginPassword != null and loginPassword != ''">login_password,</if>
+            <if test="fundPassword != null and fundPassword != ''">fund_password,</if>
+            <if test="withdrawalAddress != null">withdrawal_address,</if>
+            <if test="registerType != null and registerType != ''">register_type,</if>
+            <if test="phoneNumber != null">phone_number,</if>
+            <if test="phoneNumberType != null">phone_number_type,</if>
+            <if test="accountBalance != null">account_balance,</if>
+            <if test="invitationCode != null and invitationCode != ''">invitation_code,</if>
+            <if test="inviter != null">inviter,</if>
+            <if test="inviterCode != null">inviter_code,</if>
+            <if test="inviterName != null">inviter_name,</if>
+            <if test="status != null">status,</if>
+            <if test="bankName != null">bank_name,</if>
+            <if test="bankAccountName != null">bank_account_name,</if>
+            <if test="bankAccountNumber != null">bank_account_number,</if>
+            <if test="higherUid != null">higher_uid,</if>
+            <if test="lastLoginIp != null">last_login_ip,</if>
+            <if test="lastLoginIpAddress != null">last_login_ip_address,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="brushNumber != null">brush_number,</if>
+            <if test="multiOrderNum != null">multi_order_num,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">#{uid},</if>
+            <if test="headImg != null">#{headImg},</if>
+            <if test="level != null">#{level},</if>
+            <if test="loginAccount != null and loginAccount != ''">#{loginAccount},</if>
+            <if test="loginPassword != null and loginPassword != ''">#{loginPassword},</if>
+            <if test="fundPassword != null and fundPassword != ''">#{fundPassword},</if>
+            <if test="withdrawalAddress != null">#{withdrawalAddress},</if>
+            <if test="registerType != null and registerType != ''">#{registerType},</if>
+            <if test="phoneNumber != null">#{phoneNumber},</if>
+            <if test="phoneNumberType != null">#{phoneNumberType},</if>
+            <if test="accountBalance != null">#{accountBalance},</if>
+            <if test="invitationCode != null and invitationCode != ''">#{invitationCode},</if>
+            <if test="inviter != null">#{inviter},</if>
+            <if test="inviterCode != null">#{inviterCode},</if>
+            <if test="inviterName != null">#{inviterName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="bankName != null">#{bankName},</if>
+            <if test="bankAccountName != null">#{bankAccountName},</if>
+            <if test="bankAccountNumber != null">#{bankAccountNumber},</if>
+            <if test="higherUid != null">#{higherUid},</if>
+            <if test="lastLoginIp != null">#{lastLoginIp},</if>
+            <if test="lastLoginIpAddress != null">#{lastLoginIpAddress},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="brushNumber != null">#{brushNumber},</if>
+            <if test="multiOrderNum != null">#{multi_order_num},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMUser" parameterType="MUser">
+        update m_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="level != null">level = #{level},</if>
+            <if test="headImg != null">head_img = #{headImg},</if>
+            <if test="loginAccount != null and loginAccount != ''">login_account = #{loginAccount},</if>
+            <if test="loginPassword != null and loginPassword != ''">login_password = #{loginPassword},</if>
+            <if test="fundPassword != null and fundPassword != ''">fund_password = #{fundPassword},</if>
+            <if test="withdrawalAddress != null">withdrawal_address = #{withdrawalAddress},</if>
+            <if test="registerType != null and registerType != ''">register_type = #{registerType},</if>
+            <if test="phoneNumber != null">phone_number = #{phoneNumber},</if>
+            <if test="phoneNumberType != null">phone_number_type = #{phoneNumberType},</if>
+            <if test="accountBalance != null">account_balance = #{accountBalance},</if>
+            <if test="invitationCode != null and invitationCode != ''">invitation_code = #{invitationCode},</if>
+            <if test="inviter != null">inviter = #{inviter},</if>
+            <if test="inviterCode != null">inviter_code = #{inviterCode},</if>
+            <if test="inviterName != null">inviter_name = #{inviterName},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="bankName != null">bank_name = #{bankName},</if>
+            <if test="bankAccountName != null">bank_account_name = #{bankAccountName},</if>
+            <if test="bankAccountNumber != null">bank_account_number = #{bankAccountNumber},</if>
+            <if test="higherUid != null">higher_uid = #{higherUid},</if>
+            <if test="lastLoginIp != null">last_login_ip = #{lastLoginIp},</if>
+            <if test="lastLoginIpAddress != null">last_login_ip_address = #{lastLoginIpAddress},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="brushNumber != null">brush_number = #{brushNumber},</if>
+            <if test="multiOrderNum != null">multi_order_num = #{multiOrderNum},</if>
+        </trim>
+        where uid = #{uid}
+    </update>
+
+    <update id="clearBrushNumber">
+        update m_user set brush_number = 0
+    </update>
+
+    <update id="increaseBrushNumber" >
+        update m_user set brush_number = brush_number + #{num} where uid = #{uid}
+    </update>
+
+    <delete id="deleteMUserByUid" parameterType="Long">
+        delete from m_user where uid = #{uid}
+    </delete>
+
+    <delete id="deleteMUserByUids" parameterType="String">
+        delete from m_user where uid in
+        <foreach item="uid" collection="array" open="(" separator="," close=")">
+            #{uid}
+        </foreach>
+    </delete>
+</mapper>

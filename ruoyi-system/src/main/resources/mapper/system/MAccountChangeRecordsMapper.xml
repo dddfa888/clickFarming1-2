@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.click.mapper.MAccountChangeRecordsMapper">
+
+    <resultMap type="MAccountChangeRecords" id="MAccountChangeRecordsResult">
+        <result property="uuid"    column="uuid"    />
+        <result property="uid"    column="uid"    />
+        <result property="type"    column="type"    />
+        <result property="amount"    column="amount"    />
+        <result property="description"    column="description"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="transactionType"    column="transaction_type"    />
+        <result property="relatedId"    column="related_id"    />
+        <result property="accountForward"    column="account_forward"    />
+        <result property="accountBack"    column="account_back"    />
+    </resultMap>
+
+    <sql id="selectMAccountChangeRecordsVo">
+        select uuid, uid, type, amount, description, create_time, update_time, transaction_type, related_id, account_forward, account_back from m_account_change_records
+    </sql>
+
+    <select id="selectMAccountChangeRecordsList" parameterType="MAccountChangeRecords" resultMap="MAccountChangeRecordsResult">
+        <include refid="selectMAccountChangeRecordsVo"/>
+        <where>
+            <if test="uid != null  and uid != ''"> and uid = #{uid}</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="amount != null "> and amount = #{amount}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="transactionType != null "> and transaction_type = #{transactionType}</if>
+            <if test="relatedId != null  and relatedId != ''"> and related_id = #{relatedId}</if>
+            <if test="accountForward != null "> and account_forward = #{accountForward}</if>
+            <if test="accountBack != null "> and account_back = #{accountBack}</if>
+        </where>
+        ORDER BY create_time DESC
+
+    </select>
+
+    <select id="selectMAccountChangeRecordsByUuid" parameterType="String" resultMap="MAccountChangeRecordsResult">
+        <include refid="selectMAccountChangeRecordsVo"/>
+        where uuid = #{uuid}
+    </select>
+
+    <!-- 查询个人奖励历史记录 只需查3列 -->
+    <select id="selectMAccountChangeForeByUser" parameterType="MAccountChangeRecords" resultType="java.util.Map">
+        select uuid "id", ROUND(amount,2) as "amount", description, ROUND(account_back,2) as "accountBack" from m_account_change_records
+        where uid = #{uid} and transaction_type=#{transactionType}
+        order by create_time desc
+    </select>
+
+    <insert id="insertMAccountChangeRecords" parameterType="MAccountChangeRecords">
+        insert into m_account_change_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">uuid,</if>
+            <if test="uid != null and uid != ''">uid,</if>
+            <if test="type != null">type,</if>
+            <if test="amount != null">amount,</if>
+            <if test="description != null">description,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="transactionType != null">transaction_type,</if>
+            <if test="relatedId != null">related_id,</if>
+            <if test="accountForward != null">account_forward,</if>
+            <if test="accountBack != null">account_back,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uuid != null">#{uuid},</if>
+            <if test="uid != null and uid != ''">#{uid},</if>
+            <if test="type != null">#{type},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="description != null">#{description},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="transactionType != null">#{transactionType},</if>
+            <if test="relatedId != null">#{relatedId},</if>
+            <if test="accountForward != null">#{accountForward},</if>
+            <if test="accountBack != null">#{accountBack},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMAccountChangeRecords" parameterType="MAccountChangeRecords">
+        update m_account_change_records
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="uid != null and uid != ''">uid = #{uid},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="transactionType != null">transaction_type = #{transactionType},</if>
+            <if test="relatedId != null">related_id = #{relatedId},</if>
+            <if test="accountForward != null">account_forward = #{accountForward},</if>
+            <if test="accountBack != null">account_back = #{accountBack},</if>
+        </trim>
+        where uuid = #{uuid}
+    </update>
+
+    <delete id="deleteMAccountChangeRecordsByUuid" parameterType="String">
+        delete from m_account_change_records where uuid = #{uuid}
+    </delete>
+
+    <delete id="deleteMAccountChangeRecordsByUuids" parameterType="String">
+        delete from m_account_change_records where uuid in
+        <foreach item="uuid" collection="array" open="(" separator="," close=")">
+            #{uuid}
+        </foreach>
+    </delete>
+
+
+    <!-- 一个用户一天内的利润总计 -->
+    <select id="sumAmountByUserDate" parameterType="java.util.Map" resultType="java.math.BigDecimal">
+        select IFNULL(sum(amount),0) n from m_account_change_records
+        where uid = #{userId}
+        and create_time <![CDATA[ >= ]]> #{date1} and create_time  <![CDATA[ < ]]> #{date2}
+        <if test="transactionType != null"> and transaction_type = #{transactionType}</if>
+    </select>
+
+</mapper>

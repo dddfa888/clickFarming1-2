@@ -1,0 +1,108 @@
+package com.ruoyi.web.controller.business;
+
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.core.controller.BaseController;
+import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.business.domain.MSettingOrderRule;
+import com.ruoyi.business.service.IMSettingOrderRuleService;
+import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.common.core.page.TableDataInfo;
+
+/**
+ * 设置订购规则Controller
+ * 
+ * @author ruoyi
+ * @date 2025-06-22
+ */
+@RestController
+@RequestMapping("/api/settingOrderRule")
+public class MSettingOrderRuleController extends BaseController
+{
+    @Autowired
+    private IMSettingOrderRuleService mSettingOrderRuleService;
+
+    /**
+     * 查询设置订购规则列表
+     */
+    @GetMapping("/list")
+    public TableDataInfo list(MSettingOrderRule mSettingOrderRule)
+    {
+        startPage();
+        List<MSettingOrderRule> list = mSettingOrderRuleService.selectMSettingOrderRuleList(mSettingOrderRule);
+        return getDataTable(list);
+    }
+
+    /**
+     * 导出设置订购规则列表
+     */
+    @Log(title = "设置订购规则", businessType = BusinessType.EXPORT)
+    @PostMapping("/export")
+    public void export(HttpServletResponse response, MSettingOrderRule mSettingOrderRule)
+    {
+        List<MSettingOrderRule> list = mSettingOrderRuleService.selectMSettingOrderRuleList(mSettingOrderRule);
+        ExcelUtil<MSettingOrderRule> util = new ExcelUtil<MSettingOrderRule>(MSettingOrderRule.class);
+        util.exportExcel(response, list, "设置订购规则数据");
+    }
+
+    /**
+     * 获取设置订购规则详细信息
+     */
+    @GetMapping(value = "/{id}")
+    public AjaxResult getInfo(@PathVariable("id") Long id)
+    {
+        return success(mSettingOrderRuleService.selectMSettingOrderRuleById(id));
+    }
+
+    /**
+     * 新增设置订购规则
+     */
+    @Log(title = "设置订购规则", businessType = BusinessType.INSERT)
+    @PostMapping
+    public AjaxResult add(@RequestBody MSettingOrderRule mSettingOrderRule)
+    {
+        return toAjax(mSettingOrderRuleService.insertMSettingOrderRule(mSettingOrderRule));
+    }
+
+    /**
+     * 修改设置订购规则
+     */
+    @Log(title = "设置订购规则", businessType = BusinessType.UPDATE)
+    @PutMapping
+    public AjaxResult edit(@RequestBody MSettingOrderRule mSettingOrderRule)
+    {
+        return toAjax(mSettingOrderRuleService.updateMSettingOrderRule(mSettingOrderRule));
+    }
+
+    /**
+     * 删除设置订购规则
+     */
+    @Log(title = "设置订购规则", businessType = BusinessType.DELETE)
+	@DeleteMapping("/{ids}")
+    public AjaxResult remove(@PathVariable Long[] ids)
+    {
+        return toAjax(mSettingOrderRuleService.deleteMSettingOrderRuleByIds(ids));
+    }
+
+    /**
+     * 根据语言查询设置订购规则
+     */
+    @GetMapping("/getByLang")
+    public AjaxResult getByLang(String lang)
+    {
+        return success(mSettingOrderRuleService.selectByLang(lang));
+    }
+
+}
