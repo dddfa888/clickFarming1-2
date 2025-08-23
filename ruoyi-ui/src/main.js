@@ -72,7 +72,7 @@ DictData.install();
 
 Vue.use(VueI18n);
 const i18n = new VueI18n({
-  locale: localStorage.getItem("lang") || "en", // 默认语言
+  locale: localStorage.getItem("lang") || "zh", // 默认语言
   messages,
 });
 
