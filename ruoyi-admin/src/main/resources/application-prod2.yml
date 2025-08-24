@@ -7,9 +7,9 @@ spring:
             # 主库数据源
             master:
                 #测试环境 数据库
-                url: jdbc:mysql://127.0.0.1:3306/clickfarming?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                username: clickfarming
-                password: dHGsP3J5HpTXbzpw
+                url: jdbc:mysql://127.0.0.1:3306/cf1-2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: cf1-2
+                password: WxxXmPC47CZPpYhA
             # 从库数据源
             slave:
                 # 从数据源开关/默认关闭
@@ -69,7 +69,7 @@ spring:
         # 数据库索引
         database: 6
         # 密码
-        password:
+        password: root
         # 连接超时时间
         timeout: 10s
         lettuce:

@@ -140,22 +140,41 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
         mUser.setUpdateTime(DateUtils.getNowDate());
         MUser user = mUserMapper.selectMUserByUid(mUser.getUid());
         String loginAccount = mUser.getLoginAccount();
-        if(!user.getLoginAccount().equals(loginAccount)){
+
+        if (!user.getLoginAccount().equals(loginAccount)) {
             MUser one1 = this.getByLoginAccount(mUser.getLoginAccount());
-            if(one1!=null){
-                throw new ServiceException("账号已存在");//user
+            if (one1 != null) {
+                throw new ServiceException("账号已存在");
             }
         }
-        if(!user.getLoginPassword().equals(mUser.getLoginPassword())){
-            mUser.setLoginPassword(EncoderUtil.encoder(mUser.getLoginPassword()));
 
+        // 修改点1：检查前端传递的登录密码是否为null
+        if (mUser.getLoginPassword() != null) {
+            // 只有前端传递了新密码时才加密
+            if (!mUser.getLoginPassword().equals(user.getLoginPassword())) {
+                mUser.setLoginPassword(EncoderUtil.encoder(mUser.getLoginPassword()));
+            } else {
+                // 密码相同，设置为null避免更新
+                mUser.setLoginPassword(null);
+            }
+        } else {
+            // 前端传递的密码为null，设置为null避免更新
+            mUser.setLoginPassword(null);
         }
-        if(!user.getFundPassword().equals(mUser.getFundPassword())){
-            mUser.setFundPassword(EncoderUtil.encoder(mUser.getFundPassword()));
 
+        // 修改点2：检查前端传递的资金密码是否为null
+        if (mUser.getFundPassword() != null) {
+            if (!mUser.getFundPassword().equals(user.getFundPassword())) {
+                mUser.setFundPassword(EncoderUtil.encoder(mUser.getFundPassword()));
+            } else {
+                mUser.setFundPassword(null);
+            }
+        } else {
+            mUser.setFundPassword(null);
         }
-        if(mUser.getInviterCode()!=null){
-            if(!user.getInviterCode().equals(mUser.getInviterCode())){
+
+        if (mUser.getInviterCode() != null) {
+            if (!user.getInviterCode().equals(mUser.getInviterCode())) {
                 MUser one = this.getOne(new LambdaQueryWrapper<MUser>()
                         .eq(MUser::getInvitationCode, mUser.getInviterCode()));
                 mUser.setInviter(String.valueOf(one.getUid()));
