@@ -256,17 +256,18 @@
   </template>
 </el-table-column>
 
-      <el-table-column :label="$t('userPage.column.regsterTime')" align="center" prop="createTime" width="160" />
-      <el-table-column :label="$t('userPage.column.lastLoginIp')" align="center" :min-width="200" >
+
+      <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.phoneNumber')" align="center" :min-width="200" prop="phoneNumber" />
+      <el-table-column :label="$t('userPage.column.accountBalance')" align="center" prop="accountBalance" />
+       <el-table-column :label="$t('userPage.column.regsterTime')" align="center" prop="createTime" width="160" />
+      <el-table-column :label="$t('userPage.column.lastLoginIp')" align="center" :min-width="100" >
         <template slot-scope="scope">
-          <div v-if="scope.row.lastLoginIp" style="white-space: nowrap;">
+          <div v-if="scope.row.lastLoginIp" >
             <div>{{ scope.row.lastLoginIp }}  {{ scope.row.lastLoginIpAddress }}</div>
           </div>
           <div v-else>没有数据</div>
         </template>
       </el-table-column>
-      <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.phoneNumber')" align="center" :min-width="200" prop="phoneNumber" />
-      <el-table-column :label="$t('userPage.column.accountBalance')" align="center" prop="accountBalance" />
       <el-table-column :label="$t('userPage.column.userStatus')" align="center" prop="status" width="80">
         <template slot-scope="scope">
           <el-tag
@@ -561,7 +562,7 @@
 
 
 
-        <el-form-item label="登录密码" prop="loginPassword">
+        <el-form-item label="登录密码" >
           <el-input
               v-model="form.loginPassword"
               :type="JudgingStatus ? 'text' : 'password'"
@@ -569,7 +570,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="资金密码" prop="fundPassword">
+        <el-form-item label="资金密码" >
           <el-input
               v-model="form.fundPassword"
               :type="JudgingStatus ? 'text' : 'password'"
@@ -1202,7 +1203,36 @@ export default {
       this.reset()
       const uid = row.uid || this.ids
       getUser(uid).then(response => {
-        this.form = response.data
+        console.log(response.data)
+         this.form = {
+        uid: response.data.uid,
+        level: response.data.level,
+        loginAccount: response.data.loginAccount,
+        loginPassword: null,
+        fundPassword:null ,
+        withdrawalAddress: response.data.withdrawalAddress,
+        registerType: response.data.registerType,
+        phoneNumber: response.data.phoneNumber,
+        phoneNumberType: response.data.phoneNumberType,
+        accountBalance: response.data.accountBalance,
+        invitationCode: response.data.invitationCode,
+        inviter: response.data.inviter,
+        inviterCode: response.data.inviterCode,
+        inviterName: response.data.inviterName,
+        status: response.data.status,
+        bankName: response.data.bankName,
+        bankAccountName: response.data.bankAccountName,
+        bankAccountNumber: response.data.bankAccountNumber,
+        higherUid: response.data.higherUid,
+        lastLoginIp: response.data.lastLoginIp,
+        lastLoginIpAddress: response.data.lastLoginIpAddress,
+        deleteStatus: response.data.deleteStatus,
+        createBy: response.data.createBy,
+        createTime: response.data.createTime,
+        updateBy: response.data.updateBy,
+        updateTime: response.data.updateTime,
+        brushNumber: response.data.brushNumber
+      }
         this.open = true
         this.JudgingStatus = false
 
