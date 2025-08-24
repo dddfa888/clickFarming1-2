@@ -55,7 +55,10 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
     @Override
     public MUser selectMUserByUid(Long uid)
     {
-        return mUserMapper.selectMUserByUid(uid);
+        MUser mUser = mUserMapper.selectMUserByUid(uid);
+        String a = mUser.getLoginPassword();
+        String b = mUser.getFundPassword();
+        return mUser;
     }
 
     /**
@@ -71,7 +74,6 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
     }
     /**
      * 新增用户
-     *
      * @param mUser 用户
      * @return 结果
      */
