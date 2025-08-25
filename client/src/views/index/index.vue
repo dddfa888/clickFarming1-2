@@ -3,13 +3,6 @@
     <!-- 顶部用户信息 -->
     <div class="user-info">
       <div class="user-info-avatar">
-        <!--<el-upload
-          class="upload-demo"
-          :show-file-list="false"
-          :before-upload="handleBeforeUpload"
-          :auto-upload="false"
-          accept="image/*"
-        >-->
         <img
           class="avatar"
           :src="userInfo.headImg || defaultAvatar"
@@ -205,16 +198,6 @@ const handleFileChange = async e => {
   const file = e.target.files[0];
   if (!file) return;
 
-  // 简单校验
-  // if (!file.type.startsWith("image/")) {
-  //   ElMessage.error("只能上传图片格式");
-  //   return;
-  // }
-  // if (file.size / 1024 / 1024 > 2) {
-  //   ElMessage.error("图片大小不能超过 2MB");
-  //   return;
-  // }
-
   // 调用接口上传
   try {
     const formData = new FormData();
@@ -240,11 +223,6 @@ const handleFileChange = async e => {
       });
     }
   } catch (error) {
-    notify({
-      message: t(res.msg),
-      type: "warning",
-      duration: 2000
-    });
     console.error(error);
   }
 
