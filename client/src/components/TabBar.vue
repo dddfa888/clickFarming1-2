@@ -58,7 +58,8 @@ const tabs = computed(() => [
   },
   {
     name: "CSKH", // 客服，不跳转
-    path: "",
+    path:
+      "https://chatlink.ichatlinks.net/widget/standalone.html?eid=53dbcd15f70f74a1ef169c3818759110&language=en",
     icon: getImageUrl("service.svg"),
     iconActive: getImageUrl("service-active.svg")
   },
@@ -74,15 +75,6 @@ const centerIcon = getImageUrl("center.svg");
 const currentRoute = computed(() => route.path);
 
 const navigate = (path, name = "") => {
-  if (name === "CSKH") {
-    if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
-      window.Tawk_API.maximize();
-    } else {
-      console.warn("Tawk API not ready yet.");
-    }
-    return;
-  }
-
   if (path.startsWith("http")) {
     window.open(path, "_blank");
   } else if (path !== currentRoute.value) {

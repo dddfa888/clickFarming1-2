@@ -369,12 +369,10 @@ const handleButtonClick = icon => {
 };
 
 const onDeposit = () => {
-  //console.log("执行提款操作");
-  if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
-    window.Tawk_API.maximize();
-  } else {
-    console.warn("Tawk API not ready yet.");
-  }
+  window.open(
+    "https://chatlink.ichatlinks.net/widget/standalone.html?eid=53dbcd15f70f74a1ef169c3818759110&language=en",
+    "_blank"
+  );
 };
 
 const onWithdraw = () => {

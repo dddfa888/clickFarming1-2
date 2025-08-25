@@ -4,7 +4,7 @@
     <div class="user-header">
       <div class="avatar">
         <img
-          class="avatar"
+          class="avatar-img"
           :src="userInfo.headImg || defaultAvatar"
           alt="头像"
           @click="triggerUpload"
@@ -167,11 +167,10 @@ getUserInfo().then(res => {
 
 const handleAction = row => {
   if (row === "deposit") {
-    if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
-      window.Tawk_API.maximize();
-    } else {
-      console.warn("Tawk API not ready yet.");
-    }
+    window.open(
+      "https://chatlink.ichatlinks.net/widget/standalone.html?eid=53dbcd15f70f74a1ef169c3818759110&language=en",
+      "_blank"
+    );
   } else if (row === "withdraw") {
     router.push("/withdraw");
   } else if (row === "withdrawHistory") {
@@ -244,6 +243,7 @@ const handleLogout = () => {
 .avatar > img {
   width: 50px;
   height: 50px;
+  border-radius: 50%;
 }
 
 .level-name {
@@ -396,6 +396,7 @@ const handleLogout = () => {
   .avatar > img {
     width: 50px;
     height: 50px;
+    border-radius: 50%;
   }
 
   .level-name {

@@ -14,30 +14,20 @@
 </body>
 
 <script type="text/javascript">
-  var Tawk_API = Tawk_API || {};
-  var Tawk_LoadStart = new Date();
-  Tawk_API.lang = 'en';
-  Tawk_API.onLoad = function() {
-    Tawk_API.hide(); // 默认隐藏悬浮按钮，自己控制显示
-    // 弹框默认不显示
-      Tawk_API.onLoad = function () {
-    // 确保默认是关闭状态（对话框不弹出）
-    Tawk_API.minimize();
-    
-    // 如果想完全隐藏按钮，就用 hide()，想显示按钮就不用这行
-    // Tawk_API.hide();
-  };
+  (function(a, b, c, d, e, j, s) {
+    a[d] = a[d] || function() {
+      (a[d].a = a[d].a || []).push(arguments);
+    };
+    j = b.createElement(c),
+      s = b.getElementsByTagName(c)[0];
+    j.async = true;
+    j.charset = 'UTF-8';
+    j.src = 'https://static.meiqia.com/widget/loader.js';
+    s.parentNode.insertBefore(j, s);
+  })(window, document, 'script', '_MEIQIA');
 
-  };
-  (function() {
-    var s1 = document.createElement("script"),
-      s0 = document.getElementsByTagName("script")[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/6891fa73be6f23192336d2bf/1j1t3kl6s';
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
-  })();
+  _MEIQIA('entId', '53dbcd15f70f74a1ef169c3818759110');
+  _MEIQIA('withoutBtn')
 </script>
 
 </html>
