@@ -33,8 +33,7 @@ import static com.ruoyi.common.utils.SecurityUtils.getUserId;
  * @date 2025-06-16
  */
 @Service
-public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsService
-{
+public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsService {
     @Autowired
     private MAccountChangeRecordsMapper mAccountChangeRecordsMapper;
     @Autowired
@@ -53,8 +52,7 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
      * @return 账变记录
      */
     @Override
-    public MAccountChangeRecords selectMAccountChangeRecordsByUuid(String uuid)
-    {
+    public MAccountChangeRecords selectMAccountChangeRecordsByUuid(String uuid) {
         return mAccountChangeRecordsMapper.selectMAccountChangeRecordsByUuid(uuid);
     }
 
@@ -65,8 +63,7 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
      * @return 账变记录
      */
     @Override
-    public List<MAccountChangeRecords> selectMAccountChangeRecordsList(MAccountChangeRecords mAccountChangeRecords)
-    {
+    public List<MAccountChangeRecords> selectMAccountChangeRecordsList(MAccountChangeRecords mAccountChangeRecords) {
         return mAccountChangeRecordsMapper.selectMAccountChangeRecordsList(mAccountChangeRecords);
     }
 
@@ -77,8 +74,7 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
      * @return 账变记录
      */
     @Override
-    public List<Map<String,Object>> selectMAccountChangeForeByUser()
-    {
+    public List<Map<String, Object>> selectMAccountChangeForeByUser() {
         MAccountChangeRecords mAccountChangeRecords = new MAccountChangeRecords();
         mAccountChangeRecords.setUid(getUserId().toString());
         mAccountChangeRecords.setTransactionType(3); // 3:专用于标记订单利润
@@ -92,8 +88,7 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
      * @return 用户信息
      */
     @Override
-    public Map<String,Object> getUserProfitInfo()
-    {
+    public Map<String, Object> getUserProfitInfo() {
         //用户、等级信息
         MUser mUser = mUserMapper.selectMUserByUid(getUserId());
         UserGrade userGrade = userGradeMapper.selectUserGradeBySortNum(mUser.getLevel());
@@ -105,9 +100,9 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
         String strTomorrow = formatter.format(localDate.plusDays(1));
 
         //今日已付款订单数量
-        Map<String,Object> param = new HashMap<>();
+        Map<String, Object> param = new HashMap<>();
         param.put("userId", getUserId());
-        param.put("processStatus", OrderReceiveRecord.PROCESS_STATUS_SUCCESS);
+//        param.put("processStatus", OrderReceiveRecord.PROCESS_STATUS_SUCCESS);
         param.put("date1", strToday);
         param.put("date2", strTomorrow);
         long finishNum = orderReceiveRecordMapper.countNumByUserDate(param);
@@ -145,6 +140,13 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String timeStr = sdf.format(nowDate);
         res.put("localTime", timeStr); //当前时间
+
+
+        //查询最近一条订单
+        OrderReceiveRecord orderReceiveRecord = orderReceiveRecordMapper.selectLastOrder(getUserId());
+        if (orderReceiveRecord != null) {
+            res.put("lastOrderStatus", orderReceiveRecord.getProcessStatus());
+        }
         return res;
     }
 
@@ -155,8 +157,7 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
      * @return 结果
      */
     @Override
-    public int insertMAccountChangeRecords(MAccountChangeRecords mAccountChangeRecords)
-    {
+    public int insertMAccountChangeRecords(MAccountChangeRecords mAccountChangeRecords) {
         mAccountChangeRecords.setCreateTime(DateUtils.getNowDate());
         return mAccountChangeRecordsMapper.insertMAccountChangeRecords(mAccountChangeRecords);
     }
@@ -168,8 +169,7 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
      * @return 结果
      */
     @Override
-    public int updateMAccountChangeRecords(MAccountChangeRecords mAccountChangeRecords)
-    {
+    public int updateMAccountChangeRecords(MAccountChangeRecords mAccountChangeRecords) {
         mAccountChangeRecords.setUpdateTime(DateUtils.getNowDate());
         return mAccountChangeRecordsMapper.updateMAccountChangeRecords(mAccountChangeRecords);
     }
@@ -181,8 +181,7 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
      * @return 结果
      */
     @Override
-    public int deleteMAccountChangeRecordsByUuids(String[] uuids)
-    {
+    public int deleteMAccountChangeRecordsByUuids(String[] uuids) {
         return mAccountChangeRecordsMapper.deleteMAccountChangeRecordsByUuids(uuids);
     }
 
@@ -193,8 +192,7 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
      * @return 结果
      */
     @Override
-    public int deleteMAccountChangeRecordsByUuid(String uuid)
-    {
+    public int deleteMAccountChangeRecordsByUuid(String uuid) {
         return mAccountChangeRecordsMapper.deleteMAccountChangeRecordsByUuid(uuid);
     }
 }
