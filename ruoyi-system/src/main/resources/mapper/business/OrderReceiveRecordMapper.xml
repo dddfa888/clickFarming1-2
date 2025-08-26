@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.business.mapper.OrderReceiveRecordMapper">
-    
+
     <resultMap type="OrderReceiveRecord" id="OrderReceiveRecordResult">
         <result property="id"    column="id"    />
         <result property="userId"    column="user_id"    />
@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectOrderReceiveRecordList" parameterType="OrderReceiveRecord" resultMap="OrderReceiveRecordResult">
         <include refid="selectOrderReceiveRecordVo"/>
-        <where>  
+        <where>
             <if test="userId != null "> and user_id = #{userId}</if>
             <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
             <if test="productId != null "> and product_id = #{productId}</if>
@@ -233,7 +233,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteOrderReceiveRecordByIds" parameterType="String">
-        delete from m_order_receive_record where id in 
+        delete from m_order_receive_record where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
@@ -266,7 +266,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="countNumByUserDate" parameterType="java.util.Map" resultType="java.lang.Integer">
         select count(1) n from m_order_receive_record
         where user_id = #{userId}
-        and update_time <![CDATA[ >= ]]> #{date1} and update_time  <![CDATA[ < ]]> #{date2}
+        and create_time <![CDATA[ >= ]]> #{date1} and create_time  <![CDATA[ < ]]> #{date2}
         <if test="processStatus != null  and processStatus != ''"> and process_status = #{processStatus}</if>
     </select>
 
