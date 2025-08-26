@@ -73,12 +73,12 @@ defineExpose({ show });
   object-fit: contain;
   z-index: 99;
   border-radius: 10px;
-  margin-bottom: 15vh;
+  margin-bottom: 13vh;
 }
 
 .modal-close {
   position: absolute;
-  bottom: 14vh; /* 相对于视口高度 */
+  bottom: 15vh; /* 相对于视口高度 */
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.7);
@@ -91,8 +91,8 @@ defineExpose({ show });
   cursor: pointer;
   display: flex;
   align-items: center;
-  border: 1px solid #fff;
   justify-content: center;
+  border: 1px solid #fff;
 }
 
 @media (max-width: 320px) {
@@ -143,16 +143,16 @@ defineExpose({ show });
     display: block;
     width: 100%;
     height: auto;
-    max-height: 80vh;
+    max-height: 75vh;
     object-fit: contain;
     z-index: 99;
     border-radius: 10px;
-    margin-top: 13vh;
+    margin-top: 10vh;
   }
 
   .modal-close {
     position: absolute;
-    bottom: 12vh; /* 相对于视口高度 */
+    bottom: 13vh; /* 相对于视口高度 */
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.7);

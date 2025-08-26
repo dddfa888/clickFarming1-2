@@ -12,13 +12,13 @@
           <div
             class="transaction-balance"
           >{{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}</div>
-          <!-- <div class="transaction-balance">
+          <div class="transaction-balance">
             {{
-              transaction.reasonForRejection === null
-                ? transaction.reasonForRejection
-                : t("原因")+":" + transaction.reasonForRejection
+              transaction.status === 2 && transaction.reasonForRejection
+                  ? t("原因") + ":" + transaction.reasonForRejection
+                  : ""
             }}
-          </div>-->
+          </div>
         </div>
         <div
           v-if="transaction.status === 0"
@@ -52,11 +52,6 @@ const finished = ref(false); // 数据加载完毕标记
 const formatAmount = amount => {
   return amount.toFixed(2).replace(".", ",") + " $";
 };
-
-// getWithdrawRecord().then(res => {
-//   console.log(res.rows);
-//   transactions.value = res.rows;
-// });
 
 const loadTransactions = async () => {
   if (loading.value || finished.value) return;
@@ -94,7 +89,7 @@ onMounted(() => {
   background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
     center;
   height: 100vh;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .transaction-list {
@@ -133,14 +128,6 @@ onMounted(() => {
   font-size: 14px;
 }
 
-.transaction-time {
-  grid-column: 2;
-  grid-row: 1;
-  color: #fff;
-  text-align: right;
-  font-size: 14px;
-}
-
 .transaction-amount.negative {
   color: #e74c3c;
 }
@@ -159,13 +146,21 @@ onMounted(() => {
   font-size: 14px;
 }
 
+.transaction-time {
+  grid-column: 2;
+  grid-row: 1;
+  color: #fff;
+  text-align: right;
+  font-size: 14px;
+}
+
 @media screen and (min-width: 768px) {
   .company-intro {
     background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
       center;
     height: 100vh;
     width: 540px;
-    overflow-y: auto;
+    overflow: auto;
     margin: 0 auto;
   }
 
@@ -205,14 +200,6 @@ onMounted(() => {
     font-size: 14px;
   }
 
-  .transaction-time {
-    grid-column: 2;
-    grid-row: 1;
-    color: #fff;
-    text-align: right;
-    font-size: 14px;
-  }
-
   .transaction-amount.negative {
     color: #e74c3c;
   }
@@ -220,6 +207,14 @@ onMounted(() => {
     grid-column: 1 / span 2;
     grid-row: 2;
     color: #fff;
+    font-size: 14px;
+  }
+
+  .transaction-time {
+    grid-column: 2;
+    grid-row: 1;
+    color: #fff;
+    text-align: right;
     font-size: 14px;
   }
 

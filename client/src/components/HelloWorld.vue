@@ -16,7 +16,7 @@
     </div>
     <div class="overlay"></div>
     <div class="content">
-      <h1>MERCADO ASIA</h1>
+      <h1>INGKA CENTRES</h1>
       <h2>E-commerce shopping center</h2>
       <p>
         We are 21 years old since the beginning of that adventure in a garage in
@@ -34,7 +34,7 @@
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useLangStore } from "../store/useLangStore.js";
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
 
 const router = useRouter();
 const langStore = useLangStore();

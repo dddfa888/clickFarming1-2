@@ -137,21 +137,24 @@ function toggleLangList() {
   showLangList.value = !showLangList.value;
 }
 
-const now = new Date();
-now.setTime(now.getTime() + 3 * 60 * 1000); // 当前时间 + 1分钟（单位毫秒）
-
 function onSubmit(values) {
   login(form).then(res => {
     if (res.code === 200) {
-      notify({
+      globalThis.$notify({
         message: t("操作成功"),
         type: "success",
         duration: 2000
       });
       localStorage.setItem("token", res.data.token);
+      if (window._MEIQIA) {
+        window._MEIQIA("client", {
+          name: res.data.loginAccount, // 假设后端返回了用户名
+          tel: res.data.phoneNumber // 假设后端返回了手机号
+        });
+      }
       router.push("/");
     } else {
-      notify({
+      globalThis.$notify({
         message: t(res.msg),
         type: "error",
         duration: 2000
@@ -159,6 +162,26 @@ function onSubmit(values) {
     }
   });
 }
+
+// function onSubmit(values) {
+//   login(form).then(res => {
+//     if (res.code === 200) {
+//       globalThis.$notify({
+//         message: t("操作成功"),
+//         type: "success",
+//         duration: 2000
+//       });
+//       localStorage.setItem("token", res.data.token);
+//       router.push("/");
+//     } else {
+//       globalThis.$notify({
+//         message: t(res.msg),
+//         type: "error",
+//         duration: 2000
+//       });
+//     }
+//   });
+// }
 </script>
 
 <style scoped>
@@ -326,28 +349,6 @@ function onSubmit(values) {
       cover;
   }
 
-  /* 登录表单 */
-  .login-form {
-    width: 100%;
-    max-width: 430px;
-    /* background: rgba(255, 255, 255, 0.08); */
-    border-radius: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 16px;
-    border-radius: 30px;
-    width: 100%;
-    border: 1px solid #181818;
-    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
-    position: relative;
-    margin-bottom: 16px;
-  }
-
   .icon {
     position: absolute;
     left: 10px;
@@ -369,6 +370,18 @@ function onSubmit(values) {
     width: 24px;
     height: 24px;
     color: #999;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    border-radius: 30px;
+    width: 100%;
+    border: 1px solid #181818;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin-bottom: 16px;
   }
 
   .form-group input {

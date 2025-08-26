@@ -181,7 +181,7 @@ const fields = {
 function onSubmit() {
   for (const key in form) {
     if (!form[key]) {
-      notify({
+      globalThis.$notify({
         message: t(`请填写${key}`),
         type: "error"
       });
@@ -196,10 +196,18 @@ function onSubmit() {
 
   register(payload).then(res => {
     if (res.code === 200) {
-      notify({ message: t("操作成功"), duration: 2000, type: "success" });
+      globalThis.$notify({
+        message: t("操作成功"),
+        type: "success",
+        duration: 2000
+      });
       router.push("/login");
     } else {
-      notify({ message: t(res.msg), duration: 2000, type: "error" });
+      globalThis.$notify({
+        message: t(res.msg),
+        type: "error",
+        duration: 2000
+      });
     }
   });
 }
@@ -250,6 +258,17 @@ function toggleLangList() {
   box-sizing: border-box;
 }
 
+.toggle-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  stroke: #888;
+  cursor: pointer;
+}
+
 .phone-group {
   display: flex;
   align-items: center;
@@ -259,6 +278,16 @@ function toggleLangList() {
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
 }
 
 .area-select {
@@ -284,17 +313,6 @@ function toggleLangList() {
   color: #000;
 }
 
-.toggle-eye {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  stroke: #888;
-  cursor: pointer;
-}
-
 .input-icon {
   position: absolute;
   left: 12px;
@@ -318,7 +336,7 @@ function toggleLangList() {
   top: 20px;
   right: 20px;
   font-size: 14px;
-  color: #000;
+  color: #fff;
 }
 /* 语言选择器 */
 .language-selector {
@@ -328,12 +346,12 @@ function toggleLangList() {
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: #000;
+  color: #fff;
   z-index: 20;
 }
 .language-selector .label {
   margin-right: 6px;
-  color: #000;
+  color: #fff;
 }
 .dropdown-wrapper {
   position: relative;
@@ -341,7 +359,7 @@ function toggleLangList() {
   padding: 5px 10px;
   border-radius: 6px;
   cursor: pointer;
-  color: #000;
+  color: #fff;
 
   user-select: none;
 }
@@ -452,6 +470,16 @@ function toggleLangList() {
     border-radius: 999px;
   }
 
+  .form-group input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #ccc;
+    border-radius: 999px;
+    font-size: 14px;
+    background: #c5c5c5;
+    box-sizing: border-box;
+  }
+
   .toggle-eye {
     position: absolute;
     right: 12px;
@@ -463,16 +491,6 @@ function toggleLangList() {
     cursor: pointer;
   }
 
-  .form-group input {
-    width: 100%;
-    padding: 12px 12px 12px 40px;
-    border: 1px solid #ccc;
-    border-radius: 999px;
-    font-size: 14px;
-    background: #c5c5c5;
-    box-sizing: border-box;
-  }
-
   .input-icon {
     position: absolute;
     left: 12px;
@@ -480,6 +498,16 @@ function toggleLangList() {
     transform: translateY(-50%);
     font-size: 18px;
     color: #888;
+  }
+
+  .toggle-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
   }
 
   .phone-group {

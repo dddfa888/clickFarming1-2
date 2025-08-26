@@ -13,7 +13,11 @@
             class="transaction-balance"
           >{{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}</div>
         </div>
-        <div class="transaction-status">{{ $t("transaction.success") }}</div>
+        <div class="transaction-status">
+          {{
+          t("transaction.success")
+          }}
+        </div>
       </div>
     </div>
   </div>
@@ -22,7 +26,7 @@
 <script setup>
 import { ref } from "vue";
 import HeaderBar from "../../components/HeaderBar.vue";
-import { getDepositRecord, getWithdrawRecord } from "../../api/index.js";
+import { getDepositRecord } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const transactions = ref([]);

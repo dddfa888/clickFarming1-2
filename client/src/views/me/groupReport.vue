@@ -27,10 +27,10 @@
               <p>{{ t("剩余") }}: {{ item.accountBalance.toFixed(2) }} $</p>
             </div>
           </div>
-          <!-- <div>
+          <div>
             <p>SĐT: {{ item.phoneNumber }}</p>
             <p>{{ t("注册时间") }}: {{ item.createTime }}</p>
-          </div>-->
+          </div>
         </div>
       </div>
     </div>

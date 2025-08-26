@@ -6,7 +6,7 @@
         <span class="total-amount">{{ totalAmount }} $</span>
       </h2>
       <div class="provider">
-        {{ t("数据提供者 Mercado Asia") }}
+        {{ t("数据提供者 Ingka Centres") }}
         <span class="remaining">{{ t("剩余") }}($)</span>
       </div>
     </div>
@@ -85,7 +85,7 @@ const handlePay = () => {
   sendDistribution(id.value).then(res => {
     console.log(res);
     if (res.code === 200) {
-      notify({
+      globalThis.$notify({
         message: t(res.msg),
         type: "success",
         duration: 2000
@@ -93,7 +93,7 @@ const handlePay = () => {
       // 刷新页面
       location.reload();
     } else {
-      notify({
+      globalThis.$notify({
         message: t(res.msg),
         type: "error",
         duration: 2000
@@ -303,7 +303,7 @@ onMounted(async () => {
     background-size: 100% 100%;
     padding-bottom: 30px;
     color: #fff;
-    padding: 10px;
+    padding: 20px;
     padding-bottom: 105px;
   }
 
@@ -319,7 +319,7 @@ onMounted(async () => {
     align-items: center;
     margin: 0;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .total-amount {

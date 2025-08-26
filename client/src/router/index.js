@@ -1,6 +1,5 @@
 import { createWebHashHistory, createRouter } from 'vue-router'
 
-
 // 路由表
 const routes = [
   { path: '/market', name: 'market', component: () => import('../components/HelloWorld.vue') },
@@ -36,12 +35,11 @@ const router = createRouter({
 
 // 路由守卫：未登录禁止访问其他页面
 router.beforeEach((to, from, next) => {
-  // const token = Cookies.get('token') // 假设你是用 token 存储登录状态
   const token = localStorage.getItem('token') // 假设你是用 token 存储登录状态
   const whiteList = ['/login', '/register', "/market"] // 白名单路由
 
+  // 用 startsWith 来匹配，避免 query 参数或多斜杠导致白名单失效
   if (whiteList.some(path => to.path.startsWith(path))) {
-    // 登录页、注册页无需验证
     return next()
   }
 

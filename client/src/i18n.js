@@ -8,7 +8,6 @@ import fr from './locales/fr';
 import ru from './locales/ru';
 import ja from "./locales/ja"
 
-
 const i18n = createI18n({
     legacy: false,
     globalInjection: true,
@@ -16,8 +15,7 @@ const i18n = createI18n({
     fallbackLocale: 'en', 
      missing(locale, key) {
     console.warn(`Lỗi xác thực`);
-    return key; 
-  },
+     },
     messages: {
         vi,
         zh,

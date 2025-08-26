@@ -41,14 +41,14 @@ function submit() {
   updateUserSimpleFront({ withdrawalAddress: withdrawalAddress.value }).then(
     (res) => {
       if (res.code === 200) {
-        notify({
+        globalThis.$notify({
           message: t("操作成功"),
           type: "success",
           duration: 2000,
         });
         hasData.value = true;
       } else {
-        notify({
+        globalThis.$notify({
           message: t(res.msg),
           type: "error",
           duration: 2000,

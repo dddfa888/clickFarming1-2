@@ -34,6 +34,7 @@ const tabbarPaths = [
 const showTabBar = computed(() => tabbarPaths.includes(route.path));
 </script>
 
+
 <style scoped>
 html,
 body,

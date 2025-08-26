@@ -3,7 +3,7 @@
     <div class="order-header">
       <div>
         <p style="font-size: 15px">{{ t("订单详细信息") }}</p>
-        <div class="data-provider">{{ t("数据提供者 Mercado Asia") }}</div>
+        <div class="data-provider">{{ t("数据提供者 Ingka Centres") }}</div>
       </div>
       <div class="amount-section">
         <div class="amount-display">{{ formatCurrency(order.userBalance) }}</div>
@@ -44,12 +44,12 @@
       <div class="rules-content" v-if="locale === 'vi'">
         <!-- 这里可以添加基金会规则的具体内容 -->
         <p>
-          Khi bạn trở thành thành viên Mercado Asia, bạn sẽ nhận được các mã
+          Khi bạn trở thành thành viên Ingka Centres, bạn sẽ nhận được các mã
           sản phẩm có liên quan về đơn đặt hàng , bao gồm thông tin sản phẩm chi
           tiết đơn hàng , giá trị sản phẩm , số lượng ...vv..
         </p>
         <p>
-          Thành viên của Mercado Asia sẽ là nhà trung gian giúp xác nhận đơn
+          Thành viên của Ingka Centres sẽ là nhà trung gian giúp xác nhận đơn
           hàng giữa các NHÀ SẢN XUẤT & QUÝ ĐỐI TÁC ( người đặt mua ).
         </p>
       </div>
@@ -82,7 +82,7 @@ const isProcessing = ref(false);
 
 const formatCurrency = value => {
   if (typeof value !== "number") return "0 $";
-  return value.toLocaleString("en-US", { style: "currency", currency: "USD" });
+  return value.toLocaleString("de-US", { style: "currency", currency: "USD" });
 };
 
 const Sendbutton = debounce(() => {
@@ -102,7 +102,6 @@ const Sendbutton = debounce(() => {
 
   createOrder()
     .then(res => {
-      console.log(res);
       if (res.code === 200) {
         showModal.value = true;
         id.value = res.orderId;
@@ -155,16 +154,14 @@ const handlePay = debounce(() => {
           type: "warning",
           duration: 8000
         });
-
         setTimeout(() => {
           globalThis.$notify({
-            message: t("订单支付成功"),
+            message: t("订单支付成功！"),
             type: "success",
             duration: 8000
           });
-          //  延迟解锁，确保通知出现后才能继续下单
           isProcessing.value = false;
-        }, 6000);
+        }, 8000);
 
         // 更新数据
         return getUserGradeAndBalanceAndDiscount().then(refreshRes => {
@@ -183,7 +180,7 @@ const handlePay = debounce(() => {
       globalThis.$notify({
         message: t("支付请求失败"),
         type: "error",
-        duration: 6000
+        duration: 4000
       });
       isProcessing.value = false;
     });
@@ -223,14 +220,12 @@ getUserGradeAndBalanceAndDiscount().then(res => {
 }
 
 .order-summary {
-  width: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 25px;
   padding: 5px;
   border-radius: 6px;
-  margin: 0 auto;
 }
 .order-summary > img {
   width: 100%;
@@ -331,12 +326,14 @@ getUserGradeAndBalanceAndDiscount().then(res => {
   }
 
   .order-summary {
+    width: 95%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 25px;
     padding: 5px;
     border-radius: 6px;
+    margin: 25px auto;
   }
   .order-summary > img {
     width: 100%;

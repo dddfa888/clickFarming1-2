@@ -21,13 +21,13 @@ export default defineConfig({
   },
   server: {
     host: '127.0.0.1',
-    //host: '192.168.1.149',
+    // host: '192.168.1.149',
     //host: 'cfh5.ceshias.cc',
-    port: 8080,
+    port: 8089,
     open: true,
     proxy: {
       '/api': {
-        target: 'https://cfapi.ceshias.cc/api/', // 注意：这里 target 包含了 /api
+        target: 'https://api.ingkacentres.org/api/', // 注意：这里 target 包含了 /api
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '') // 去掉本地请求的 /api，避免变成 /api/api
       }

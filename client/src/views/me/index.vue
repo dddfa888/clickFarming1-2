@@ -3,19 +3,7 @@
     <!-- 用户信息头部 -->
     <div class="user-header">
       <div class="avatar">
-        <img
-          class="avatar-img"
-          :src="userInfo.headImg || defaultAvatar"
-          alt="头像"
-          @click="triggerUpload"
-        />
-        <input
-          ref="fileInput"
-          type="file"
-          accept="image/*"
-          style="display:none"
-          @change="handleFileChange"
-        />
+        <img src="../../assets/img/mylogo.png" alt />
       </div>
 
       <div class="user-info">
@@ -73,20 +61,13 @@ import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useLangStore } from "../../store/useLangStore";
 import { storeToRefs } from "pinia";
-import {
-  getUserInfo,
-  updateAvatar,
-  updateUserSimpleFront
-} from "../../api/index";
-import defaultAvatar from "../../assets/img/mylogo1.png";
-import { notify } from "../../utils/notify.js";
+import { getUserInfo } from "../../api/index";
 
 const router = useRouter();
 const { locale: i18nLocale } = useI18n();
 const { t } = useI18n();
 const userInfo = ref({});
 const langStore = useLangStore();
-const fileInput = ref(null);
 const { locale: langStoreLocale } = storeToRefs(langStore);
 
 i18nLocale.value = langStoreLocale.value; // 同步 i18n
@@ -100,47 +81,6 @@ const langMap = {
   俄罗斯: "ru",
   韩国: "ko"
 };
-
-const triggerUpload = () => {
-  fileInput.value.click();
-};
-
-const handleFileChange = async e => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  // 调用接口上传
-  try {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const res = await updateAvatar(formData); // 你自己接口，返回格式根据接口调整
-    if (res.code === 200) {
-      notify({
-        message: t(res.msg),
-        type: "success",
-        duration: 2000
-      });
-      // 假设返回头像url为 res.data.avatarUrl，替换为你接口返回字段
-      userInfo.value.headImg = res.url;
-      updateUserSimpleFront({ headImg: res.url }).then(res => {
-        console.log(res);
-      });
-    } else {
-      notify({
-        message: t(res.msg),
-        type: "warning",
-        duration: 2000
-      });
-    }
-  } catch (error) {
-    console.error(error);
-  }
-
-  // 清空选择框，避免同一文件无法触发change
-  e.target.value = "";
-};
-
 const reverseLangMap = Object.fromEntries(
   Object.entries(langMap).map(([k, v]) => [v, k])
 );
@@ -168,9 +108,15 @@ getUserInfo().then(res => {
 const handleAction = row => {
   if (row === "deposit") {
     window.open(
-      "https://chatlink.ichatlinks.net/widget/standalone.html?eid=53dbcd15f70f74a1ef169c3818759110&language=en",
+      "https://chat.ichatlink.net/widget/standalone.html?eid=6df096f4e9b05ad245f542d63ed1c8d7&language=en",
       "_blank"
     );
+    // if (window._MEIQIA) {
+    //   window._MEIQIA("showPanel"); // 显示入口按钮
+    //   window._MEIQIA("show"); // 直接弹出聊天窗口
+    // } else {
+    //   console.warn("美洽尚未加载完成");
+    // }
   } else if (row === "withdraw") {
     router.push("/withdraw");
   } else if (row === "withdrawHistory") {
@@ -243,7 +189,6 @@ const handleLogout = () => {
 .avatar > img {
   width: 50px;
   height: 50px;
-  border-radius: 50%;
 }
 
 .level-name {
@@ -314,7 +259,7 @@ const handleLogout = () => {
   width: 200px;
   font-size: 12px;
   display: flex;
-  padding: 29px;
+  padding: 17px;
   align-items: center;
   justify-content: space-around;
   border: 1px solid #ccc;
@@ -327,7 +272,7 @@ const handleLogout = () => {
 .language-dropdown {
   list-style: none;
   padding: 0;
-  margin-top: 215px;
+  margin-top: 225px;
   background: #0b1e34;
   color: white;
   border: 1px solid #ccc;
@@ -338,7 +283,7 @@ const handleLogout = () => {
 }
 
 .language-dropdown li {
-  padding: 8px 3px;
+  padding: 8px 2px;
   cursor: pointer;
   font-size: 14px;
   white-space: nowrap;
@@ -396,7 +341,6 @@ const handleLogout = () => {
   .avatar > img {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
   }
 
   .level-name {
@@ -466,16 +410,15 @@ const handleLogout = () => {
 
   .user-level-info {
     width: 8.66667vw;
-    height: 2.19667vw;
+    height: 0.26667vw;
     font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: space-around;
     border: 1px solid #ccc;
-    border-radius: 40px;
+    border-radius: 20px;
     text-align: center;
     margin: 0 auto;
-    padding: 47px;
     margin-bottom: 15px;
   }
 
@@ -486,7 +429,7 @@ const handleLogout = () => {
   .language-dropdown {
     list-style: none;
     padding: 0;
-    margin-top: 10.4vw;
+    margin-top: 10.5vw;
     background: #0b1e34;
     color: white;
     border: 1px solid #ccc;
@@ -498,10 +441,10 @@ const handleLogout = () => {
   }
 
   .language-dropdown li {
-    margin-top: 0;
-    padding: 8px 2px;
+    padding: 10px 2px;
     cursor: pointer;
-    font-size: 0.9333vw;
+    font-size: 16px;
+    white-space: nowrap;
   }
 
   .language-dropdown li:hover,

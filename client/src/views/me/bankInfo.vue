@@ -146,7 +146,6 @@ const bankOptions = [
   "広島銀行",
   "ゆうちょ银行",
   "VIB BANK",
-  "BSN",
   "GMO AOZORA NET BANK",
   "BIDV",
   "HOKURIKU BANK",
@@ -199,11 +198,6 @@ getUserInfo().then(res => {
   accountName.value = res.data.bankAccountName || "";
   accountNumber.value = formatBankCard(res.data.bankAccountNumber) || "";
   bankName.value = res.data.bankName || "";
-  console.log(
-    res.data.bankAccountName,
-    res.data.bankAccountNumber,
-    res.data.bankName
-  );
   if (
     !res.data.bankAccountName &&
     !res.data.bankAccountNumber &&
@@ -241,7 +235,7 @@ function submit() {
   }).then(res => {
     console.log(res);
     if (res.code == 200) {
-      notify({
+      globalThis.$notify({
         message: t("操作成功"),
         type: "success",
         duration: 2000
@@ -249,7 +243,7 @@ function submit() {
       // 刷新页面
       window.location.reload();
     } else {
-      notify({
+      globalThis.$notify({
         message: t(res.msg),
         type: "error",
         duration: 2000

@@ -20,7 +20,7 @@
 
         <div class="form-group">
           <label>{{ t("账号") }}</label>
-          <input type="text" v-model=" bankAccountNumber" disabled />
+          <input type="text" v-model="bankAccountNumber" disabled />
         </div>
 
         <div class="form-group amount-group">
@@ -49,6 +49,7 @@
           />
         </div>
 
+        <!-- 按钮增加 :disabled 和 loading 状态显示 -->
         <button
           class="submit-btn"
           :disabled="loading"
@@ -76,7 +77,6 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { withdraw, getUserInfo } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
-
 import { notify } from "../../utils/notify.js";
 
 const { t } = useI18n();
@@ -86,8 +86,8 @@ const bankAccountNumber = ref("");
 const bankName = ref("");
 const amount = ref("");
 const password = ref("");
-const loading = ref(false);
 const showPassword = ref(false);
+const loading = ref(false); // ✅ 新增 loading 状态
 const router = useRouter();
 
 function togglePassword() {
@@ -101,6 +101,7 @@ function fillAll() {
 function toback() {
   router.go(-1);
 }
+
 // 防抖函数
 function debounce(fn, delay) {
   let timer = null;
