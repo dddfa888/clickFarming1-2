@@ -107,7 +107,7 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
         //今日已付款订单数量
         Map<String,Object> param = new HashMap<>();
         param.put("userId", getUserId());
-        param.put("processStatus", OrderReceiveRecord.PROCESS_STATUS_SUCCESS);
+//        param.put("processStatus", OrderReceiveRecord.PROCESS_STATUS_SUCCESS);
         param.put("date1", strToday);
         param.put("date2", strTomorrow);
         long finishNum = orderReceiveRecordMapper.countNumByUserDate(param);
@@ -115,7 +115,7 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
         //近2日订单利润 （前端的“昨天折扣”和“今天折扣”）
         param = new HashMap<>();
         param.put("userId", getUserId());
-//        param.put("processStatus", OrderReceiveRecord.PROCESS_STATUS_SUCCESS);
+        param.put("processStatus", OrderReceiveRecord.PROCESS_STATUS_SUCCESS);
         //param.put("transactionType", 3); // 3:专用于标记订单利润，用于查账变表
         param.put("date1", strYesterday);
         param.put("date2", strToday);
