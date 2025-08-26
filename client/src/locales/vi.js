@@ -146,7 +146,7 @@ export default {
   用户已删除: "Người dùng đã bị xóa",
   当前账户金额小于减少金额: "Số dư hiện tại nhỏ hơn số tiền giảm",
   "有订单未完成，请先付款":
-    "Có đơn hàng chưa hoàn thành, vui lòng thanh toán trước",
+    "Có một đơn chưa thanh toán ,vui lòng thanh toán trước .",
   用户等级不存在: "Cấp độ người dùng không tồn tại",
   账户余额不足: "Số dư tài khoản không đủ",
   "今天下单次数已达到上限，无法继续下单":
