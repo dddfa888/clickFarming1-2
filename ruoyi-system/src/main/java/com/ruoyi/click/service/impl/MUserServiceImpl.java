@@ -141,11 +141,12 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
         MUser user = mUserMapper.selectMUserByUid(mUser.getUid());
         String loginAccount = mUser.getLoginAccount();
 
-        if (!user.getLoginAccount().equals(loginAccount)) {
-            MUser one1 = this.getByLoginAccount(mUser.getLoginAccount());
+        if (user.getLoginAccount().equals(loginAccount)) {
+            throw new ServiceException("账号已存在");
+/*            MUser one1 = this.getByLoginAccount(mUser.getLoginAccount());
             if (one1 != null) {
                 throw new ServiceException("账号已存在");
-            }
+            }*/
         }
 
         // 修改点1：检查前端传递的登录密码是否为null
