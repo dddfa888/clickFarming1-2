@@ -141,12 +141,11 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
         MUser user = mUserMapper.selectMUserByUid(mUser.getUid());
         String loginAccount = mUser.getLoginAccount();
 
-        if (user.getLoginAccount().equals(loginAccount)) {
-            throw new ServiceException("账号已存在");
-/*            MUser one1 = this.getByLoginAccount(mUser.getLoginAccount());
+        if (!user.getLoginAccount().equalsIgnoreCase(loginAccount)) {
+            MUser one1 = this.getByLoginAccount(mUser.getLoginAccount());
             if (one1 != null) {
                 throw new ServiceException("账号已存在");
-            }*/
+            }
         }
 
         // 修改点1：检查前端传递的登录密码是否为null
@@ -295,7 +294,7 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
         LambdaQueryWrapper<MUser> wrapper = new LambdaQueryWrapper<>();
         // 关键：将数据库中的login_account字段转为小写，与处理后的小写账号匹配
         // 无论数据库中是大写（如ADMIN）还是小写（如admin），都会被转为小写比对
-        wrapper.apply("LOWER(login_account) = {0}", loginAccount);
+        wrapper.eq(MUser::getLoginAccount, loginAccount);
         MUser user = this.getOne(wrapper);
         if (user == null) {
             throw new ServiceException("没有该用户");//user
