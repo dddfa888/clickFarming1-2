@@ -398,7 +398,7 @@ const handleButtonClick = icon => {
 const onDeposit = () => {
   //console.log("执行提款操作");
   window.open(
-    "https://chat.ichatlink.net/widget/standalone.html?eid=6df096f4e9b05ad245f542d63ed1c8d7&language=en",
+    "https://chatlink.ichatlinks.net/widget/standalone.html?eid=53dbcd15f70f74a1ef169c3818759110&language=en",
     "_blank"
   );
 };
