@@ -399,11 +399,11 @@
       <el-form ref="orderSetForm" :model="orderSetForm" >
         <el-form-item v-for="(item, index) in orderSetList" :key="index">
           配置 命令
-          <el-input-number class="orderListInput" placeholder="0" type="number" step="1" v-model="item.num" :min="0" :max="1000000" :precision="0"></el-input-number>
+          <input class="orderListInput" placeholder="0" type="number" step="1" v-model="item.num" :min="0" :max="1000000" :precision="0"/>
           命令 (0 表示禁用)
-          <el-input-number class="orderListInput" placeholder="0" type="number" step="1" v-model="item.min" :min="0" :controls="false"></el-input-number>
+           <input class="orderListInput" placeholder="0" type="number" step="1" v-model="item.min" :min="0" :controls="false"/>
           <span>-</span>
-          <el-input-number class="orderListInput" placeholder="0" type="number" step="1" v-model="item.max" :min="0" :controls="false"></el-input-number>
+           <input class="orderListInput" placeholder="0" type="number" step="1" v-model="item.max" :min="0" :controls="false"/>
         </el-form-item>
         </el-form>
       <div slot="footer" class="dialog-footer" style="display: flex;justify-content: space-evenly;align-items: center;">
