@@ -247,13 +247,13 @@
   align="center"
   :min-width="200"
 >
-  <template slot-scope="scope">
-    <div v-if="scope.row.inviterName" style="white-space: nowrap;">
-      <span>{{ scope.row.inviterCode }}</span>
-      <span style="margin-left: 4px;">{{ scope.row.inviterName }}</span>
-    </div>
-    <div v-else>/</div>
-  </template>
+      <template slot-scope="scope">
+        <div v-if="scope.row.inviterName">
+          <div>{{ scope.row.inviterCode }}</div>
+          <div>{{ scope.row.inviterName }}</div>
+        </div>
+        <div v-else>/</div>
+      </template>
 </el-table-column>
 
 
