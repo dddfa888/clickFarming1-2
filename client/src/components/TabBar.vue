@@ -34,7 +34,7 @@
 import { ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { getUserInfo } from "../api/index";
+import { getUserInfo, getCustomerService } from "../api/index";
 
 const { t } = useI18n();
 const getImageUrl = name =>
@@ -43,6 +43,14 @@ const getImageUrl = name =>
 const router = useRouter();
 const route = useRoute();
 const showCustomerService = ref(false);
+
+const configValue = ref("");
+
+onMounted(async () => {
+  getCustomerService().then(res => {
+    configValue.value = res.data.configValue;
+  });
+});
 
 const tabs = computed(() => [
   {
@@ -59,8 +67,7 @@ const tabs = computed(() => [
   },
   {
     name: "CSKH", // 客服，不跳转
-    path:
-      "https://chatlink.ichatlinks.net/widget/standalone.html?eid=6df096f4e9b05ad245f542d63ed1c8d7&language=en",
+    path: "",
     icon: getImageUrl("service.svg"),
     iconActive: getImageUrl("service-active.svg")
   },
@@ -77,16 +84,7 @@ const currentRoute = computed(() => route.path);
 
 const navigate = (path, name = "") => {
   if (name === "CSKH") {
-    window.open(
-      "https://chatlink.ichatlinks.net/widget/standalone.html?eid=53dbcd15f70f74a1ef169c3818759110&language=en",
-      "_blank"
-    );
-    //   if (window._MEIQIA) {
-    //     window._MEIQIA("showPanel"); // 显示入口按钮
-    //     window._MEIQIA("show"); // 直接弹出聊天窗口
-    //   } else {
-    //     console.warn("美洽尚未加载完成");
-    //   }
+    window.open(configValue.value, "_blank");
     return;
   }
 
