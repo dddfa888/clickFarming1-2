@@ -17,6 +17,7 @@
           clearable
           style="width: 240px"
           @keyup.enter.native="handleQuery"
+
         />
       </el-form-item>
       <el-form-item label="系统内置" prop="configType">
@@ -154,7 +155,7 @@
           <el-input v-model="form.configName" placeholder="请输入参数名称" />
         </el-form-item>
         <el-form-item label="参数键名" prop="configKey">
-          <el-input v-model="form.configKey" placeholder="请输入参数键名" />
+          <el-input v-model="form.configKey" placeholder="请输入参数键名" :disabled="true" />
         </el-form-item>
         <el-form-item label="参数键值" prop="configValue">
           <el-input v-model="form.configValue" type="textarea" placeholder="请输入参数键值" />
