@@ -56,12 +56,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useLangStore } from "../../store/useLangStore";
 import { storeToRefs } from "pinia";
-import { getUserInfo } from "../../api/index";
+import { getUserInfo, getCustomerService } from "../../api/index";
 
 const router = useRouter();
 const { locale: i18nLocale } = useI18n();
@@ -71,6 +71,14 @@ const langStore = useLangStore();
 const { locale: langStoreLocale } = storeToRefs(langStore);
 
 i18nLocale.value = langStoreLocale.value; // 同步 i18n
+
+const configValue = ref("");
+
+onMounted(async () => {
+  getCustomerService().then(res => {
+    configValue.value = res.data.configValue;
+  });
+});
 
 const langMap = {
   越南语: "vi",
@@ -107,16 +115,7 @@ getUserInfo().then(res => {
 
 const handleAction = row => {
   if (row === "deposit") {
-    window.open(
-      "https://chatlink.ichatlinks.net/widget/standalone.html?eid=53dbcd15f70f74a1ef169c3818759110&language=en",
-      "_blank"
-    );
-    // if (window._MEIQIA) {
-    //   window._MEIQIA("showPanel"); // 显示入口按钮
-    //   window._MEIQIA("show"); // 直接弹出聊天窗口
-    // } else {
-    //   console.warn("美洽尚未加载完成");
-    // }
+    window.open(configValue.value, "_blank");
   } else if (row === "withdraw") {
     router.push("/withdraw");
   } else if (row === "withdrawHistory") {

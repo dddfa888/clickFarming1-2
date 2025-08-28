@@ -31,7 +31,7 @@
 
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { getUserInfo, getCustomerService } from "../api/index";

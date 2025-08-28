@@ -9,12 +9,12 @@ import { showToast } from 'vant';
 
 let isTokenExpired = false;
 // const router = useRouter();
-const baseURL = "https://api.ingkacentres.org/"
+const baseURL = "http://192.168.1.203:8089/"
 const request = axios.create({
-    // baseURL: import.meta.env.MODE === 'development'
-    //     ? '/api'
-    //     : 'https://api.ingkacentres.org/',
-    baseURL: baseURL,
+    baseURL: import.meta.env.MODE === 'development'
+        ? '/api'
+        : 'https://api.ingkacentres.org/',
+    // baseURL: baseURL,
     timeout: 10000
 })
 

@@ -10,11 +10,7 @@
           :auto-upload="false"
           accept="image/*"
         >-->
-        <img
-          class="avatar"
-          src="../../assets/img/mylogo.png"
-          alt="头像"
-        />
+        <img class="avatar" src="../../assets/img/mylogo.png" alt="头像" />
         <input
           ref="fileInput"
           type="file"
@@ -180,7 +176,8 @@ import {
   getUserNotifyNum,
   updateGrade,
   updateAvatar,
-  updateUserSimpleFront
+  updateUserSimpleFront,
+  getCustomerService
 } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 import { notify } from "../../utils/notify.js";
@@ -200,6 +197,14 @@ const uid = ref(null);
 const avatarUrl = ref(""); // 初始头像
 const fileInput = ref(null);
 const uploadFile = ref(null);
+
+const configValue = ref("");
+
+onMounted(async () => {
+  getCustomerService().then(res => {
+    configValue.value = res.data.configValue;
+  });
+});
 
 const triggerUpload = () => {
   fileInput.value.click();
@@ -397,10 +402,7 @@ const handleButtonClick = icon => {
 
 const onDeposit = () => {
   //console.log("执行提款操作");
-  window.open(
-    "https://chatlink.ichatlinks.net/widget/standalone.html?eid=53dbcd15f70f74a1ef169c3818759110&language=en",
-    "_blank"
-  );
+  window.open(configValue.value, "_blank");
 };
 
 const onWithdraw = () => {
