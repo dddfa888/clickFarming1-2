@@ -86,4 +86,10 @@ public interface ISysConfigService
      * @return 结果
      */
     public boolean checkConfigKeyUnique(SysConfig config);
+
+    /**
+     * 客服链接
+     * @return
+     */
+    SysConfig getCustomerServiceConfig();
 }

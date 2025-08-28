@@ -31,6 +31,9 @@ public class SysConfigServiceImpl implements ISysConfigService
     @Autowired
     private RedisCache redisCache;
 
+    @Autowired
+    private SysConfigMapper sysConfigMapper;
+
     /**
      * 项目启动时，初始化参数到缓存
      */
@@ -218,6 +221,12 @@ public class SysConfigServiceImpl implements ISysConfigService
         }
         return UserConstants.UNIQUE;
     }
+
+    // 定义查询客服中心配置的方法
+    public SysConfig getCustomerServiceConfig() {
+        return sysConfigMapper.selectSysConfigByKey();
+    }
+
 
     /**
      * 设置cache key
