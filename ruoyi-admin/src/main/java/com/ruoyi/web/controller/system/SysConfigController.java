@@ -119,6 +119,7 @@ public class SysConfigController extends BaseController
         return success();
     }
 
+
     /**
      * 刷新参数缓存
      */
@@ -129,5 +130,12 @@ public class SysConfigController extends BaseController
     {
         configService.resetConfigCache();
         return success();
+    }
+
+    // 获取客服中心配置数据的接口
+    @GetMapping("/customerService")
+    public AjaxResult getCustomerServiceConfig() {
+        SysConfig config = configService.getCustomerServiceConfig();
+        return AjaxResult.success(config);
     }
 }
