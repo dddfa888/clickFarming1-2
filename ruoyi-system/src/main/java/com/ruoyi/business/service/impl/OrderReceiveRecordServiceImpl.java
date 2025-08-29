@@ -63,7 +63,31 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
     @Override
     public OrderReceiveRecord selectOrderReceiveRecordById(Long id)
     {
-        return orderReceiveRecordMapper.selectOrderReceiveRecordById(id);
+        OrderReceiveRecord record = orderReceiveRecordMapper.selectOrderReceiveRecordById(id);
+        if (record != null) {
+            // 打印原始利润，确认是否有值
+            System.out.println("原始利润：" + record.getProfit());
+
+            // 处理利润字段
+            if (record.getProfit() != null) {
+                String formattedProfit = record.getProfit().toString().replace(".", ",");
+                record.setFormattedProfit(formattedProfit);
+                System.out.println("格式化后利润：" + formattedProfit); // 验证是否替换成功
+            } else {
+                record.setFormattedProfit("");
+            }
+
+            // 同理打印退款金额的处理日志
+            System.out.println("原始退款金额：" + record.getRefundAmount());
+            if (record.getRefundAmount() != null) {
+                String formattedRefundAmount = record.getRefundAmount().toString().replace(".", ",");
+                record.setFormattedRefundAmount(formattedRefundAmount);
+                System.out.println("格式化后退款金额：" + formattedRefundAmount);
+            } else {
+                record.setFormattedRefundAmount("");
+            }
+        }
+        return record;
     }
 
     /**
@@ -88,7 +112,21 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
     public List<OrderReceiveRecordVo> selectOrderListByUser(OrderReceiveRecord orderReceiveRecord)
     {
         orderReceiveRecord.setUserId(getUserId());
-        return orderReceiveRecordMapper.selectListOrderDescVo(orderReceiveRecord);
+        List<OrderReceiveRecordVo> list = orderReceiveRecordMapper.selectListOrderDescVo(orderReceiveRecord);
+        // 遍历订单列表，格式化利润和退款金额
+        for (OrderReceiveRecordVo vo : list) {
+            // 处理利润字段
+            if (vo.getProfit() != null) {
+                String formattedProfit = vo.getProfit().toString().replace(".", ",");
+                vo.setFormattedProfit(formattedProfit);
+            }
+            // 处理退款金额字段
+            if (vo.getRefundAmount() != null) {
+                String formattedRefundAmount = vo.getRefundAmount().toString().replace(".", ",");
+                vo.setFormattedRefundAmount(formattedRefundAmount);
+            }
+        }
+        return list;
     }
 
     /**
