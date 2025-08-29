@@ -1,11 +1,20 @@
 package com.ruoyi.business.domain;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
+/**
+ * 订单接收记录对象 m_order_receive_record
+ *
+ * @author ruoyi
+ * @date 2025-06-17
+ */
 /**
  * 订单接收记录对象 m_order_receive_record
  *
@@ -87,6 +96,31 @@ public class OrderReceiveRecord extends BaseEntity
     /** 冻结状态 */
     @Excel(name = "冻结状态")
     private String freezeStatus;
+
+    /** 创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
+
+    // 新增用于前端展示的格式化字段
+    private String formattedProfit; // 格式化后的利润，如39,89
+
+    private String formattedRefundAmount; // 格式化后的退款金额，如10185,69
+
+    public void setFormattedProfit(String formattedProfit) {
+        this.formattedProfit = formattedProfit;
+    }
+
+    public String getFormattedProfit() {
+        return formattedProfit;
+    }
+
+    public void setFormattedRefundAmount(String formattedRefundAmount) {
+        this.formattedRefundAmount = formattedRefundAmount;
+    }
+
+    public String getFormattedRefundAmount() {
+        return formattedRefundAmount;
+    }
 
     public void setId(Long id)
     {
@@ -261,25 +295,25 @@ public class OrderReceiveRecord extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("userId", getUserId())
-            .append("userName", getUserName())
-            .append("productId", getProductId())
-            .append("productName", getProductName())
-            .append("productImageUrl", getProductImageUrl())
-            .append("unitPrice", getUnitPrice())
-            .append("number", getNumber())
-            .append("totalAmount", getTotalAmount())
-            .append("profit", getProfit())
-            .append("refundAmount", getRefundAmount())
-            .append("processStatus", getProcessStatus())
-            .append("multiType", getMultiType())
-            .append("multiId", getMultiId())
-            .append("freezeStatus", getFreezeStatus())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .toString();
+                .append("id", getId())
+                .append("userId", getUserId())
+                .append("userName", getUserName())
+                .append("productId", getProductId())
+                .append("productName", getProductName())
+                .append("productImageUrl", getProductImageUrl())
+                .append("unitPrice", getUnitPrice())
+                .append("number", getNumber())
+                .append("totalAmount", getTotalAmount())
+                .append("profit", getProfit())
+                .append("refundAmount", getRefundAmount())
+                .append("processStatus", getProcessStatus())
+                .append("multiType", getMultiType())
+                .append("multiId", getMultiId())
+                .append("freezeStatus", getFreezeStatus())
+                .append("createBy", getCreateBy())
+                .append("createTime", getCreateTime())
+                .append("updateBy", getUpdateBy())
+                .append("updateTime", getUpdateTime())
+                .toString();
     }
 }

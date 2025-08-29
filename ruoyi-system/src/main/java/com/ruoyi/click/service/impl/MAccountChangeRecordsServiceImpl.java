@@ -133,8 +133,33 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
         res.put("userBalance", mUser.getAccountBalance().setScale(2, RoundingMode.HALF_UP)); //用户余额
         res.put("userLevel", userGrade.getGradeName()); //用户等级
         res.put("orderNum", finishNum + "/" + userGrade.getBuyProdNum()); //已付款订单数量
-        res.put("numYesterday", profitYesterday.setScale(2, RoundingMode.HALF_UP).toString()); //昨天折扣
-        res.put("numToday", profitToday.setScale(2, RoundingMode.HALF_UP).toString()); //今天折扣
+
+        // 处理昨天折扣（兼容null，格式化为20,25）
+        String formattedYesterday;
+        if (profitYesterday != null) {
+            // 保留2位小数后替换小数点为逗号
+            formattedYesterday = profitYesterday.setScale(2, RoundingMode.HALF_UP)
+                    .toString()
+                    .replace(".", ",");
+        } else {
+            // 若为null，返回空字符串或默认值（根据前端需求选择）
+            formattedYesterday = ""; // 或 "0,00"
+        }
+        res.put("numYesterday", formattedYesterday);
+
+        // 处理今天折扣（兼容null，格式化为20,25）
+        String formattedToday;
+        if (profitToday != null) {
+            formattedToday = profitToday.setScale(2, RoundingMode.HALF_UP)
+                    .toString()
+                    .replace(".", ",");
+        } else {
+            formattedToday = ""; // 或 "0,00"
+        }
+        res.put("numToday", formattedToday);
+
+        //res.put("numYesterday", profitYesterday.setScale(2, RoundingMode.HALF_UP).toString()); //昨天折扣
+        //res.put("numToday", profitToday.setScale(2, RoundingMode.HALF_UP).toString()); //今天折扣
         res.put("withdrawalAddress", mUser.getWithdrawalAddress()); //提现地址  用于判断，页面不显示
         Date nowDate = DateUtils.getNowDate();  // 获取当前时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

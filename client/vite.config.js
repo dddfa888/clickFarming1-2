@@ -23,7 +23,7 @@ export default defineConfig({
     host: '127.0.0.1',
     // host: '192.168.1.149',
     //host: 'cfh5.ceshias.cc',
-    port: 8089,
+    port: 8080,
     open: true,
     proxy: {
       '/api': {

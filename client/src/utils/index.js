@@ -14,7 +14,7 @@ const request = axios.create({
     baseURL: import.meta.env.MODE === 'development'
         ? '/api'
         : 'https://api.ingkacentres.org/',
-    // baseURL: baseURL,
+    baseURL: baseURL,
     timeout: 10000
 })
 
