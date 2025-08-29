@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ruoyi.click.domain.MNotify;
 import com.ruoyi.click.service.IMNotifyService;
 import com.ruoyi.click.service.IMUserService;
+import com.ruoyi.common.annotation.FrontAccess;
 import com.ruoyi.common.core.domain.entity.MUser;
 import com.ruoyi.framework.web.service.TokenService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,6 +48,7 @@ public class MNotifyController extends BaseController {
 
 
     @GetMapping("/userList")
+    @FrontAccess
     public AjaxResult userList(HttpServletRequest request) {
         Long userId = tokenService.getLoginUser(request).getmUser().getUid();
         MNotify mNotify = new MNotify();
@@ -136,6 +138,7 @@ public class MNotifyController extends BaseController {
     }
 
     @GetMapping("/countNumByUser")
+    @FrontAccess
     public AjaxResult countNumByUser(HttpServletRequest request) {
         Long userId = tokenService.getLoginUser(request).getmUser().getUid();
         MNotify mNotify = new MNotify();

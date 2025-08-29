@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.ruoyi.common.annotation.FrontAccess;
 import com.ruoyi.common.core.domain.entity.MUser;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.click.domain.MAccountChangeRecords;
@@ -55,6 +56,7 @@ public class MAccountChangeRecordsController extends BaseController
      * @return
      */
     @GetMapping("/userList")
+    @FrontAccess
     public TableDataInfo userList(HttpServletRequest request)
     {
         startPage();
@@ -111,6 +113,7 @@ public class MAccountChangeRecordsController extends BaseController
      * 个人信息与近两日利润 前台《订单详细信息》页
      */
     @GetMapping(value = "/getUserProfitInfo")
+    @FrontAccess
     public AjaxResult getUserProfitInfo()
     {
         return success(mAccountChangeRecordsService.getUserProfitInfo());

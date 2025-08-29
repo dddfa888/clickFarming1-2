@@ -23,6 +23,7 @@ import com.ruoyi.click.service.IMAccountChangeRecordsService;
 import com.ruoyi.click.service.IMMoneyInvestWithdrawService;
 import com.ruoyi.click.service.IMUserService;
 import com.ruoyi.click.service.IUserGradeService;
+import com.ruoyi.common.annotation.FrontAccess;
 import com.ruoyi.common.core.domain.entity.MUser;
 import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.DecimalUtil;
@@ -82,6 +83,7 @@ public class MMoneyInvestWithdrawController extends BaseController
      * @return
      */
     @GetMapping("/userList")
+    @FrontAccess
     public TableDataInfo userList(HttpServletRequest request) {
         startPage();
         Long userId = tokenService.getLoginUser(request).getmUser().getUid();
@@ -216,6 +218,7 @@ public class MMoneyInvestWithdrawController extends BaseController
     @Log(title = "提现", businessType = BusinessType.INSERT)
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("add")
+    @FrontAccess
     public synchronized AjaxResult add(HttpServletRequest request,@Validated @RequestBody WithdrawVo withdrawVo) {
         String amountStr = withdrawVo.getAmount();
         Assert.notEmpty(amountStr, "请填写提现数额");//user

@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.ruoyi.business.domain.MRewardRecord;
 import com.ruoyi.business.service.IMRewardRecordService;
 import com.ruoyi.click.service.IMMoneyInvestWithdrawService;
+import com.ruoyi.common.annotation.FrontAccess;
 import com.ruoyi.common.core.domain.entity.MUser;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.DecimalUtil;
@@ -59,6 +60,7 @@ public class MUserController extends BaseController {
 
 
     @GetMapping("/userInfo")
+    @FrontAccess
     public AjaxResult userInfo(HttpServletRequest request) {
         Long userId = tokenService.getLoginUser(request).getmUser().getUid();
         MUser mUser = mUserService.selectMUserByUid(userId);
@@ -200,6 +202,7 @@ public class MUserController extends BaseController {
     /**
      * 获取前4级用户下级
      */
+    @FrontAccess
     @GetMapping("/getUpToFourLevelInviters")
     public AjaxResult getUpToFourLevelInviters(HttpServletRequest request) {
         Long uid = tokenService.getLoginUser(request).getmUser().getUid();
@@ -342,6 +345,7 @@ public class MUserController extends BaseController {
      */
     @Log(title = "用户", businessType = BusinessType.UPDATE)
     @PostMapping("updateUserBank")
+    @FrontAccess
     public AjaxResult updateUserFront(HttpServletRequest request, @RequestBody MUser mUser) {
         Long userId = tokenService.getLoginUser(request).getmUser().getUid();
         mUser.setUid(userId);
@@ -353,6 +357,7 @@ public class MUserController extends BaseController {
      */
     @Log(title = "用户", businessType = BusinessType.UPDATE)
     @PostMapping("updateUserSimpleFront")
+    @FrontAccess
     public AjaxResult updateUserSimpleFront(HttpServletRequest request, @RequestBody MUser mUser) {
         Long userId = tokenService.getLoginUser(request).getmUser().getUid();
         mUser.setUid(userId);
@@ -373,6 +378,7 @@ public class MUserController extends BaseController {
      */
     @Log(title = "修改当前用户的等级", businessType = BusinessType.UPDATE)
     @PostMapping("updateGrade")
+    @FrontAccess
     public AjaxResult updateGradeByUser(HttpServletRequest request, @RequestParam @NotNull Long gradeId) {
         Long userId = tokenService.getLoginUser(request).getmUser().getUid();
         return toAjax(mUserService.updateGrade(gradeId, userId));

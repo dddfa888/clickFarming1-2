@@ -175,7 +175,7 @@ export default {
           { required: true, message: "内容不能为空", trigger: "blur" }
         ],
       },
-      baseUrl: process.env.VUE_APP_BASE_API,
+      baseUrl: process.env.VUE_APP_BASE_URL,
       fileNumLimit: 1, //文件数量限制
       fileSizeMB: 1, //文件最大限制，1MB
       fileListInit: '' //初始化文件列表
@@ -253,6 +253,7 @@ export default {
     },
     // <ImageUpload> 上传图片成功后的回调函数，值是数组，内部元素是字符串（文件相对路径）
     uploadSuccess(fileListStr){
+      console.log(fileListStr)
       this.form.imageUrl = fileListStr;
     },
 

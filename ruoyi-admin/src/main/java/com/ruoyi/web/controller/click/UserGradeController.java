@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ruoyi.click.domain.UserGrade;
 import com.ruoyi.click.service.IMUserService;
 import com.ruoyi.click.service.IUserGradeService;
+import com.ruoyi.common.annotation.FrontAccess;
 import com.ruoyi.common.core.domain.entity.MUser;
 import com.ruoyi.framework.web.service.TokenService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,6 +53,7 @@ public class UserGradeController extends BaseController
      * @return
      */
     @GetMapping("/userList")
+    @FrontAccess
     public AjaxResult userList(HttpServletRequest request)
     {
         Long userId = tokenService.getLoginUser(request).getmUser().getUid();

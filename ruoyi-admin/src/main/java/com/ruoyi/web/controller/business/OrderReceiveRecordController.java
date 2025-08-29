@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.click.domain.vo.OrderReceiveRecordVo;
+import com.ruoyi.common.annotation.FrontAccess;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +53,7 @@ public class OrderReceiveRecordController extends BaseController
      * 查询当前用户的订单接收记录列表
      */
     @GetMapping("/listByUser")
+    @FrontAccess
     public TableDataInfo selectOrderListByUser(OrderReceiveRecord orderReceiveRecord)
     {
         startPage(); //暂时不分页
@@ -75,6 +77,7 @@ public class OrderReceiveRecordController extends BaseController
      * 获取订单接收记录详细信息
      */
     @GetMapping(value = "/{id}")
+    @FrontAccess
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
         return success(orderReceiveRecordService.selectOrderReceiveRecordById(id));
@@ -124,6 +127,7 @@ public class OrderReceiveRecordController extends BaseController
      */
     @Log(title = "前台用户点击后添加订单", businessType = BusinessType.INSERT)
     @PostMapping("/insertOrderByUser")
+    @FrontAccess
     public AjaxResult insertOrderByUser()
     {
         OrderReceiveRecord orderReceiveRecord = new OrderReceiveRecord();
@@ -139,6 +143,7 @@ public class OrderReceiveRecordController extends BaseController
      */
     @Log(title = "支付订单", businessType = BusinessType.UPDATE)
     @PutMapping("/payOrder/{id}")
+    @FrontAccess
     public AjaxResult payOrder(@PathVariable("id") Long id)
     {
         return toAjax(orderReceiveRecordService.payOrder(id));

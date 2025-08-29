@@ -2,6 +2,8 @@ package com.ruoyi.web.controller.business;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.annotation.FrontAccess;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -101,6 +103,7 @@ public class MSettingComProfileController extends BaseController
      * 根据语言查询设置公司简介
      */
     @GetMapping("/getByLang")
+    @FrontAccess
     public AjaxResult getByLang(String lang)
     {
         return success(mSettingComProfileService.selectByLang(lang));

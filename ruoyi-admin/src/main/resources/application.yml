@@ -8,7 +8,7 @@ ruoyi:
   copyrightYear: 2025
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
   #profile: D:/ruoyi/uploadPath
-  profile: /home/clickFarming/uploadPath
+  profile: /home/clickFarming2/uploadPath
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数字计算 char 字符验证
@@ -17,7 +17,7 @@ ruoyi:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为8080
-  port: 8089
+  port: 8087
   servlet:
     # 应用的访问路径
     context-path: /
@@ -53,7 +53,7 @@ spring:
     # 国际化资源文件路径
     basename: i18n/messages
   profiles:
-    active: prod1
+    active: prod2
   # 文件上传
   servlet:
     multipart:
@@ -113,3 +113,13 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+security:
+  white-list:
+    - /login
+    - /register
+    - /captchaImage
+    - /api/login
+    - /api/register
+    - /sse/connect
+    - /common/upload

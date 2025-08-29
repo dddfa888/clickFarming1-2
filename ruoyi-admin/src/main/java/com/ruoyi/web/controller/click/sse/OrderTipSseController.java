@@ -27,7 +27,6 @@ public class OrderTipSseController {
     /**
      * 建立 SSE 连接接口
      */
-    @Anonymous
     @GetMapping(value = "/connect", produces = "text/event-stream")
     public SseEmitter connect() {
         SseEmitter emitter = new SseEmitter(30 * 60 * 1000L); // 30分钟超时
