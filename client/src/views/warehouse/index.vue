@@ -102,9 +102,9 @@ const handlePay = () => {
   });
 };
 
-getOrderList().then(res => {
-  historyItems.value = res.rows;
-});
+// getOrderList().then(res => {
+//   historyItems.value = res.rows;
+// });
 
 getUserGradeAndBalanceAndDiscount().then(res => {
   console.log(res.data);
@@ -114,7 +114,7 @@ getUserGradeAndBalanceAndDiscount().then(res => {
 onMounted(async () => {
   try {
     const [orderRes, userRes] = await Promise.all([
-      getOrderList(),
+      getOrderList(1,999),
       getUserGradeAndBalanceAndDiscount()
     ]);
     // 设置订单列表

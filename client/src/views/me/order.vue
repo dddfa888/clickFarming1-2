@@ -55,7 +55,7 @@ const handlePay = () => {
   showModal.value = false;
 };
 
-getOrderHistory().then(res => {
+getOrderHistory(1,999).then(res => {
   console.log(res.rows);
   historyItems.value = res.rows;
 });
