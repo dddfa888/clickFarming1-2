@@ -3,13 +3,6 @@
     <!-- 顶部用户信息 -->
     <div class="user-info">
       <div class="user-info-avatar">
-        <!--<el-upload
-          class="upload-demo"
-          :show-file-list="false"
-          :before-upload="handleBeforeUpload"
-          :auto-upload="false"
-          accept="image/*"
-        >-->
         <img class="avatar" src="../../assets/img/mylogo.png" alt="头像" />
         <input
           ref="fileInput"
@@ -181,7 +174,7 @@ import {
 } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 import { notify } from "../../utils/notify.js";
-import defaultAvatar from "../../assets/img/avatar.jpg";
+import defaultAvatar from "../../assets/img/mylogo.png";
 const bgImage = new URL("../../assets/img/bg.png", import.meta.url).href;
 const videoUrl = new URL("../../assets/videos/INGKA.mp4", import.meta.url).href;
 
