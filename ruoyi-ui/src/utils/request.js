@@ -16,7 +16,7 @@ axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
   baseURL: process.env.VUE_APP_BASE_URL,
-  baseURL: 'http://192.168.1.203:8089/',
+  // baseURL: 'http://192.168.1.203:8089/',
   // 超时
   timeout: 10000
 })

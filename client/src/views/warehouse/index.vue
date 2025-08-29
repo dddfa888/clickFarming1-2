@@ -38,11 +38,11 @@
           </div>
           <div class="calc-row">
             <span>{{ t("利润") }}:</span>
-            <span class="amount">{{ item.profit }} $</span>
+            <span class="amount">{{ item.formattedProfit }} $</span>
           </div>
           <div class="calc-row">
             <span>{{ t("退款金额") }}:</span>
-            <span class="amount highlight">{{ item.refundAmount }} $</span>
+            <span class="amount highlight">{{ item.formattedRefundAmount }} $</span>
           </div>
         </div>
 

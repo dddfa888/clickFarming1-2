@@ -13,7 +13,7 @@ const baseURL = "http://192.168.1.203:8089/"
 const request = axios.create({
     baseURL: import.meta.env.MODE === 'development'
         ? '/api'
-        : 'https://api.ingkacentres.org/',
+        : 'https://cf2.dadwqwqee.shop/',
     // baseURL: baseURL,
     timeout: 10000
 })
