@@ -3,7 +3,12 @@
     <!-- 顶部用户信息 -->
     <div class="user-info">
       <div class="user-info-avatar">
-        <img class="avatar" src="../../assets/img/mylogo.png" alt="头像" />
+        <img
+            class="avatar"
+            :src="userInfo.headImg || defaultAvatar"
+            alt="头像"
+            @click="triggerUpload"
+        />
         <input
           ref="fileInput"
           type="file"
