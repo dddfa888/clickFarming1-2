@@ -15,14 +15,7 @@ import com.ruoyi.click.service.IMUserService;
 import com.ruoyi.framework.web.service.TokenService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -57,12 +50,18 @@ public class MAccountChangeRecordsController extends BaseController
      */
     @GetMapping("/userList")
     @FrontAccess
-    public TableDataInfo userList(HttpServletRequest request)
-    {
-        startPage();
+    public TableDataInfo userList(
+            HttpServletRequest request,
+            // 接收前端传递的页码（默认第1页）
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            // 接收前端传递的每页条数（默认10条，与前端保持一致）
+            @RequestParam(defaultValue = "10") Integer pageSize) {
+
+        // 传入分页参数，告诉后端当前要查第几页、每页多少条
+        startPage(pageNum, pageSize);
+
         Long userId = tokenService.getLoginUser(request).getmUser().getUid();
         MAccountChangeRecords mAccountChangeRecords = new MAccountChangeRecords();
-
         mAccountChangeRecords.setUid(String.valueOf(userId));
         mAccountChangeRecords.setTransactionType(1);
         mAccountChangeRecords.setType(0);

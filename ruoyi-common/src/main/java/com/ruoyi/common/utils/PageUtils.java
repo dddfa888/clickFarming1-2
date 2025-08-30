@@ -26,6 +26,16 @@ public class PageUtils extends PageHelper
     }
 
     /**
+     * 初始化分页
+     * @param pageNum 页码
+     * @param pageSize 每页条数
+     */
+    public static void startPage(Integer pageNum, Integer pageSize) {
+        // 使用 PageHelper 插件进行分页（核心逻辑）
+        PageHelper.startPage(pageNum, pageSize);
+    }
+
+    /**
      * 清理分页的线程变量
      */
     public static void clearPage()
