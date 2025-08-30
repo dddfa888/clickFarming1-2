@@ -1,5 +1,5 @@
 <template>
-  <div class="company-intro">
+  <div class="company-intro" @scroll="handleScroll">
     <HeaderBar :title="t('奖励记录')" />
     <div class="transaction-list">
       <div v-for="(transaction, index) in transactions" :key="index" class="transaction-item">
@@ -8,6 +8,10 @@
         <div class="transaction-balance">{{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}</div>
       </div>
     </div>
+
+    <!-- 底部提示 -->
+    <div v-if="loading" class="loading">{{ t("加载中...") }}</div>
+    <div v-if="noMore" class="no-more">{{ t("没有更多了") }}</div>
   </div>
 </template>
 
@@ -17,16 +21,44 @@ import HeaderBar from "../../components/HeaderBar.vue";
 import { getRewardHistory } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
+
 const transactions = ref([]);
+const pageNum = ref(1);
+const pageSize = ref(10);
+const loading = ref(false);
+const noMore = ref(false);
 
 const formatAmount = amount => {
   return amount.toFixed(2).replace(".", ",") + " $";
 };
 
-getRewardHistory().then(res => {
-  console.log(res.data);
-  transactions.value = res.data;
-});
+// 加载数据
+const loadData = async () => {
+  if (loading.value || noMore.value) return;
+  loading.value = true;
+  try {
+    const res = await getRewardHistory(pageNum.value, pageSize.value);
+    if (res.rows && res.rows.length > 0) {
+      transactions.value.push(...res.rows);
+      pageNum.value++;
+    } else {
+      noMore.value = true;
+    }
+  } finally {
+    loading.value = false;
+  }
+};
+
+// 滚动触底检测
+const handleScroll = e => {
+  const el = e.target;
+  if (el.scrollTop + el.clientHeight >= el.scrollHeight - 50) {
+    loadData();
+  }
+};
+
+// 首次加载
+loadData();
 </script>
 
 <style scoped>
@@ -73,6 +105,12 @@ getRewardHistory().then(res => {
   color: #2ecc71;
 }
 
+.loading,
+.no-more {
+  text-align: center;
+  color: #fff;
+}
+
 @media screen and (min-width: 768px) {
   .company-intro {
     background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
@@ -117,6 +155,12 @@ getRewardHistory().then(res => {
     grid-row: 2;
     text-align: right;
     color: #2ecc71;
+  }
+
+  .loading,
+  .no-more {
+    text-align: center;
+    color: #fff;
   }
 }
 </style>

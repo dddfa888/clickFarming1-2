@@ -1,10 +1,10 @@
 <template>
-  <div class="company-intro">
+  <div class="company-intro" @scroll="handleScroll">
     <HeaderBar :title="t('充值记录')" />
     <div class="transaction-list">
       <div v-for="(transaction, index) in transactions" :key="index" class="transaction-item">
         <div class="transaction-info">
-          <div class="transaction-time">{{ t("时间") }}:{{ transaction.createTime }}</div>
+          <div class="transaction-time">{{ t("时间") }}: {{ transaction.createTime }}</div>
           <div class="transaction-amount" :class="{ negative: transaction.amount < 0 }">
             {{ t("金钱数额") }}: {{ transaction.type === 0 ? "+" : "-" }}
             {{ formatAmount(transaction.amount) }}
@@ -13,13 +13,11 @@
             class="transaction-balance"
           >{{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}</div>
         </div>
-        <div class="transaction-status">
-          {{
-          t("transaction.success")
-          }}
-        </div>
+        <div class="transaction-status">{{ t("transaction.success") }}</div>
       </div>
     </div>
+    <div v-if="loading" class="loading">{{ t("加载中...") }}</div>
+    <div v-if="noMore" class="no-more">{{ t("没有更多了") }}</div>
   </div>
 </template>
 
@@ -28,21 +26,48 @@ import { ref } from "vue";
 import HeaderBar from "../../components/HeaderBar.vue";
 import { getDepositRecord } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
+
 const { t } = useI18n();
 const transactions = ref([]);
+
+const pageNum = ref(1);
+const pageSize = ref(10);
+const loading = ref(false);
+const noMore = ref(false);
 
 const formatAmount = amount => {
   return amount.toFixed(2).replace(".", ",") + " $";
 };
 
-const pageNum = ref(1);
-const pageSize = ref(999);
+// 加载数据
+const loadData = async () => {
+  if (loading.value || noMore.value) return;
+  loading.value = true;
+  try {
+    const res = await getDepositRecord(pageNum.value, pageSize.value);
+    if (res.rows && res.rows.length > 0) {
+      transactions.value.push(...res.rows);
+      pageNum.value++;
+    } else {
+      noMore.value = true;
+    }
+  } finally {
+    loading.value = false;
+  }
+};
 
-getDepositRecord(pageNum.value, pageSize.value).then(res => {
-  console.log(res.rows);
-  transactions.value = res.rows;
-});
+// 滚动触底检测
+const handleScroll = e => {
+  const el = e.target;
+  if (el.scrollTop + el.clientHeight >= el.scrollHeight - 50) {
+    loadData();
+  }
+};
+
+// 首次加载
+loadData();
 </script>
+
 
 <style scoped>
 .company-intro {
@@ -105,6 +130,15 @@ getDepositRecord(pageNum.value, pageSize.value).then(res => {
   text-align: right;
   color: #fff;
   font-size: 14px;
+}
+
+.loading {
+  color: #fff;
+  text-align: center;
+}
+.no-more {
+  color: #fff;
+  text-align: center;
 }
 
 @media screen and (min-width: 768px) {
@@ -170,6 +204,15 @@ getDepositRecord(pageNum.value, pageSize.value).then(res => {
     text-align: right;
     color: #fff;
     font-size: 14px;
+  }
+
+  .loading {
+    color: #fff;
+    text-align: center;
+  }
+  .no-more {
+    color: #fff;
+    text-align: center;
   }
 }
 </style>

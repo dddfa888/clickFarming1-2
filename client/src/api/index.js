@@ -112,9 +112,9 @@ export function getOrderHistory(pageNum, pageSize) {
 }
 
 // 奖励历史记录
-export function getRewardHistory() {
+export function getRewardHistory(pageNum, pageSize) {
     return request({
-        url: '/api/rewardRecord/selectSimpleByUserId',
+        url: `/api/rewardRecord/selectSimpleByUserId?pageNum=${pageNum}&pageSize=${pageSize}`,
         method: 'get',
     })
 }
