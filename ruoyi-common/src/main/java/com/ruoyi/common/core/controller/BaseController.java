@@ -56,6 +56,18 @@ public class BaseController
     }
 
     /**
+     * 带参请求分页
+     * @param pageNum
+     * @param pageSize
+     */
+    protected void startPage(Integer pageNum, Integer pageSize) {
+        // 如果前端没传，默认第一页，每页10条
+        if (pageNum == null) pageNum = 1;
+        if (pageSize == null) pageSize = 10;
+        PageUtils.startPage(pageNum, pageSize);
+    }
+
+    /**
      * 设置请求排序数据
      */
     protected void startOrderBy()
