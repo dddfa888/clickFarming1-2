@@ -246,4 +246,6 @@ export default {
   "网络错误，请稍后重试": "Lỗi mạng, vui lòng thử lại sau",
   "提款数额必须为整数，不能包含小数":
     "Số tiền rút phải là số nguyên, không thể chứa số thập phân",
+    "加载中...": "Đang tải...",
+    "没有更多了":"Không có thêm nữa"
 };

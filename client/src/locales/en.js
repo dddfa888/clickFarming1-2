@@ -244,4 +244,6 @@ export default {
   "网络错误，请稍后重试": "Network error, please try again later",
   "提款数额必须为整数，不能包含小数":
     "The withdrawal amount must be an integer, cannot contain decimal places",
+    "加载中...": "Loading...",
+    "没有更多了":"No more"
 };

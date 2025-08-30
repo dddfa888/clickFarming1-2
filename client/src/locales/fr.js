@@ -251,4 +251,6 @@ export default {
   "网络错误，请稍后重试": "Erreur de réseau, veuillez réessayer plus tard",
   "提款数额必须为整数，不能包含小数":
     "Le montant du retrait doit être un nombre entier et ne peut pas contenir de décimales",
+     "加载中...": "Chargement en cours...",
+    "没有更多了":"Pas plus"
 };
