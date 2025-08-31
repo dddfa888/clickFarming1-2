@@ -3,11 +3,7 @@
     <HeaderBar :title="t('订单历史')" style="width: 500px" />
 
     <div class="history-list" @scroll="onScroll">
-      <div
-          v-for="(item, index) in historyItems"
-          :key="index"
-          class="history-item"
-      >
+      <div v-for="(item, index) in historyItems" :key="index" class="history-item">
         <div class="item-header">
           <div class="time-code">
             <span class="time">{{ t("时间") }}: {{ item.createTime }}</span>
@@ -42,15 +38,7 @@
         </div>
       </div>
 
-      <div v-if="loading" class="loading-text">
-        加载中...
-      </div>
-      <div
-          v-else-if="historyItems.length >= total && total > 0"
-          class="loading-text"
-      >
-        已加载全部数据
-      </div>
+      <div v-if="loading" class="loading-text">{{ $t("加载中...") }}</div>
     </div>
   </div>
 </template>

@@ -54,7 +54,6 @@
       </div>
 
       <div v-if="loading" class="loading-text">{{ t("加载中...") }}</div>
-      <div v-else-if="noMoreData" class="loading-text">{{ t("已加载全部数据") }}</div>
     </div>
 
     <ProductModal v-if="showModal" :id="id" @close="showModal = false" @pay="handlePay" />
