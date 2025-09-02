@@ -69,8 +69,10 @@
       <el-table-column label="参加费" align="center" prop="joinCost" />
       <el-table-column label="最低余额" align="center" prop="minBalance" />
       <el-table-column label="每天购买的产品数量" align="center" prop="buyProdNum" />
-      <el-table-column label="% 最小奖金" align="center" prop="minBonus" />
-      <el-table-column label="% 最大奖金" align="center" prop="maxBonus" />
+      <el-table-column label="最小奖金" align="center" prop="minBonus" />
+      <el-table-column label="最大奖金" align="center" prop="maxBonus" />
+      <el-table-column label="最小利润" align="center" prop="minProfit" />
+      <el-table-column label="最大利润" align="center" prop="maxProfit" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -123,6 +125,12 @@
         <el-form-item label="最大奖金" prop="maxBonus">
           <el-input v-model="form.maxBonus" placeholder="请输入最大奖金" />
         </el-form-item>
+        <el-form-item label="最小利润" prop="maxBonus">
+          <el-input v-model="form.minProfit" placeholder="请输入最小利润" />
+        </el-form-item>
+        <el-form-item label="最大利润" prop="maxBonus">
+          <el-input v-model="form.maxProfit" placeholder="请输入最大利润" />
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -173,7 +181,9 @@ export default {
         minBalance: null,
         buyProdNum: null,
         minBonus: null,
-        maxBonus: null
+        maxBonus: null,
+        minProfit: null,
+        maxProfit: null
       },
       // 表单参数
       form: {},
@@ -214,6 +224,8 @@ export default {
         buyProdNum: null,
         minBonus: null,
         maxBonus: null,
+        minProfit: null,
+        maxProfit: null,
         createBy: null,
         createTime: null,
         updateBy: null,
