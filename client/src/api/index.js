@@ -155,7 +155,7 @@ export function getUserNotification() {
 // 用户消息
 export function getUserMessage() {
     return request({
-        url: '/api/withdraw/unread',
+        url: '/api/notify/unread',
         method: 'get',
     })
 }
