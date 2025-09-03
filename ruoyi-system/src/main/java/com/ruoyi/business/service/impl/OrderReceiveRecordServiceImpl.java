@@ -523,6 +523,7 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
         return productManageMapper.selectProductManageById(idList.get(prodIndex));
     }*/
 
+
     /**
      * 计算利润
      *

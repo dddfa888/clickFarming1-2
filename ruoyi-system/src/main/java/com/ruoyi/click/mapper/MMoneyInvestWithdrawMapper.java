@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.click.domain.MMoneyInvestWithdraw;
 import com.ruoyi.click.domain.UserGrade;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -80,4 +82,23 @@ public interface MMoneyInvestWithdrawMapper extends BaseMapper<MMoneyInvestWithd
      * @return 结果
      */
     int updateUserInfoByUserId(Map<String,Object> param);
+
+    /**
+     * 根据user_id查询订单信息
+     * @param userId
+     * @return
+     */
+    List<MMoneyInvestWithdraw> getUserInfo(Long userId);
+
+    /**
+     * 铃铛消息
+     * @param userId
+     * @param
+     * @return
+     */
+    @Select("select count(1) from m_money_invest_withdraw where user_id=#{userId} and is_read=0")
+    int selectUnread(Long userId);
+
+    @Update("update m_money_invest_withdraw set is_read = 1 where user_id = #{userId}")
+    void updateRead(Long userId);
 }

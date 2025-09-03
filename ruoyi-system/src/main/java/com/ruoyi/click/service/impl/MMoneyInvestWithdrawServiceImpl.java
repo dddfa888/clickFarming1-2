@@ -74,6 +74,7 @@ public class MMoneyInvestWithdrawServiceImpl extends ServiceImpl<MMoneyInvestWit
     public int updateMMoneyInvestWithdraw(MMoneyInvestWithdraw mMoneyInvestWithdraw)
     {
         mMoneyInvestWithdraw.setUpdateTime(DateUtils.getNowDate());
+        mMoneyInvestWithdraw.setIsRead(0);
         return mMoneyInvestWithdrawMapper.updateMMoneyInvestWithdraw(mMoneyInvestWithdraw);
     }
 
@@ -134,5 +135,21 @@ public class MMoneyInvestWithdrawServiceImpl extends ServiceImpl<MMoneyInvestWit
                 .between(MMoneyInvestWithdraw::getCreateTime, startOfDay, endOfDay)
                 .last("LIMIT 1")
                 .one();
+    }
+
+    @Override
+    public List<MMoneyInvestWithdraw> getUserInfo(Long userId) {
+        return mMoneyInvestWithdrawMapper.getUserInfo(userId);
+    }
+
+
+    @Override
+    public int selectUnread(Long userId) {
+        return mMoneyInvestWithdrawMapper.selectUnread(userId);
+    }
+
+    @Override
+    public void updateRead(Long userId) {
+        mMoneyInvestWithdrawMapper.updateRead(userId);
     }
 }
