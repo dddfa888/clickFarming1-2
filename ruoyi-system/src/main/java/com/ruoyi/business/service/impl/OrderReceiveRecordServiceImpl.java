@@ -3,9 +3,12 @@ package com.ruoyi.business.service.impl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import com.ruoyi.business.domain.MRewardRecord;
@@ -25,7 +28,9 @@ import com.ruoyi.click.domain.UserGrade;
 import com.ruoyi.click.mapper.MAccountChangeRecordsMapper;
 import com.ruoyi.click.mapper.MUserMapper;
 import com.ruoyi.click.mapper.UserGradeMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import com.ruoyi.business.mapper.OrderReceiveRecordMapper;
 import com.ruoyi.business.domain.OrderReceiveRecord;
@@ -58,6 +63,9 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
     private MUserOrderSetMapper mUserOrderSetMapper;
     @Autowired
     private IMAccountChangeRecordsService mAccountChangeRecordsService;
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
     // 声明为类的静态成员（在方法外）
     private static final Random RANDOM = new Random();
 
@@ -360,17 +368,23 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
         ProductManage product = productManageMapper.selectProductManageById(idList.get(prodIndex));
 
         // 2. 计算用户等级对应的单价区间
-//        BigDecimal minPrice = calculateMinPrice(userGrade);
-//        BigDecimal maxPrice = calculateMaxPrice(userGrade);
-        BigDecimal  minProfit = userGrade.getMinProfit();
-        BigDecimal  maxProfit = userGrade.getMaxProfit();
+        String key = "user-"+mUser.getUid();
         BigDecimal accountBalance = mUser.getAccountBalance();
-        if (userGrade.getSortNum() == 1){
-            if (accountBalance.compareTo(BigDecimal.valueOf(500))>=0){
-                minProfit = userGrade.getMinProfit2();
-                maxProfit = userGrade.getMaxProfit2();
-            }
+        String userBalance = redisTemplate.opsForValue().get(key);
+        if (StringUtils.isEmpty(userBalance)){
+            // 计算到今天结束还剩多少秒
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime endOfDay = now.toLocalDate().atTime(23, 59, 59);
+            long secondsUntilEndOfDay = ChronoUnit.SECONDS.between(now, endOfDay);
+            redisTemplate.opsForValue().set(key, String.valueOf(accountBalance),secondsUntilEndOfDay, TimeUnit.SECONDS);
+        }else {
+            accountBalance = new BigDecimal(userBalance);
         }
+
+        // 2. 计算用户等级对应的单价区间
+        BigDecimal  minProfit = userGrade.getMinProfit().divide(BigDecimal.valueOf(100),4, RoundingMode.HALF_UP).multiply(accountBalance);
+        BigDecimal  maxProfit = userGrade.getMaxProfit().divide(BigDecimal.valueOf(100),4, RoundingMode.HALF_UP).multiply(accountBalance);
+
         // 计算用户等级对应的单价区间
         BigDecimal minPrice = minProfit.divide(BigDecimal.valueOf(userGrade.getBuyProdNum()), 4, RoundingMode.HALF_UP);
         BigDecimal maxPrice = maxProfit.divide(BigDecimal.valueOf(userGrade.getBuyProdNum()), 4, RoundingMode.HALF_UP);
