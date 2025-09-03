@@ -247,5 +247,9 @@ export default {
   "提款数额必须为整数，不能包含小数":
     "Số tiền rút phải là số nguyên, không thể chứa số thập phân",
     "加载中...": "Đang tải...",
-    "没有更多了":"Không có thêm nữa"
+    "没有更多了":"Không có thêm nữa",
+     "您的请求正在审核中":"Yêu cầu của bạn đang được xét duyệt",
+    "您已下达提款订单":"Bạn đã đặt lệnh rút",
+    "您已成功存入":"Bạn đã nạp tiền thành công",
+    "系统已向您支付":"Hệ thống đã thanh toáncho bạn"
 };

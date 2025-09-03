@@ -143,19 +143,19 @@ export function sendDistribution(id) {
     })
 }
 
-// 获取用户通知 
+// 获取用户通知
 export function getUserNotification() {
     return request({
-        url: '/api/notify/userList',
+        url: `/api/withdraw/getUserInfo`,
         method: 'get',
     })
 }
 
 
-// 获取用户通知数量
-export function getUserNotifyNum() {
+// 用户消息
+export function getUserMessage() {
     return request({
-        url: '/api/notify/countNumByUser',
+        url: '/api/withdraw/unread',
         method: 'get',
     })
 }

@@ -245,5 +245,9 @@ export default {
   "提款数额必须为整数，不能包含小数":
     "The withdrawal amount must be an integer, cannot contain decimal places",
     "加载中...": "Loading...",
-    "没有更多了":"No more"
+    "没有更多了":"No more",
+    "您的请求正在审核中":"Your request is being reviewed",
+    "您已下达提款订单":"You have placed a withdrawal order",
+    "您已成功存入":"You have successfully stored",
+    "系统已向您支付":"System has paid you"
 };

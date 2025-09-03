@@ -5,10 +5,11 @@
     <div class="content-box">
       <div class="notice-box" v-for="item in noticeList" :key="item.uid">
         <div class="notice-title">
-          <p>{{ item.title }}</p>
-          <p>{{ item.createTime }}</p>
+          <p>
+            {{ t(item.statusCode)}}
+            {{ formatCurrency(item.amount) }}
+          </p>
         </div>
-        <p v-html="item.content"></p>
       </div>
     </div>
   </div>
@@ -21,10 +22,14 @@ import { getUserNotification } from "../../api/index";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const noticeList = ref([]);
-getUserNotification().then((res) => {
-  console.log(res.data);
-  noticeList.value = res.data;
+getUserNotification().then(res => {
+  noticeList.value = res.rows;
 });
+
+const formatCurrency = value => {
+  if (typeof value !== "number") return "0 $";
+  return value.toLocaleString("en-US", { style: "currency", currency: "USD" });
+};
 </script>
 
 <style scoped>

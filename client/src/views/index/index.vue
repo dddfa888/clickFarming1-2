@@ -4,10 +4,10 @@
     <div class="user-info">
       <div class="user-info-avatar">
         <img
-            class="avatar"
-            :src="userInfo.headImg || defaultAvatar"
-            alt="头像"
-            @click="triggerUpload"
+          class="avatar"
+          :src="userInfo.headImg || defaultAvatar"
+          alt="头像"
+          @click="triggerUpload"
         />
         <input
           ref="fileInput"
@@ -171,11 +171,11 @@ import notice from "../../assets/img/notice.png";
 import {
   getUserInfo,
   getMemberRecord,
-  getUserNotifyNum,
   updateGrade,
   updateAvatar,
   updateUserSimpleFront,
-  getCustomerService
+  getCustomerService,
+  getUserMessage
 } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 import { notify } from "../../utils/notify.js";
@@ -201,6 +201,11 @@ const configValue = ref("");
 onMounted(async () => {
   getCustomerService().then(res => {
     configValue.value = res.data.configValue;
+  });
+
+  getUserMessage().then(res => {
+    console.log(res, "ghyuhgh");
+    notifyNum.value = res;
   });
 });
 
@@ -281,9 +286,6 @@ getMemberRecord().then(res => {
     Recordlist.value = res.data.userGrade || "";
     level.value = res.data.level;
   }
-});
-getUserNotifyNum().then(res => {
-  notifyNum.value = res.data;
 });
 
 const handleConfirm = () => {
@@ -424,8 +426,7 @@ onMounted(async () => {
   try {
     const [userRes, memberRes, notifyRes] = await Promise.all([
       withTimeout(getUserInfo(), 5000),
-      withTimeout(getMemberRecord(), 5000),
-      withTimeout(getUserNotifyNum(), 5000)
+      withTimeout(getMemberRecord(), 5000)
     ]);
 
     // 设置用户信息
@@ -436,7 +437,6 @@ onMounted(async () => {
       Recordlist.value = memberRes.data.userGrade;
       level.value = memberRes.data.level;
     }
-    notifyNum.value = notifyRes.data;
   } catch (error) {
     console.error("加载数据失败：", error);
   }
