@@ -65,6 +65,9 @@ public class MMoneyInvestWithdraw
     @Excel(name = "订单id")
     private String orderId;
 
+    /** 已读未读 */
+    private Integer isRead;
+
 
     @JsonFormat(pattern = "HH:mm:ss")
     private Date updateTime;

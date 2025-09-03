@@ -3,6 +3,7 @@ package com.ruoyi.web.controller.click;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -368,6 +369,74 @@ public class MMoneyInvestWithdrawController extends BaseController
     public AjaxResult updateUserInfoByUserId(Map<String,Object> param)
     {
         return toAjax(mMoneyInvestWithdrawService.updateUserInfoByUserId(param));
+    }
+
+    /**
+     * 查询个人取款充值记录
+     * @return
+     */
+    @FrontAccess
+    @GetMapping("/getUserInfo")
+    public TableDataInfo getUserInfo() {
+        // 1. 获取当前用户的资金操作记录（确保服务方法正确返回数据）
+        List<MMoneyInvestWithdraw> records = mMoneyInvestWithdrawService.getUserInfo(getUserId());
+
+        // 2. 安全处理：确保集合非null
+        List<MMoneyInvestWithdraw> safeRecords = (records != null) ? records : new ArrayList<>();
+
+        // 3. 转换记录为前端需要的格式
+        List<Map<String, Object>> result = safeRecords.stream().map(record -> {
+            Map<String, Object> data = new HashMap<>(8); // 预设容量优化
+
+            // 金额（强制非null，避免前端解析错误）
+            BigDecimal amount = record.getAmount();
+            data.put("amount", (amount != null) ? amount : BigDecimal.ZERO.setScale(2));
+
+            // 操作时间（允许为null，前端自行处理）
+            data.put("createTime", record.getCreateTime());
+
+            // 状态码转换（严格处理null情况）
+            String type = record.getType();
+            if ("1".equals(type)) {
+                // 存款类型
+                data.put("statusCode", "您已成功存入");
+            } else {
+                // 提现类型（处理状态可能为null的情况）
+                Integer status = record.getStatus();
+                if (status == null || status == 0) {
+                    data.put("statusCode", "您已下达提款订单");
+                    data.put("statusCode", "您的请求正在审核中");
+                } else {
+                    data.put("statusCode", "系统已向您支付");
+                }
+            }
+            return data;
+        }).collect(Collectors.toList());
+
+        // 4. 正确初始化TableDataInfo，设置总记录数和列表数据
+        TableDataInfo dataInfo = new TableDataInfo();
+        dataInfo.setRows(result);          // 设置列表数据
+        dataInfo.setTotal(result.size());  // 设置总记录数（关键修复点）
+        dataInfo.setCode(0);               // 设置成功状态码（通常0表示成功）
+        dataInfo.setMsg("查询成功");        // 设置提示消息
+
+
+        Integer status = 1;
+        //修改状态为已读
+        mMoneyInvestWithdrawService.updateRead(getUserId());
+
+        return dataInfo;
+    }
+
+
+    /**
+     * 铃铛右上角展示未读
+     * @return
+     */
+    @GetMapping("/unread")
+    @FrontAccess
+    public int unread(){
+        return mMoneyInvestWithdrawService.selectUnread(getUserId());
     }
 
 }

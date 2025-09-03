@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectMMoneyInvestWithdrawVo">
-        select id, user_id, user_name, user_type, amount, bank_name, bank_account_name, bank_account_number, type, reason_for_rejection, status, order_id, account_forward,account_back, create_time, update_time from m_money_invest_withdraw
+        select id, user_id, user_name, user_type, amount, bank_name, bank_account_name, bank_account_number, type, reason_for_rejection, status, order_id, account_forward,account_back, is_read , create_time, update_time from m_money_invest_withdraw
     </sql>
 
     <select id="selectMMoneyInvestWithdrawList" parameterType="MMoneyInvestWithdraw" resultMap="MMoneyInvestWithdrawResult">
@@ -147,4 +147,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where user_id = #{userId}
     </update>
 
+    <select id="getUserInfo" resultType="com.ruoyi.click.domain.MMoneyInvestWithdraw">
+        <include refid="selectMMoneyInvestWithdrawVo"/>
+        where user_id=#{userId}
+    </select>
 </mapper>

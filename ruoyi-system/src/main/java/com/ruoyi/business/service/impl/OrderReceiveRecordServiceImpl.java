@@ -320,11 +320,12 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
         ProductManage product = null;
         if (orderSetList != null && orderSetList.size() > 0) {
             product = setOrderProdLimit(orderReceiveRecord, orderSetList.get(0),userGrade);
-//            orderReceiveRecord.setTotalAmount(DecimalUtil.multiple(product.getPrice(), orderReceiveRecord.getNumber()));
+            orderReceiveRecord.setTotalAmount(DecimalUtil.multiple(product.getPrice(), orderReceiveRecord.getNumber()));
             orderReceiveRecord.setProfit(calcProfit(userGrade, orderReceiveRecord.getTotalAmount()));
 //            orderReceiveRecord.setRefundAmount(DecimalUtil.add(orderReceiveRecord.getTotalAmount(), orderReceiveRecord.getProfit()));
         } else {
             product = setOrderProdNormal(orderReceiveRecord, mUser ,userGrade);
+            orderReceiveRecord.setTotalAmount(DecimalUtil.multiple(product.getPrice(), orderReceiveRecord.getNumber()));
             orderReceiveRecord.setProfit(orderReceiveRecord.getProfit());
         }
 
@@ -333,7 +334,7 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
         orderReceiveRecord.setProductImageUrl(product.getImageUrl());
         orderReceiveRecord.setUnitPrice(product.getPrice());
 
-        orderReceiveRecord.setTotalAmount(DecimalUtil.multiple(product.getPrice(), orderReceiveRecord.getNumber()));
+//        orderReceiveRecord.setTotalAmount(DecimalUtil.multiple(product.getPrice(), orderReceiveRecord.getNumber()));
         orderReceiveRecord.setRefundAmount(DecimalUtil.add(orderReceiveRecord.getTotalAmount(), orderReceiveRecord.getProfit()));
         orderReceiveRecord.setProcessStatus(OrderReceiveRecord.PROCESS_STATUS_WAIT);
         orderReceiveRecord.setNumTarget(numTarget);
@@ -522,6 +523,7 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
         int prodIndex = (int) Math.floor(Math.random() * idList.size());
         return productManageMapper.selectProductManageById(idList.get(prodIndex));
     }*/
+
 
     /**
      * 计算利润

@@ -82,4 +82,21 @@ public interface IMMoneyInvestWithdrawService extends IService<MMoneyInvestWithd
      * 获取今天的提现记录
      */
     MMoneyInvestWithdraw getTodayWithdraw(Long userId);
+
+    /**
+     * 查询个人充值提款记录
+     * @param userId
+     * @return
+     */
+    List<MMoneyInvestWithdraw> getUserInfo(Long userId);
+
+    /** 铃铛展示未读信息*/
+    int selectUnread(Long userId);
+
+
+    /**
+     * 修改订单状态
+     * @param userId
+     */
+    void updateRead(Long userId);
 }
