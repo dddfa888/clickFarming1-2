@@ -6,8 +6,9 @@
       <div class="notice-box" v-for="item in noticeList" :key="item.uid">
         <div class="notice-title">
           <p>
-            {{ t(item.statusCode)}}
+            {{ t(item.statusCode1)}}
             {{ formatCurrency(item.amount) }}
+            {{ t(item.statusCode2) }}
           </p>
         </div>
       </div>

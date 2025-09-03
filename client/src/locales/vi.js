@@ -251,5 +251,8 @@ export default {
      "您的请求正在审核中":"Yêu cầu của bạn đang được xét duyệt",
     "您已下达提款订单":"Bạn đã đặt lệnh rút",
     "您已成功存入":"Bạn đã nạp tiền thành công",
-    "系统已向您支付":"Hệ thống đã thanh toáncho bạn"
+    "系统已向您支付":"Hệ thống đã thanh toáncho bạn",
+      "您已充值":"Bạn đã nạp",
+    "您已提交提款申请":"Bạn đã đặt lệnh rút",
+    "给你":"cho bạn!"
 };
