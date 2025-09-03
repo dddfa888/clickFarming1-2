@@ -146,7 +146,7 @@ export function sendDistribution(id) {
 // 获取用户通知
 export function getUserNotification() {
     return request({
-        url: `/api/withdraw/getUserInfo`,
+        url: `/api/notify/userList`,
         method: 'get',
     })
 }
