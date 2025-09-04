@@ -3,7 +3,7 @@
     <div class="header">
       <h2>
         {{ t("发行历史") }}
-        <span class="total-amount">{{ formatCurrency(totalAmount) }} $</span>
+        <span class="total-amount">{{ formatCurrency(totalAmount) }}</span>
       </h2>
       <div class="provider">
         {{ t("数据提供者 Ingka Centres") }}
@@ -26,7 +26,7 @@
             <div>{{ item.productName }}</div>
           </div>
           <div class="product-price">
-            {{ formatCurrency(item.unitPrice) }} $
+            {{ formatCurrency(item.unitPrice) }}
             <span class="quantity">x {{ item.number }}</span>
           </div>
         </div>
