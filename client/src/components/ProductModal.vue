@@ -16,8 +16,8 @@
         </div>
 
         <p>{{ t("分配总额") }}: {{ data.totalAmount }} $</p>
-        <p>{{ t("利润") }}: {{ data.formattedProfit }} $</p>
-        <p class="highlight">{{ t("退款金额") }}: {{ data.formattedRefundAmount }} $</p>
+        <p>{{ t("利润") }}: {{ data.profit }} $</p>
+        <p class="highlight">{{ t("退款金额") }}: {{ data.refundAmount }} $</p>
       </div>
 
       <div class="actions">

@@ -82,8 +82,16 @@ const isProcessing = ref(false);
 
 const formatCurrency = value => {
   if (typeof value !== "number") return "0 $";
-  return value.toLocaleString("de-US", { style: "currency", currency: "USD" });
+  // 保留两位小数
+  let str = value.toFixed(2); // "1000.00"
+  // 替换小数点为逗号
+  str = str.replace(".", ","); // "1000,00"
+  // 千分位加逗号
+  str = str.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // "1,000,00"
+  return str + " $";
 };
+
+console.log("order", formatCurrency(2.39));
 
 const Sendbutton = debounce(() => {
   if (isProcessing.value) return; // ✅ 禁止同时点击多个“收到”
