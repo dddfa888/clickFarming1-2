@@ -70,31 +70,7 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
     @Override
     public OrderReceiveRecord selectOrderReceiveRecordById(Long id)
     {
-        OrderReceiveRecord record = orderReceiveRecordMapper.selectOrderReceiveRecordById(id);
-        if (record != null) {
-            // 打印原始利润，确认是否有值
-            System.out.println("原始利润：" + record.getProfit());
-
-            // 处理利润字段
-            if (record.getProfit() != null) {
-                String formattedProfit = record.getProfit().toString().replace(".", ",");
-                record.setFormattedProfit(formattedProfit);
-                System.out.println("格式化后利润：" + formattedProfit); // 验证是否替换成功
-            } else {
-                record.setFormattedProfit("");
-            }
-
-            // 同理打印退款金额的处理日志
-            System.out.println("原始退款金额：" + record.getRefundAmount());
-            if (record.getRefundAmount() != null) {
-                String formattedRefundAmount = record.getRefundAmount().toString().replace(".", ",");
-                record.setFormattedRefundAmount(formattedRefundAmount);
-                System.out.println("格式化后退款金额：" + formattedRefundAmount);
-            } else {
-                record.setFormattedRefundAmount("");
-            }
-        }
-        return record;
+        return orderReceiveRecordMapper.selectOrderReceiveRecordById(id);
     }
 
     /**
@@ -119,21 +95,7 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
     public List<OrderReceiveRecordVo> selectOrderListByUser(OrderReceiveRecord orderReceiveRecord)
     {
         orderReceiveRecord.setUserId(getUserId());
-        List<OrderReceiveRecordVo> list = orderReceiveRecordMapper.selectListOrderDescVo(orderReceiveRecord);
-        // 遍历订单列表，格式化利润和退款金额
-        for (OrderReceiveRecordVo vo : list) {
-            // 处理利润字段
-            if (vo.getProfit() != null) {
-                String formattedProfit = vo.getProfit().toString().replace(".", ",");
-                vo.setFormattedProfit(formattedProfit);
-            }
-            // 处理退款金额字段
-            if (vo.getRefundAmount() != null) {
-                String formattedRefundAmount = vo.getRefundAmount().toString().replace(".", ",");
-                vo.setFormattedRefundAmount(formattedRefundAmount);
-            }
-        }
-        return list;
+        return orderReceiveRecordMapper.selectListOrderDescVo(orderReceiveRecord);
     }
 
     /**
@@ -319,13 +281,9 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
 
         ProductManage product = null;
         if (orderSetList != null && orderSetList.size() > 0) {
-            product = setOrderProdLimit(orderReceiveRecord, orderSetList.get(0),userGrade);
-//            orderReceiveRecord.setTotalAmount(DecimalUtil.multiple(product.getPrice(), orderReceiveRecord.getNumber()));
-            orderReceiveRecord.setProfit(calcProfit(userGrade, orderReceiveRecord.getTotalAmount()));
-//            orderReceiveRecord.setRefundAmount(DecimalUtil.add(orderReceiveRecord.getTotalAmount(), orderReceiveRecord.getProfit()));
+//            product = setOrderProdLimit(orderReceiveRecord, orderSetList.get(0),userGrade);
         } else {
             product = setOrderProdNormal(orderReceiveRecord, mUser ,userGrade);
-            orderReceiveRecord.setProfit(orderReceiveRecord.getProfit());
         }
 
         orderReceiveRecord.setProductId(product.getId());
@@ -334,6 +292,7 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
         orderReceiveRecord.setUnitPrice(product.getPrice());
 
         orderReceiveRecord.setTotalAmount(DecimalUtil.multiple(product.getPrice(), orderReceiveRecord.getNumber()));
+        orderReceiveRecord.setProfit(orderReceiveRecord.getProfit());
         orderReceiveRecord.setRefundAmount(DecimalUtil.add(orderReceiveRecord.getTotalAmount(), orderReceiveRecord.getProfit()));
         orderReceiveRecord.setProcessStatus(OrderReceiveRecord.PROCESS_STATUS_WAIT);
         orderReceiveRecord.setNumTarget(numTarget);
@@ -522,7 +481,6 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
         int prodIndex = (int) Math.floor(Math.random() * idList.size());
         return productManageMapper.selectProductManageById(idList.get(prodIndex));
     }*/
-
 
     /**
      * 计算利润

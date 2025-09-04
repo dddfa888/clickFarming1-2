@@ -68,4 +68,15 @@ public interface IMNotifyService
      */
     long countNum(MNotify mNotify);
 
+    /**
+     * 铃铛信息提示
+     * @return
+     */
+    int selectUnread(Long userId);
+
+    /**
+     * 信息已读
+     * @param userId
+     */
+    void updateAllReadByUserId(Long userId);
 }
