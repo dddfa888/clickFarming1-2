@@ -204,8 +204,9 @@ onMounted(async () => {
   });
 
   getUserMessage().then(res => {
-    console.log(res, "ghyuhgh");
-    notifyNum.value = res;
+    if (res.code === 200) {
+      notifyNum.value = res.data;
+    }
   });
 });
 

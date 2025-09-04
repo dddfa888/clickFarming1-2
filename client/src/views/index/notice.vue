@@ -5,10 +5,7 @@
     <div class="content-box">
       <div class="notice-box" v-for="item in noticeList" :key="item.uid">
         <div class="notice-title">
-          <p>
-            {{ t(item.statusCode)}}
-            {{ formatCurrency(item.amount) }}
-          </p>
+          <p v-html="item.content"></p>
         </div>
       </div>
     </div>

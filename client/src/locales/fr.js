@@ -256,5 +256,8 @@ export default {
     "您的请求正在审核中":"Your request is being reviewed",
     "您已下达提款订单":"You have placed a withdrawal order",
     "您已成功存入":"You have successfully stored",
-    "系统已向您支付":"System has paid you"
+    "系统已向您支付":"System has paid you",
+    "您已充值":"You have recharged",
+    "您已提交提款申请":"You have submitted a withdrawal application",
+    "给你":"give you"
 };
