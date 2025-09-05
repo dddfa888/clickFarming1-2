@@ -24,6 +24,7 @@ import com.ruoyi.click.service.IMUserService;
 import com.ruoyi.click.service.IUserGradeService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 /**
@@ -45,7 +46,8 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
     private IMAccountChangeRecordsService  accountChangeRecordsService;
     @Autowired
     private MAccountChangeRecordsMapper mAccountChangeRecordsMapper;
-
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
     /**
      * 查询用户
      *
@@ -453,6 +455,9 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
         mAccountChangeRecordsMapper.insertMAccountChangeRecords(changeRecords);
         user.setLevel(userGrade.getSortNum());
         user.setUpdateTime(DateUtils.getNowDate());
+
+        String key = "user-"+userId;
+        redisTemplate.delete(key);
         return mUserMapper.updateMUser(user);
     }
 
