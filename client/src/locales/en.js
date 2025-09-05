@@ -252,5 +252,6 @@ export default {
     "系统已向您支付":"System has paid you",
      "您已充值":"You have recharged",
     "您已提交提款申请":"You have submitted a withdrawal application",
-    "给你":"give you"
+    "给你":"give you",
+    "一个账号只能升级一次等级，无法重复升级":"A single account can only upgrade once, and cannot be upgraded repeatedly"
 };
