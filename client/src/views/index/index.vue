@@ -194,6 +194,7 @@ const uploadFile = ref(null);
 const configValue = ref("");
 
 onMounted(async () => {
+  getRecord();
   getCustomerService().then(res => {
     configValue.value = res.data.configValue;
   });
@@ -277,14 +278,30 @@ getUserInfo().then(res => {
   console.log(res.data);
   userInfo.value = res.data;
 });
-getMemberRecord().then(res => {
-  if (res.code === 200) {
-    Recordlist.value = res.data.userGrade || "";
-    level.value = res.data.level;
-  }
-});
 
-const handleConfirm = () => {
+function getRecord() {
+  getMemberRecord().then(res => {
+    if (res.code === 200) {
+      Recordlist.value = res.data.userGrade || "";
+      level.value = res.data.level;
+    }
+  });
+}
+
+// 防抖函数
+function debounce(fn, delay) {
+  let timer = null;
+  return function() {
+    const context = this;
+    const args = arguments;
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+const handleConfirm = debounce(() => {
   let gradeId = uid.value;
   updateGrade(uid.value).then(res => {
     console.log(res);
@@ -294,6 +311,7 @@ const handleConfirm = () => {
         type: "success",
         duration: 2000
       });
+      getRecord();
     } else {
       globalThis.$notify({
         message: t(res.msg),
@@ -302,7 +320,7 @@ const handleConfirm = () => {
       });
     }
   });
-};
+}, 1000);
 
 const handleCancel = () => {
   console.log("取消了");
