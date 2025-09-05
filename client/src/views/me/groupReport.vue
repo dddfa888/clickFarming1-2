@@ -8,9 +8,7 @@
         :key="index"
         :class="['tab-item', { active: activeTab === index }]"
         @click="activeTab = index"
-      >
-        {{ tab }}
-      </div>
+      >{{ tab }}</div>
     </div>
 
     <!-- 内容区域 -->
@@ -20,9 +18,7 @@
           v-if="filteredList.length === 0"
           class="group-report"
           style="color: #fff; padding: 10px"
-        >
-          {{ t("暂无数据") }}
-        </div>
+        >{{ t("暂无数据") }}</div>
         <div v-for="item in filteredList" :key="item.uid" class="group-report">
           <div class="group-member-item">
             <img src="../../assets/img/3-DHl9k9P6.png" />
@@ -32,7 +28,7 @@
             </div>
           </div>
           <div>
-            <p>SĐT: {{ item.phoneNumber }}</p>
+            <p>SĐT: {{ formatBankCard(item.phoneNumber) }}</p>
             <p>{{ t("注册时间") }}: {{ item.createTime }}</p>
           </div>
         </div>
@@ -54,16 +50,23 @@ const activeTab = ref(0); // 当前选中的 tab
 
 const grouplist = ref([]);
 
-getGroupReport().then((res) => {
+getGroupReport().then(res => {
   grouplist.value = res.data || [];
 });
 
 // 计算当前层级要展示的数据
 const filteredList = computed(() => {
-  return grouplist.value.filter(
-    (item) => item.hierarchy === activeTab.value + 1
-  );
+  return grouplist.value.filter(item => item.hierarchy === activeTab.value + 1);
 });
+
+function formatBankCard(cardNo) {
+  if (!cardNo) return "";
+  const clean = cardNo.replace(/\s+/g, "");
+  if (clean.length <= 8) return clean;
+  const start = clean.slice(0, 4);
+  const end = clean.slice(-4);
+  return `${start} **** **** ${end}`;
+}
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@
     <div class="header">
       <h2>
         {{ t("发行历史") }}
-        <span class="total-amount">{{ totalAmount }} $</span>
+        <span class="total-amount">{{ formatCurrency(totalAmount) }}</span>
       </h2>
       <div class="provider">
         {{ t("数据提供者 Ingka Centres") }}
@@ -26,7 +26,7 @@
             <div>{{ item.productName }}</div>
           </div>
           <div class="product-price">
-            {{ item.unitPrice }} $
+            {{ formatCurrency(item.unitPrice) }}
             <span class="quantity">x {{ item.number }}</span>
           </div>
         </div>
@@ -34,15 +34,15 @@
         <div class="calculation">
           <div class="calc-row">
             <span>{{ t("分配总额") }}:</span>
-            <span class="amount">{{ item.totalAmount }} $</span>
+            <span class="amount">{{ formatCurrency(item.totalAmount) }}</span>
           </div>
           <div class="calc-row">
             <span>{{ t("利润") }}:</span>
-            <span class="amount">{{ item.profit }} $</span>
+            <span class="amount">{{ formatCurrency(item.profit) }}</span>
           </div>
           <div class="calc-row">
             <span>{{ t("退款金额") }}:</span>
-            <span class="amount highlight">{{ item.refundAmount }} $</span>
+            <span class="amount highlight">{{ formatCurrency(item.refundAmount) }}</span>
           </div>
         </div>
 
@@ -74,6 +74,17 @@ const { t } = useI18n();
 const totalAmount = ref(0);
 const id = ref(null);
 const showModal = ref(false);
+
+const formatCurrency = value => {
+  if (typeof value !== "number") return "0 $";
+  // 保留两位小数
+  let str = value.toFixed(2); // "1000.00"
+  // 替换小数点为逗号
+  str = str.replace(".", ","); // "1000,00"
+  // 千分位加逗号
+  str = str.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // "1,000,00"
+  return str + " $";
+};
 
 const displayedOrders = ref([]); // 当前显示的订单列表
 let pageNum = 1; // 当前页码
