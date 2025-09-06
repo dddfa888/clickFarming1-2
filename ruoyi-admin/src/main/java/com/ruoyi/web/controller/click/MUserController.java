@@ -1,6 +1,7 @@
 package com.ruoyi.web.controller.click;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.ruoyi.business.domain.MRewardRecord;
 import com.ruoyi.business.service.IMRewardRecordService;
+import com.ruoyi.click.mapper.MNotifyMapper;
 import com.ruoyi.click.service.IMMoneyInvestWithdrawService;
 import com.ruoyi.common.annotation.FrontAccess;
 import com.ruoyi.common.core.domain.entity.MUser;
@@ -58,6 +60,9 @@ public class MUserController extends BaseController {
     @Autowired
     private IMMoneyInvestWithdrawService mMoneyInvestWithdrawService;
 
+    @Autowired
+    private MNotifyMapper mNotifyMapper;
+
 
     @GetMapping("/userInfo")
     @FrontAccess
@@ -78,7 +83,7 @@ public class MUserController extends BaseController {
      * @return
      */
     @PostMapping("changeBalance")
-    public AjaxResult changeBalance(HttpServletRequest request, @Validated @RequestBody BalanceModel balanceModel) {
+    public AjaxResult changeBalance(HttpServletRequest request,@Validated @RequestBody BalanceModel balanceModel) {
         MUser mUser = mUserService.selectMUserByUid(balanceModel.getUid());
         BigDecimal accountForward = mUser.getAccountBalance();
         String userName = tokenService.getLoginUser(request).getUser().getUserName();
@@ -94,13 +99,26 @@ public class MUserController extends BaseController {
         changeRecords.setAccountForward(accountForward);
         changeRecords.setAccountBack(accountBack);
         changeRecords.setUid(String.valueOf(balanceModel.getUid()));
-        changeRecords.setDescription(userName + "[后台增减余额] " + balanceModel.getReason());
+        changeRecords.setDescription(userName+"[后台增减余额] "+balanceModel.getReason());
         changeRecords.setTransactionType(1);
         accountChangeRecordsService.insertMAccountChangeRecords(changeRecords);
+        //扣减余额
+        if(balanceModel.getBalance().signum()<0){
+            int read = 0;
+            //金额格式转换
+            BigDecimal formattedAmount = balanceModel.getBalance().abs()
+                    .setScale(2, RoundingMode.DOWN);
+            //后台扣减余额
+            String title = "Trừ số dư ở phần mềm quản trị";
+            //内容
+            String content = "Hệ thống đã thanh toán" + formattedAmount + "$ cho bạn!";
+            //新增提现消息
+            mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
+        }
 
         //如果是增加余额，添加奖励记录
-        if (balanceModel.getBalance().signum() > 0) {
-            MRewardRecord mRewardRecord = new MRewardRecord();
+        if(balanceModel.getBalance().signum()>0){
+            MRewardRecord mRewardRecord= new MRewardRecord();
             mRewardRecord.setUserId(mUser.getUid());
             mRewardRecord.setUserName(mUser.getLoginAccount());
             mRewardRecord.setRewardTime(DateUtils.getNowDate());
@@ -110,6 +128,17 @@ public class MUserController extends BaseController {
             mRewardRecord.setDescription(balanceModel.getReason());
             mRewardRecord.setCreateTime(mRewardRecord.getRewardTime());
             mRewardRecordService.insertMRewardRecord(mRewardRecord);
+            //新增取款记录保存信息
+            int read = 0;
+            //金额格式转换
+            BigDecimal formattedAmount = balanceModel.getBalance().abs()
+                    .setScale(2, RoundingMode.DOWN);
+            //后台新增余额
+            String title = "Thêm số dư ở phần mềm quản trị";
+            //内容消息
+            String content = "Bạn đã nạp"+ formattedAmount + "$ thành công!";
+            //新增提现消息
+            mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
         }
 
         // 升级等级

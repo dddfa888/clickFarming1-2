@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
+import java.math.BigDecimal;
+
 /**
  * 通知对象 m_notify
  *
@@ -47,7 +49,18 @@ public class MNotify extends BaseEntity {
      * 是否已读
      */
     @Excel(name = "是否已读")
-    private Boolean isRead;
+    private Integer isRead;
+
+    /**
+     * 提现充值类型
+     */
+    private String type;
+
+    /**
+     * 审核状态
+     */
+    private Integer status;
+
 
     public void setUid(Long uid) {
         this.uid = uid;
@@ -56,6 +69,7 @@ public class MNotify extends BaseEntity {
     public Long getUid() {
         return uid;
     }
+
 
     public void setUserId(Long userId) {
         this.userId = userId;
@@ -77,14 +91,6 @@ public class MNotify extends BaseEntity {
         this.title = title;
     }
 
-    public Boolean getRead() {
-        return isRead;
-    }
-
-    public void setRead(Boolean read) {
-        isRead = read;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -96,6 +102,29 @@ public class MNotify extends BaseEntity {
     public String getContent() {
         return content;
     }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Integer getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(Integer isRead) {
+        this.isRead = isRead;
+    }
 
     @Override
     public String toString() {
@@ -105,7 +134,7 @@ public class MNotify extends BaseEntity {
                 .append("userName", getUserName())
                 .append("title", getTitle())
                 .append("content", getContent())
-                .append("isRead", getRead())
+                .append("isRead", getIsRead())
                 .append("createTime", getCreateTime())
                 .append("updateTime", getUpdateTime())
                 .toString();

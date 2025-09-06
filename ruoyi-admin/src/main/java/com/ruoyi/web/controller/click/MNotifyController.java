@@ -1,7 +1,8 @@
 package com.ruoyi.web.controller.click;
 
-import java.util.List;
-import java.util.Objects;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -49,18 +50,36 @@ public class MNotifyController extends BaseController {
 
     @GetMapping("/userList")
     @FrontAccess
-    public AjaxResult userList(HttpServletRequest request) {
+    public TableDataInfo userList(HttpServletRequest request) {
         Long userId = tokenService.getLoginUser(request).getmUser().getUid();
         MNotify mNotify = new MNotify();
         mNotify.setUserId(userId);
-        List<MNotify> mNotifies = mNotifyService.selectMNotifyList(mNotify);
-        //批量修改通知状态为已读
-        for (MNotify notify : mNotifies) {
-            notify.setRead(true);
-            mNotifyService.updateMNotify(notify);
+
+        // 1. 先查询当前用户的通知（查询时还未标记为已读）
+        List<MNotify> records = mNotifyService.selectMNotifyList(mNotify);
+        List<MNotify> safeRecords = (records != null) ? records : new ArrayList<>();
+
+        // 2. 按用户ID批量标记所有通知为已读（高效，单条SQL）
+        if (!safeRecords.isEmpty()) { // 有记录才更新
+            mNotifyService.updateAllReadByUserId(userId);
         }
 
-        return success(mNotifies);
+        // 3. 提取返回字段（不变）
+        List<Map<String, Object>> result = safeRecords.stream().map(notify -> {
+            Map<String, Object> data = new HashMap<>(2);
+            data.put("title", notify.getTitle() != null ? notify.getTitle() : "");
+            data.put("content", notify.getContent() != null ? notify.getContent() : "");
+            return data;
+        }).collect(Collectors.toList());
+
+        // 4. 返回结果（不变）
+        TableDataInfo dataInfo = new TableDataInfo();
+        dataInfo.setRows(result);
+        dataInfo.setTotal(result.size());
+        dataInfo.setCode(0);
+        dataInfo.setMsg("查询成功");
+
+        return dataInfo;
     }
 
     /**
@@ -101,7 +120,9 @@ public class MNotifyController extends BaseController {
         MUser mUser = mUserService.selectMUserByUid(mNotify.getUserId());
         if (mUser != null) {
             mNotify.setUserName(mUser.getLoginAccount());
+
         }
+        mNotify.setIsRead(0);
         return toAjax(mNotifyService.insertMNotify(mNotify));
     }
 
@@ -145,6 +166,18 @@ public class MNotifyController extends BaseController {
         mNotify.setUserId(userId);
         long num = mNotifyService.countNum(mNotify);
         return success(num);
+    }
+
+    /**
+     * 铃铛右上角展示未读
+     * @return
+     */
+    @GetMapping("/unread")
+    @FrontAccess
+    public AjaxResult unread(){
+        // 获取未读数量
+        int unreadCount = mNotifyService.selectUnread(getUserId());
+        return AjaxResult.success("查询成功", unreadCount);
     }
 
 }

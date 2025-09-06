@@ -430,18 +430,28 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
     @Override
     public int updateGrade(Long gradeId, Long userId)
     {
+        // ---------- 新增：等级升级唯一性校验 ----------
+        MUser user = mUserMapper.selectMUserByUid(userId);
+        // 假设初始等级为 1，若当前等级 > 1，说明已升级过
+        if (user.getLevel() > 1) {
+            throw new ServiceException("一个账号只能升级一次等级，无法重复升级");
+        }
+        // ---------- 等级升级唯一性校验结束 ----------
+
         UserGrade userGrade = userGradeMapper.selectUserGradeById(gradeId);
         BigDecimal minBalance = userGrade.getMinBalance();
         BigDecimal joinCost = new BigDecimal(userGrade.getJoinCost());
-        MUser user = mUserMapper.selectMUserByUid(userId);
-        if(userGrade.getSortNum() < user.getLevel())
-            throw new ServiceException("您无法升级到低于当前级别的级别");//user
-        if(user.getAccountBalance().compareTo(minBalance) < 0||user.getAccountBalance().compareTo(joinCost) < 0)
-            throw new ServiceException("余额不足无法升级");//user
-        //扣除金额
+
+        // 原有逻辑：余额、等级有效性校验
+        if (userGrade.getSortNum() < user.getLevel())
+            throw new ServiceException("您无法升级到低于当前级别的级别");
+        if (user.getAccountBalance().compareTo(minBalance) < 0 || user.getAccountBalance().compareTo(joinCost) < 0)
+            throw new ServiceException("余额不足无法升级");
+
+        // 扣除金额、记录账变等原有逻辑...
         BigDecimal accountBalance = user.getAccountBalance();
         user.setAccountBalance(user.getAccountBalance().subtract(joinCost).setScale(2, BigDecimal.ROUND_HALF_UP));
-        //记录账变
+
         MAccountChangeRecords changeRecords = new MAccountChangeRecords();
         changeRecords.setAmount(joinCost);
         changeRecords.setType(1); //0收入 1支出
@@ -453,6 +463,7 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
         changeRecords.setCreateTime(DateUtils.getNowDate());
         changeRecords.setRelatedId("-");
         mAccountChangeRecordsMapper.insertMAccountChangeRecords(changeRecords);
+
         user.setLevel(userGrade.getSortNum());
         user.setUpdateTime(DateUtils.getNowDate());
 

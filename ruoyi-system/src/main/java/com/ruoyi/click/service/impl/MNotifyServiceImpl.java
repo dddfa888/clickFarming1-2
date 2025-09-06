@@ -105,4 +105,14 @@ public class MNotifyServiceImpl implements IMNotifyService
     {
         return mNotifyMapper.countNum(mNotify);
     }
+
+    @Override
+    public int selectUnread(Long userId) {
+        return mNotifyMapper.selectUnread(userId);
+    }
+
+    @Override
+    public void updateAllReadByUserId(Long userId) {
+        mNotifyMapper.updateAllReadByUserId(userId);
+    }
 }

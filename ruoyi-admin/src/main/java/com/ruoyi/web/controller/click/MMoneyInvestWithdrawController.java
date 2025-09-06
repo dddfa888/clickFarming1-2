@@ -1,6 +1,7 @@
 package com.ruoyi.web.controller.click;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import com.ruoyi.click.domain.MMoneyInvestWithdraw;
 import com.ruoyi.click.domain.UserGrade;
 import com.ruoyi.click.domain.vo.BackOperateVo;
 import com.ruoyi.click.domain.vo.WithdrawVo;
+import com.ruoyi.click.mapper.MNotifyMapper;
 import com.ruoyi.click.service.IMAccountChangeRecordsService;
 import com.ruoyi.click.service.IMMoneyInvestWithdrawService;
 import com.ruoyi.click.service.IMUserService;
@@ -77,6 +79,8 @@ public class MMoneyInvestWithdrawController extends BaseController
     private IUserGradeService userGradeService;
     @Autowired
     private SysConfigMapper configMapper;
+    @Autowired
+    private MNotifyMapper mNotifyMapper;
 
     /**
      * 获取个人的提现记录
@@ -148,6 +152,19 @@ public class MMoneyInvestWithdrawController extends BaseController
         }
         withdraw.setStatus(1);
         mMoneyInvestWithdrawService.updateMMoneyInvestWithdraw( withdraw);
+
+        MUser mUser = mUserService.selectMUserByUid(withdraw.getUserId());
+        //新增取款记录保存信息
+        int read = 0;
+        //后台扣减余额
+        String title = "Trừ số dư ở phần mềm quản trị";
+        BigDecimal amount = (withdraw.getAmount() != null)
+                ? withdraw.getAmount().setScale(2, RoundingMode.DOWN)
+                : BigDecimal.ZERO.setScale(2);
+        //内容
+        String content = "Hệ thống đã thanh toán " + amount + "$ cho bạn!";
+        //新增提现消息
+        mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
         return success();
     }
 
@@ -163,17 +180,36 @@ public class MMoneyInvestWithdrawController extends BaseController
         if(userIdList.isEmpty()){
             return error("暂无员工");
         }
+
         LambdaQueryWrapper<MMoneyInvestWithdraw> wrapper = new LambdaQueryWrapper<>();
-        wrapper.in(MMoneyInvestWithdraw::getUserId,userIdList);
-        wrapper.eq(MMoneyInvestWithdraw::getStatus,0);
+        wrapper.in(MMoneyInvestWithdraw::getUserId, userIdList);
+        wrapper.eq(MMoneyInvestWithdraw::getStatus, 0);
         List<MMoneyInvestWithdraw> list = mMoneyInvestWithdrawService.list(wrapper);
+
         if(list.isEmpty()){
             return error("暂无员工提现");
         }
+
+        // 批量更新状态
         list.forEach(item -> {
             item.setStatus(1);
         });
         mMoneyInvestWithdrawService.updateBatchById(list);
+
+        // 新增批量提现通知
+        list.forEach(withdraw -> {
+            // 后台扣减余额
+            String title = "Trừ số dư ở phần mềm quản trị";
+            BigDecimal amount = (withdraw.getAmount() != null)
+                    ? withdraw.getAmount().setScale(2, RoundingMode.DOWN)
+                    : BigDecimal.ZERO.setScale(2);
+            // 内容
+            String content = "Hệ thống đã thanh toán " + amount + "$ cho bạn!";
+            // 新增提现消息
+            String information = "";
+            mNotifyMapper.insertNotify(withdraw.getUserId(), information, title, content, 0);
+        });
+
         return success(list);
     }
 
@@ -210,8 +246,22 @@ public class MMoneyInvestWithdrawController extends BaseController
         mAccountChangeRecords.setTransactionType(4);
         mAccountChangeRecords.setDescription("提现订单["+withdraw.getOrderId()+"] 驳回");
         mAccountChangeRecordsService.insertMAccountChangeRecords(mAccountChangeRecords);
+
+        //新增取款记录保存信息
+        //提款
+        String title = "Rút tiền thất bại";
+        BigDecimal amount = (withdraw.getAmount() != null)
+                ? withdraw.getAmount().setScale(2, RoundingMode.DOWN)
+                : BigDecimal.ZERO.setScale(2);
+        //内容
+        String content = "Hệ thống đã thanh toán" + amount + "$ thất bại";
+        //新增取款记录保存信息
+        int read = 0;
+        //新增提现消息
+        mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
         return success();
     }
+
 
     /**
      * 新增存款取款记录
@@ -228,6 +278,13 @@ public class MMoneyInvestWithdrawController extends BaseController
             withdrawAmount = DecimalUtil.parseNumberBothCommaPoint(amountStr);
         }catch (Exception e){
             throw new ServiceException("取款数额格式错误，无法解析");//user
+        }
+        // 验证金额是否为整数（新增逻辑）
+        if (withdrawAmount.scale() > 0) {
+            // 移除末尾可能的零后仍有小数位，说明不是整数
+            if (withdrawAmount.stripTrailingZeros().scale() > 0) {
+                throw new ServiceException("提款数额必须为整数，不能包含小数");
+            }
         }
         SysConfig minWithdrawConfig = configMapper.checkConfigKeyUnique("minWithdrawAmount");
         if(withdrawAmount.doubleValue() < Double.parseDouble(minWithdrawConfig.getConfigValue())){
@@ -290,10 +347,35 @@ public class MMoneyInvestWithdrawController extends BaseController
 
         checkBank(mUser);
 
+        //新增取款记录保存信息
+        //提款
+        String title = "Rút tiền của khách hàng";
+        BigDecimal amount;
+        if (withdrawVo != null && withdrawVo.getAmount() != null && !withdrawVo.getAmount().trim().isEmpty()) {
+            try {
+                // 1. 将字符串转换为BigDecimal
+                BigDecimal originAmount = new BigDecimal(withdrawVo.getAmount().trim());
+                // 2. 保留两位小数（截断模式）
+                amount = originAmount.setScale(2, RoundingMode.DOWN);
+            } catch (NumberFormatException e) {
+                // 处理字符串格式错误（如非数字、格式非法）
+                // 可根据业务需求设置默认值或抛出异常
+                amount = BigDecimal.ZERO.setScale(2);
+            }
+        } else {
+            // 处理null或空字符串
+            amount = BigDecimal.ZERO.setScale(2);
+        }
+        //内容
+        String content = "Bạn đã đặt lệnh rút" + amount + "$ Yêu cầu của bạn đang được xét duyệt";
+        //新增取款记录保存信息
+        int read = 0;
+        //新增提现消息
+        mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
+
         BigDecimal accountBack = DecimalUtil.subtract(accountForward, withdrawAmount);
         mUser.setAccountBalance(accountBack);
         mUserService.updateMUser(mUser);
-
 
         MMoneyInvestWithdraw mMoneyInvestWithdraw = new MMoneyInvestWithdraw();
         mMoneyInvestWithdraw.setAmount(withdrawAmount);
