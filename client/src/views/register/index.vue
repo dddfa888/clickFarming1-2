@@ -23,11 +23,11 @@
 
     <!-- 表单 -->
     <div class="register-form">
-      <form @submit.prevent="onSubmit">
+      <form @submit.prevent="debounceRegister">
         <!-- 账号 -->
         <div class="form-group">
           <i class="iconfont icon-user input-icon"></i>
-          <input v-model="form.loginAccount" type="text" :placeholder="t('请输入账号')" required />
+          <input v-model="form.loginAccount" type="text" :placeholder="t('请输入账号')" />
         </div>
 
         <!-- 手机号带区号 -->
@@ -64,13 +64,7 @@
             <option value="+971">+971</option>
             <option value="+90">+90</option>
           </select>
-          <input
-            v-model="form.phone"
-            type="tel"
-            :placeholder="t('请输入电话号码')"
-            required
-            class="phone-input"
-          />
+          <input v-model="form.phone" type="tel" :placeholder="t('请输入电话号码')" class="phone-input" />
         </div>
 
         <!-- 动态字段 -->
@@ -80,7 +74,6 @@
             v-model="form[key]"
             :type="passwordVisible[key] ? 'text' : item.type"
             :placeholder="t(item.placeholder)"
-            required
           />
           <!-- 仅 password 字段显示切换图标 -->
           <!-- 明文图标（eye-open） -->
@@ -176,6 +169,18 @@ const fields = {
     icon: "iconfont icon-invite"
   }
 };
+
+function debounce(fn, delay) {
+  let timer = null;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
+
+const debounceRegister = debounce(onSubmit, 1000);
 
 // 表单提交
 function onSubmit() {

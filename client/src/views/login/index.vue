@@ -23,7 +23,7 @@
 
     <!-- 登录表单 -->
     <div class="login-form">
-      <form @submit.prevent="onSubmit">
+      <form @submit.prevent="debounceLogin">
         <!-- 用户名 -->
         <div class="form-group">
           <i class="icon user-icon"></i>
@@ -137,6 +137,18 @@ function toggleLangList() {
   showLangList.value = !showLangList.value;
 }
 
+function debounce(fn, delay) {
+  let timer = null;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
+
+const debounceLogin = debounce(onSubmit, 1000);
+
 function onSubmit(values) {
   login(form).then(res => {
     if (res.code === 200) {
@@ -162,26 +174,6 @@ function onSubmit(values) {
     }
   });
 }
-
-// function onSubmit(values) {
-//   login(form).then(res => {
-//     if (res.code === 200) {
-//       globalThis.$notify({
-//         message: t("操作成功"),
-//         type: "success",
-//         duration: 2000
-//       });
-//       localStorage.setItem("token", res.data.token);
-//       router.push("/");
-//     } else {
-//       globalThis.$notify({
-//         message: t(res.msg),
-//         type: "error",
-//         duration: 2000
-//       });
-//     }
-//   });
-// }
 </script>
 
 <style scoped>
