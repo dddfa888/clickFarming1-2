@@ -12,6 +12,9 @@ public class BalanceModel {
     @NotNull(message = "用户ID不能为空")
     private Long uid;
 
+    @NotNull(message = "类型: 1:充值  2:返现")
+    private Long type1;
+
     //@NotNull(message = "请选择是增加还是减少")
     //private boolean increaseDecrease;
 
@@ -19,6 +22,6 @@ public class BalanceModel {
     @NotNull(message = "余额数值不能为空")
     private BigDecimal balance;
 
-    @NotNull(message = "更改余额理由不能为空")
-    private String reason;
+/*    @NotNull(message = "更改余额理由不能为空")
+    private String reason;*/
 }
