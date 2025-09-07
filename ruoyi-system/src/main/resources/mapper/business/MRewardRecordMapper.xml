@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 查询一个用户的奖励记录，用于前端，无多余字段 -->
     <select id="selectSimpleByUserId" parameterType="Long" resultType="java.util.Map">
         select id, ROUND(reward_amount,2) as "amount", ROUND(balance_after,2) as "accountBack", description from m_reward_record
-        where user_id = #{userId} and description = '订单奖励'
+        where user_id = #{userId}
         order by create_time desc
     </select>
 
