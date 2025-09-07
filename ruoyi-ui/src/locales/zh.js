@@ -49,6 +49,8 @@ export default {
 
   // 用户列表
   userPage: {
+     topUp:"充值",
+    return:"返还",
     account: '账号',
     withdrawCustomerBtn: '从客户那里提取资金',
     withdrawEmployeeBtn: '员工充值',

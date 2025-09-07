@@ -49,6 +49,8 @@ export default {
 
   // �û��б�
   userPage: {
+      topUp:"Top Up",
+    return:"Return",
     account: 'User Name',
     withdrawCustomerBtn: 'Withdraw Customer',
     withdrawEmployeeBtn: 'Withdraw Employee',

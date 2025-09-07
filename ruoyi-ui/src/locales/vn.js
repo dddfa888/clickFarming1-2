@@ -49,6 +49,8 @@ export default {
 
   // 用户列表
   userPage: {
+      topUp:"Nạp tiền",
+    return:"Quay lại",
     account: 'tài khoản',
     withdrawCustomerBtn: 'Rút tiền khách',
     withdrawEmployeeBtn: 'Rút tiền nhân viên',

@@ -7,7 +7,6 @@
           placeholder="请输入账号"
           clearable
           @keyup.enter.native="handleQuery"
-          @input="handleQuery"
         />
       </el-form-item>
       <el-form-item>
@@ -73,17 +72,8 @@
     </el-row>
 
     <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="88" align="center" />
-      <el-table-column :label="$t('userPage.column.invitationCode')" align="center" prop="invitationCode" >
-       <template slot-scope="scope">
-    <div>
-      <p>{{ scope.row.invitationCode }}</p>
-      <p>
-       {{ scope.row.levelName }}
-      </p>
-    </div>
-  </template>
-  </el-table-column>
+      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column :label="$t('userPage.column.invitationCode')" align="center" prop="invitationCode" />
       <el-table-column
   :label="$t('userPage.column.loginAccount')"
   align="center"
@@ -247,27 +237,26 @@
   align="center"
   :min-width="200"
 >
-      <template slot-scope="scope">
-        <div v-if="scope.row.inviterName">
-          <div>{{ scope.row.inviterCode }}</div>
-          <div>{{ scope.row.inviterName }}</div>
-        </div>
-        <div v-else>/</div>
-      </template>
+  <template slot-scope="scope">
+    <div v-if="scope.row.inviterName" style="white-space: nowrap;">
+      <span>{{ scope.row.inviterCode }}</span>
+      <span style="margin-left: 4px;">{{ scope.row.inviterName }}</span>
+    </div>
+    <div v-else>/</div>
+  </template>
 </el-table-column>
 
-
-      <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.phoneNumber')" align="center" :min-width="200" prop="phoneNumber" />
-      <el-table-column :label="$t('userPage.column.accountBalance')" align="center" prop="accountBalance" />
-       <el-table-column :label="$t('userPage.column.regsterTime')" align="center" prop="createTime" width="160" />
-      <el-table-column :label="$t('userPage.column.lastLoginIp')" align="center" :min-width="100" >
+      <el-table-column :label="$t('userPage.column.regsterTime')" align="center" prop="createTime" width="160" />
+      <el-table-column :label="$t('userPage.column.lastLoginIp')" align="center" :min-width="200" >
         <template slot-scope="scope">
-          <div v-if="scope.row.lastLoginIp" >
+          <div v-if="scope.row.lastLoginIp" style="white-space: nowrap;">
             <div>{{ scope.row.lastLoginIp }}  {{ scope.row.lastLoginIpAddress }}</div>
           </div>
           <div v-else>没有数据</div>
         </template>
       </el-table-column>
+      <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.phoneNumber')" align="center" :min-width="200" prop="phoneNumber" />
+      <el-table-column :label="$t('userPage.column.accountBalance')" align="center" prop="accountBalance" />
       <el-table-column :label="$t('userPage.column.userStatus')" align="center" prop="status" width="80">
         <template slot-scope="scope">
           <el-tag
@@ -278,7 +267,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <!--<el-table-column style="white-space: nowrap;" :label="$t('userPage.column.userLevel')" align="center" :min-width="200" prop="levelName"  />-->
+      <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.userLevel')" align="center" :min-width="200" prop="levelName"  />
 
 
 
@@ -321,7 +310,7 @@
     <el-dialog
         :title="$t('userPage.balForm.title')"
         :visible.sync="dialogBalance"
-        width="30%"
+        width="70%"
         :before-close="handleCloseBalance"
     >
     <el-form ref="balanceForm" :model="balanceForm" :rules="balanceRules" label-width="120px">
@@ -334,18 +323,18 @@
       <el-form-item :label="$t('userPage.balForm.origin')">
         <el-input readonly v-model="balanceForm.originalBalance"></el-input>
       </el-form-item>
-      <el-form-item  :label="$t('userPage.balForm.newNum')" prop="balance">
-        <el-input @keyup.enter.native="submitBalanceForm" v-model="balanceForm.balance" ref="balanceInput" ></el-input>
+      <el-form-item :label="$t('userPage.balForm.newNum')" prop="balance">
+        <el-input v-model="balanceForm.balance" ref="balanceInput" ></el-input>
       </el-form-item>
        <el-form-item :label="$t('userPage.balForm.selectReason')">
       <el-select v-model="selectedReason" placeholder="" @change="changeReason">
-        <el-option :label="$t('userPage.balForm.noReason')" :value="$t('userPage.balForm.noReason')"></el-option>
-        <el-option :label="$t('userPage.balForm.adjust')" :value="$t('userPage.balForm.adjust')"></el-option>
+        <el-option :label="$t('userPage.topUp')" :value="1"></el-option>
+        <el-option :label="$t('userPage.return')" :value="2"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item :label="$t('userPage.balForm.or')" prop="reason">
+    <!--<el-form-item :label="$t('userPage.balForm.or')">
       <el-input v-model="balanceForm.reason"></el-input>
-    </el-form-item>
+    </el-form-item>-->
       <el-form-item style="display: flex;align-items: center;justify-content: center;">
         <el-button @click="handleCloseBalance">{{ $t('userPage.balForm.cancel') }}</el-button>
          <el-button type="primary" @click="submitBalanceForm">{{ $t('userPage.balForm.save') }}</el-button>
@@ -399,11 +388,11 @@
       <el-form ref="orderSetForm" :model="orderSetForm" >
         <el-form-item v-for="(item, index) in orderSetList" :key="index">
           配置 命令
-          <input class="orderListInput" placeholder="0" type="number" step="1" v-model="item.num" :min="0" :max="1000000" :precision="0"/>
+          <el-input-number class="orderListInput" placeholder="0" type="number" step="1" v-model="item.num" :min="0" :max="1000000" :precision="0"></el-input-number>
           命令 (0 表示禁用)
-           <input class="orderListInput" placeholder="0" type="number" step="1" v-model="item.min" :min="0" :controls="false"/>
+          <el-input-number class="orderListInput" placeholder="0" type="number" step="1" v-model="item.min" :min="0" :controls="false"></el-input-number>
           <span>-</span>
-           <input class="orderListInput" placeholder="0" type="number" step="1" v-model="item.max" :min="0" :controls="false"/>
+          <el-input-number class="orderListInput" placeholder="0" type="number" step="1" v-model="item.max" :min="0" :controls="false"></el-input-number>
         </el-form-item>
         </el-form>
       <div slot="footer" class="dialog-footer" style="display: flex;justify-content: space-evenly;align-items: center;">
@@ -562,7 +551,7 @@
 
 
 
-        <el-form-item label="登录密码" >
+        <el-form-item label="登录密码" prop="loginPassword">
           <el-input
               v-model="form.loginPassword"
               :type="JudgingStatus ? 'text' : 'password'"
@@ -570,7 +559,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="资金密码" >
+        <el-form-item label="资金密码" prop="fundPassword">
           <el-input
               v-model="form.fundPassword"
               :type="JudgingStatus ? 'text' : 'password'"
@@ -808,7 +797,7 @@ export default {
   },
   mounted()
   {
- this.selectedReason = this.$t('userPage.balForm.noReason');
+ this.selectedReason = this.$t('userPage.topUp');
   },
   watch: {
   dialogBalance(val) {
@@ -1009,7 +998,8 @@ export default {
           let form = {
             uid : that.balanceForm.uid,
             balance : that.balanceForm.balance,
-            reason : that.balanceForm.reason
+            // reason : that.balanceForm.reason,
+            type1 : that.selectedReason===this.$t('userPage.topUp')?'1':'2',
           };
           changeBalance(form).then(res => {
             if(res.code != 200){
@@ -1037,13 +1027,14 @@ export default {
       this.balanceForm.phoneNumber=row.phoneNumber
       this.balanceForm.originalBalance=row.accountBalance
       this.balanceForm.balance=''
-      this.balanceForm.reason=this.$t('userPage.balForm.noReason')
+      this.balanceForm.reason=''
       //this.balanceForm.bankAccountNumber=row.bankAccountNumber
-      this.selectedReason = this.$t('userPage.balForm.noReason')
+      this.selectedReason = this.$t('userPage.topUp')
       this.dialogBalance = true
     },
     changeReason(value){
-      this.balanceForm.reason = this.balanceForm.reason+value;
+      this.selectedReason = value
+      console.log(value,"njhb")
     },
     /** 下拉列表操作 */
     handleCommand(command) {
@@ -1203,36 +1194,7 @@ export default {
       this.reset()
       const uid = row.uid || this.ids
       getUser(uid).then(response => {
-        console.log(response.data)
-         this.form = {
-        uid: response.data.uid,
-        level: response.data.level,
-        loginAccount: response.data.loginAccount,
-        loginPassword: null,
-        fundPassword:null ,
-        withdrawalAddress: response.data.withdrawalAddress,
-        registerType: response.data.registerType,
-        phoneNumber: response.data.phoneNumber,
-        phoneNumberType: response.data.phoneNumberType,
-        accountBalance: response.data.accountBalance,
-        invitationCode: response.data.invitationCode,
-        inviter: response.data.inviter,
-        inviterCode: response.data.inviterCode,
-        inviterName: response.data.inviterName,
-        status: response.data.status,
-        bankName: response.data.bankName,
-        bankAccountName: response.data.bankAccountName,
-        bankAccountNumber: response.data.bankAccountNumber,
-        higherUid: response.data.higherUid,
-        lastLoginIp: response.data.lastLoginIp,
-        lastLoginIpAddress: response.data.lastLoginIpAddress,
-        deleteStatus: response.data.deleteStatus,
-        createBy: response.data.createBy,
-        createTime: response.data.createTime,
-        updateBy: response.data.updateBy,
-        updateTime: response.data.updateTime,
-        brushNumber: response.data.brushNumber
-      }
+        this.form = response.data
         this.open = true
         this.JudgingStatus = false
 
