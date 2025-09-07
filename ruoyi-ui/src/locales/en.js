@@ -51,6 +51,8 @@ export default {
   userPage: {
       topUp:"Top Up",
     return:"Return",
+    Returnupgradefunds:"Return upgrade funds",
+    upgradeRewards:"Upgrade rewards",
     account: 'User Name',
     withdrawCustomerBtn: 'Withdraw Customer',
     withdrawEmployeeBtn: 'Withdraw Employee',

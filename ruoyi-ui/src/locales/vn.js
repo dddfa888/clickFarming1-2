@@ -51,6 +51,8 @@ export default {
   userPage: {
       topUp:"Nạp tiền",
     return:"Quay lại",
+     Returnupgradefunds:"Quay lại",
+    upgradeRewards:"Cấp bậc",
     account: 'tài khoản',
     withdrawCustomerBtn: 'Rút tiền khách',
     withdrawEmployeeBtn: 'Rút tiền nhân viên',
