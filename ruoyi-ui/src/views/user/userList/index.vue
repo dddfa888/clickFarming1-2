@@ -328,8 +328,9 @@
       </el-form-item>
        <el-form-item :label="$t('userPage.balForm.selectReason')">
       <el-select v-model="selectedReason" placeholder="" @change="changeReason">
-        <el-option :label="$t('userPage.topUp')" :value="1"></el-option>
-        <el-option :label="$t('userPage.return')" :value="2"></el-option>
+        <el-option :label="$t('userPage.topUp')" :value="$t('userPage.topUp')"></el-option>
+        <el-option :label="$t('userPage.Returnupgradefunds')" :value="$t('userPage.Returnupgradefunds')"></el-option>
+         <el-option :label="$t('userPage.upgradeRewards')" :value="$t('userPage.upgradeRewards')"></el-option>
       </el-select>
     </el-form-item>
     <!--<el-form-item :label="$t('userPage.balForm.or')">
@@ -812,6 +813,15 @@ export default {
   }
 }
 ,
+computed: {
+  reasonMap() {
+    return {
+      [this.$t('userPage.topUp')]: 1,
+      [this.$t('userPage.Returnupgradefunds')]: 2
+    }
+  }
+}
+,
   methods: {
     //打开《订单设置》
     handleOpenOrederSet(row){
@@ -991,28 +1001,31 @@ export default {
       })
     },
 
-    submitBalanceForm(){
-      let that = this;
-      this.$refs.balanceForm.validate(valid => {
-        if (valid) {
-          let form = {
-            uid : that.balanceForm.uid,
-            balance : that.balanceForm.balance,
-            // reason : that.balanceForm.reason,
-            type1 : that.selectedReason===this.$t('userPage.topUp')?'1':'2',
-          };
-          changeBalance(form).then(res => {
-            if(res.code != 200){
-              this.$message.error("修改失败")
-              return
-            }
-            this.handleCloseBalance()
-            this.getList()
-            this.$message.success("修改成功")
-          })
+getType1(reason) {
+    if (reason == this.$t('userPage.topUp')) return 1
+    if (reason == this.$t('userPage.Returnupgradefunds')) return 2
+    if (reason == this.$t('userPage.upgradeRewards')) return 3
+  },
+  submitBalanceForm() {
+    this.$refs.balanceForm.validate(valid => {
+      if (valid) {
+        let form = {
+          uid: this.balanceForm.uid,
+          balance: this.balanceForm.balance,
+          type1: this.selectedReason===this.$t('userPage.topUp')?1:this.selectedReason===this.$t('userPage.Returnupgradefunds')?2:3,
         }
-      })
-    },
+        changeBalance(form).then(res => {
+          if (res.code != 200) {
+            this.$message.error("修改失败")
+            return
+          }
+          this.handleCloseBalance()
+          this.getList()
+          this.$message.success("修改成功")
+        })
+      }
+    })
+  },
     handleCloseBalance(){
       this.dialogBalance = false
       let m = this.balanceForm;

@@ -255,4 +255,6 @@ export default {
     "给你":"give you",
     "一个账号只能升级一次等级，无法重复升级":"A single account can only upgrade once, and cannot be upgraded repeatedly",
     "订单奖励":"Order reward",
+    "返现升级资金":"Cashback upgrade fund",
+    "升级奖励":"Upgrade reward"
 };

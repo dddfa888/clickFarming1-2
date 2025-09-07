@@ -51,6 +51,8 @@ export default {
   userPage: {
      topUp:"充值",
     return:"返还",
+     Returnupgradefunds:"返还升级资金",
+    upgradeRewards:"升级奖励",
     account: '账号',
     withdrawCustomerBtn: '从客户那里提取资金',
     withdrawEmployeeBtn: '员工充值',
