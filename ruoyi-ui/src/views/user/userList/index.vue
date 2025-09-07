@@ -336,14 +336,13 @@
       </el-form-item>
        <el-form-item :label="$t('userPage.balForm.selectReason')">
       <el-select v-model="selectedReason" placeholder="" @change="changeReason">
-        <el-option :label="$t('userPage.topUp')" :value="$t('userPage.topUp')"></el-option>
-        <el-option :label="$t('userPage.Returnupgradefunds')" :value="$t('userPage.Returnupgradefunds')"></el-option>
-         <el-option :label="$t('userPage.upgradeRewards')" :value="$t('userPage.upgradeRewards')"></el-option>
+        <el-option :label="$t('userPage.balForm.noReason')" :value="$t('userPage.balForm.noReason')"></el-option>
+        <el-option :label="$t('userPage.balForm.adjust')" :value="$t('userPage.balForm.adjust')"></el-option>
       </el-select>
     </el-form-item>
-    <!--<el-form-item :label="$t('userPage.balForm.or')">
+    <el-form-item :label="$t('userPage.balForm.or')">
       <el-input v-model="balanceForm.reason"></el-input>
-    </el-form-item>-->
+    </el-form-item>
       <el-form-item style="display: flex;align-items: center;justify-content: center;">
         <el-button @click="handleCloseBalance">{{ $t('userPage.balForm.cancel') }}</el-button>
          <el-button type="primary" @click="submitBalanceForm">{{ $t('userPage.balForm.save') }}</el-button>
@@ -800,7 +799,7 @@ export default {
   },
   mounted()
   {
- this.selectedReason = this.$t('userPage.topUp');
+ this.selectedReason = this.$t('userPage.balForm.noReason');
   },
   watch: {
   dialogBalance(val) {
@@ -1014,7 +1013,7 @@ getType1(reason) {
         let form = {
           uid: this.balanceForm.uid,
           balance: this.balanceForm.balance,
-          type1: this.selectedReason===this.$t('userPage.topUp')?1:this.selectedReason===this.$t('userPage.Returnupgradefunds')?2:3,
+         reason: this.balanceForm.reason,
         }
         changeBalance(form).then(res => {
           if (res.code != 200) {
@@ -1044,11 +1043,11 @@ getType1(reason) {
       this.balanceForm.balance=''
       this.balanceForm.reason=''
       //this.balanceForm.bankAccountNumber=row.bankAccountNumber
-      this.selectedReason = this.$t('userPage.topUp')
+      this.selectedReason = this.$t('userPage.balForm.noReason')
       this.dialogBalance = true
     },
     changeReason(value){
-      this.selectedReason = value
+      this.balanceForm.reason=this.selectedReason
       console.log(value,"njhb")
     },
     /** 下拉列表操作 */
