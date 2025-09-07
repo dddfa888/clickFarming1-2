@@ -318,6 +318,7 @@ const handleConfirm = debounce(() => {
         type: "warning",
         duration: 2000
       });
+      getRecord();
     }
   });
 }, 1000);
