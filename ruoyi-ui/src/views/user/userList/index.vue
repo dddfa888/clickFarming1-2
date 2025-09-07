@@ -7,6 +7,7 @@
           placeholder="请输入账号"
           clearable
           @keyup.enter.native="handleQuery"
+          @input="handleQuery"
         />
       </el-form-item>
       <el-form-item>
@@ -73,7 +74,14 @@
 
     <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column :label="$t('userPage.column.invitationCode')" align="center" prop="invitationCode" />
+      <el-table-column :label="$t('userPage.column.invitationCode')" align="center" >
+        <template slot-scope="scope">
+          <div style="white-space: nowrap;">
+           <p> {{ scope.row.invitationCode }}</p>
+            <p>{{ scope.row.levelName }}</p>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column
   :label="$t('userPage.column.loginAccount')"
   align="center"
@@ -238,14 +246,15 @@
   :min-width="200"
 >
   <template slot-scope="scope">
-    <div v-if="scope.row.inviterName" style="white-space: nowrap;">
+    <div v-if="scope.row.inviterName" style="display: flex; align-items: center; flex-direction: column;">
       <span>{{ scope.row.inviterCode }}</span>
       <span style="margin-left: 4px;">{{ scope.row.inviterName }}</span>
     </div>
     <div v-else>/</div>
   </template>
 </el-table-column>
-
+ <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.phoneNumber')" align="center" :min-width="200" prop="phoneNumber" />
+      <el-table-column :label="$t('userPage.column.accountBalance')" align="center" prop="accountBalance" />
       <el-table-column :label="$t('userPage.column.regsterTime')" align="center" prop="createTime" width="160" />
       <el-table-column :label="$t('userPage.column.lastLoginIp')" align="center" :min-width="200" >
         <template slot-scope="scope">
@@ -255,8 +264,7 @@
           <div v-else>没有数据</div>
         </template>
       </el-table-column>
-      <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.phoneNumber')" align="center" :min-width="200" prop="phoneNumber" />
-      <el-table-column :label="$t('userPage.column.accountBalance')" align="center" prop="accountBalance" />
+
       <el-table-column :label="$t('userPage.column.userStatus')" align="center" prop="status" width="80">
         <template slot-scope="scope">
           <el-tag
@@ -267,7 +275,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.userLevel')" align="center" :min-width="200" prop="levelName"  />
+    <!--  <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.userLevel')" align="center" :min-width="200" prop="levelName"  />-->
 
 
 
@@ -389,7 +397,7 @@
       <el-form ref="orderSetForm" :model="orderSetForm" >
         <el-form-item v-for="(item, index) in orderSetList" :key="index">
           配置 命令
-          <el-input-number class="orderListInput" placeholder="0" type="number" step="1" v-model="item.num" :min="0" :max="1000000" :precision="0"></el-input-number>
+          <input class="orderListInput" placeholder="0" type="number" step="1" v-model="item.num" :min="0" :max="1000000" :precision="0" />
           命令 (0 表示禁用)
           <el-input-number class="orderListInput" placeholder="0" type="number" step="1" v-model="item.min" :min="0" :controls="false"></el-input-number>
           <span>-</span>
@@ -552,7 +560,7 @@
 
 
 
-        <el-form-item label="登录密码" prop="loginPassword">
+        <el-form-item label="登录密码" >
           <el-input
               v-model="form.loginPassword"
               :type="JudgingStatus ? 'text' : 'password'"
@@ -560,7 +568,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="资金密码" prop="fundPassword">
+        <el-form-item label="资金密码" >
           <el-input
               v-model="form.fundPassword"
               :type="JudgingStatus ? 'text' : 'password'"
@@ -761,12 +769,6 @@ export default {
         ],
         loginAccount: [
           { required: true, message: "账号不能为空", trigger: "blur" }
-        ],
-        loginPassword: [
-          { required: true, message: "登录密码不能为空", trigger: "blur" }
-        ],
-        fundPassword: [
-          { required: true, message: "资金密码不能为空", trigger: "blur" }
         ],
         status: [
           { required: true, message: "状态 1:启用 0:禁用不能为空", trigger: "change" }
@@ -1207,10 +1209,37 @@ getType1(reason) {
       this.reset()
       const uid = row.uid || this.ids
       getUser(uid).then(response => {
-        this.form = response.data
+       this.form = {
+        uid: response.data.uid,
+        level: response.data.level,
+        loginAccount: response.data.loginAccount,
+        loginPassword: null,
+        fundPassword:null ,
+        withdrawalAddress: response.data.withdrawalAddress,
+        registerType: response.data.registerType,
+        phoneNumber: response.data.phoneNumber,
+        phoneNumberType: response.data.phoneNumberType,
+        accountBalance: response.data.accountBalance,
+        invitationCode: response.data.invitationCode,
+        inviter: response.data.inviter,
+        inviterCode: response.data.inviterCode,
+        inviterName: response.data.inviterName,
+        status: response.data.status,
+        bankName: response.data.bankName,
+        bankAccountName: response.data.bankAccountName,
+        bankAccountNumber: response.data.bankAccountNumber,
+        higherUid: response.data.higherUid,
+        lastLoginIp: response.data.lastLoginIp,
+        lastLoginIpAddress: response.data.lastLoginIpAddress,
+        deleteStatus: response.data.deleteStatus,
+        createBy: response.data.createBy,
+        createTime: response.data.createTime,
+        updateBy: response.data.updateBy,
+        updateTime: response.data.updateTime,
+        brushNumber: response.data.brushNumber
+      }
         this.open = true
         this.JudgingStatus = false
-
         this.title = "修改用户"
       })
     },
