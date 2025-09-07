@@ -174,7 +174,7 @@ public class MUserController extends BaseController {
                 //后台新增余额
                 String title = "Trả lại chi phí nâng cấp";
                 //内容消息
-                String content = "Tiền vốn nâng cấp hoàn tiền"+ formattedAmount + "$";
+                String content = "HOÀN TRẢ PHÍ CỌC"+ formattedAmount + "$";
                 //新增提现消息
                 mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
             }
