@@ -95,7 +95,7 @@ public class MUserController extends BaseController {
         HashMap<String, Object> map = mUserService.updateBalance(mUser, balanceModel);
 
         // 日志记录
-        Integer type1 = balanceModel.getType1().intValue(); // 获取type1值
+        Integer type1 = balanceModel.getType1(); // 获取type1值
         BigDecimal accountBack = (BigDecimal) map.get("accountBalance");
         Integer type = (Integer) map.get("type");
         MAccountChangeRecords changeRecords = new MAccountChangeRecords();
@@ -161,6 +161,34 @@ public class MUserController extends BaseController {
                 mRewardRecord.setRewardAmount(balanceModel.getBalance());
                 mRewardRecord.setBalanceBefore(accountForward);
                 mRewardRecord.setBalanceAfter(accountBack);
+                mRewardRecord.setDescription("返现升级资金");
+                //mRewardRecord.setDescription(balanceModel.getReason());
+                mRewardRecord.setCreateTime(mRewardRecord.getRewardTime());
+                mRewardRecordService.insertMRewardRecord(mRewardRecord);
+
+                //新增取款记录保存信息
+                int read = 0;
+                //金额格式转换
+                BigDecimal formattedAmount = balanceModel.getBalance().abs()
+                        .setScale(2, RoundingMode.DOWN);
+                //后台新增余额
+                String title = "Trả lại chi phí nâng cấp";
+                //内容消息
+                String content = "Tiền vốn nâng cấp hoàn tiền"+ formattedAmount + "$";
+                //新增提现消息
+                mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
+            }
+        }else if (type1 == 3) {
+            // 原有增加余额逻辑
+            if(balanceModel.getBalance().signum()>0){
+                MRewardRecord mRewardRecord= new MRewardRecord();
+                mRewardRecord.setUserId(mUser.getUid());
+                mRewardRecord.setUserName(mUser.getLoginAccount());
+                mRewardRecord.setRewardTime(DateUtils.getNowDate());
+                mRewardRecord.setRewardAmount(balanceModel.getBalance());
+                mRewardRecord.setBalanceBefore(accountForward);
+                mRewardRecord.setBalanceAfter(accountBack);
+                mRewardRecord.setDescription("升级奖励");
                 //mRewardRecord.setDescription(balanceModel.getReason());
                 mRewardRecord.setCreateTime(mRewardRecord.getRewardTime());
                 mRewardRecordService.insertMRewardRecord(mRewardRecord);

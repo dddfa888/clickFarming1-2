@@ -13,7 +13,7 @@ public class BalanceModel {
     private Long uid;
 
     @NotNull(message = "类型: 1:充值  2:返现")
-    private Long type1;
+    private int type1;
 
     //@NotNull(message = "请选择是增加还是减少")
     //private boolean increaseDecrease;
