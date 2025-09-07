@@ -255,5 +255,6 @@ export default {
       "您已充值":"Bạn đã nạp",
     "您已提交提款申请":"Bạn đã đặt lệnh rút",
     "给你":"cho bạn!",
-    "一个账号只能升级一次等级，无法重复升级":"Một tài khoản chỉ có thể nâng cấp một lần, không thể nâng cấp lại"
+    "一个账号只能升级一次等级，无法重复升级":"Một tài khoản chỉ có thể nâng cấp một lần, không thể nâng cấp lại",
+    "订单奖励":"Phần thưởng đơn hàng"
 };
