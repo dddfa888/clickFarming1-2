@@ -22,6 +22,6 @@ public class BalanceModel {
     @NotNull(message = "余额数值不能为空")
     private BigDecimal balance;
 
-/*    @NotNull(message = "更改余额理由不能为空")
-    private String reason;*/
+
+    private String reason;
 }
