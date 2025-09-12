@@ -28,7 +28,7 @@
       <input v-model="fundPassword" type="text" class="input" :disabled="showinput" />
     </div>
 
-    <button class="submit-btn" @click="submit" v-if="showBank">{{ t("确认") }}</button>
+    <button class="submit-btn" @click="submit" v-if="isFormValid">{{ t("确认") }}</button>
 
     <!--银行选择弹窗 -->
     <van-popup v-model="showBankPicker" position="bottom">
@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import HeaderBar from "../../components/HeaderBar.vue";
 import BankSelect from "../../components/BankSelect.vue"; // 组件路径按实际改
 import { getUserInfo, updateUserInfo } from "../../api/index";
@@ -63,6 +63,16 @@ const bankName = ref("");
 const fundPassword = ref("");
 const showinput = ref(false);
 const showBank = ref(true);
+const showBankPicker = ref(false);
+
+const isFormValid = computed(() => {
+  return (
+    accountName.value.trim() &&
+    accountNumber.value.trim() &&
+    bankName.value.trim() &&
+    fundPassword.value.trim()
+  );
+});
 
 const bankOptions = [
   "UOB",
@@ -324,6 +334,12 @@ label {
   background-color: white; /* 💡 或改成页面背景色 */
 }
 
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-image: linear-gradient(to bottom, #555, #444); /* 灰掉效果 */
+}
+
 @media screen and (min-width: 768px) {
   .company-intro {
     background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
@@ -385,6 +401,12 @@ label {
     font-size: 12px;
     color: #42b983;
     background-color: white; /* 💡 或改成页面背景色 */
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-image: linear-gradient(to bottom, #555, #444); /* 灰掉效果 */
   }
 }
 </style>
