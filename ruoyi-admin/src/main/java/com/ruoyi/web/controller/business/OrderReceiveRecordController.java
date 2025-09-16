@@ -130,6 +130,16 @@ public class OrderReceiveRecordController extends BaseController
     @FrontAccess
     public AjaxResult insertOrderByUser()
     {
+        //账号被锁定就提示
+        if (getLoginUser() != null && getLoginUser().getmUser() != null) {
+            System.out.println("DEBUG: 用户状态检查 - status=" + getLoginUser().getmUser().getStatus());
+            if (getLoginUser().getmUser().getStatus() == 0) {
+                System.out.println("DEBUG: 账户被锁定，返回警告");
+                return AjaxResult.error("你的帐户已经被锁住");
+            }
+        } else {
+            System.out.println("DEBUG: 无法获取用户状态信息");
+        }
         OrderReceiveRecord orderReceiveRecord = new OrderReceiveRecord();
         Map<String, Object> map = orderReceiveRecordService.insertOrderByUser(orderReceiveRecord);
         if(map.get("name")!=null){

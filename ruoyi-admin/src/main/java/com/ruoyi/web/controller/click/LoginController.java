@@ -44,9 +44,9 @@ public class LoginController {
         // 1. 将前端传入的账号转为小写（统一格式）
         MUser user = mUserService.getUserOne(model.getLoginAccount(), model.getLoginPassword());
 
-        if (user.getStatus()==0) {
-            return AjaxResult.warn("用户被禁用");
-        }
+//        if (user.getStatus()==0) {
+//            return AjaxResult.warn("用户被禁用");
+//        }
         LoginUser loginUser = new LoginUser();
         loginUser.setmUser(user);
         loginUser.setUserId(Long.valueOf(user.getUid()));

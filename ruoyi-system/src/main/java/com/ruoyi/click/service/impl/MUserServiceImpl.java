@@ -208,7 +208,7 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
         if(StringUtils.isEmpty(bank)){
             throw new ServiceException("银行卡号不能为空");//user
         }
-        if(StringUtils.isEmpty(mUser.getBankAccountName())){
+        if(StringUtils.isEmpty(mUser.getBankName())){
             throw new ServiceException("银行名不能为空");//user
         }
         if(StringUtils.isEmpty(mUser.getFundPassword())){
