@@ -114,16 +114,22 @@ public class MUserController extends BaseController {
         //金额格式转换
         BigDecimal formattedAmount = balanceModel.getBalance().abs()
                 .setScale(2, RoundingMode.DOWN);
-        //后台新增余额
         String title = "Thêm số dư ở phần mềm quản trị";
-        //内容消息
-        String content = "Bạn đã nạp"+ formattedAmount + "$ thành công!";
+        String content ="";
+        if (balanceModel.getBalance().compareTo(BigDecimal.ZERO)>0){
+            //内容消息
+            content = "Bạn đã nạp "+ formattedAmount + "$ thành công!";
+
+        }
         if (StringUtils.isNotEmpty(balanceModel.getReason())){
             content =  balanceModel.getReason();
         }
-        //新增提现消息
-        mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
-       
+        if (StringUtils.isNotEmpty(content)){
+            //新增提现消息
+            mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
+        }
+
+
 
         // 处理 type1 = 2 的情况：奖励，插入 m_account_change_records 表
         // 升级等级

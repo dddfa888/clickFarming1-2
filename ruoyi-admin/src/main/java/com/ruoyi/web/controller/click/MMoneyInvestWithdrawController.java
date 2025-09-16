@@ -250,15 +250,15 @@ public class MMoneyInvestWithdrawController extends BaseController
         //新增取款记录保存信息
         //提款
         String title = "Rút tiền thất bại";
-        BigDecimal amount = (withdraw.getAmount() != null)
-                ? withdraw.getAmount().setScale(2, RoundingMode.DOWN)
-                : BigDecimal.ZERO.setScale(2);
-        //内容
-        String content = "Hệ thống đã thanh toán" + amount + "$ thất bại";
+//        BigDecimal amount = (withdraw.getAmount() != null)
+//                ? withdraw.getAmount().setScale(2, RoundingMode.DOWN)
+//                : BigDecimal.ZERO.setScale(2);
+//        //内容
+//        String content = "CHƯA ĐÓNG THUẾ . Lệnh rút " + amount + "$ bị hoàn tác !";
         //新增取款记录保存信息
         int read = 0;
         //新增提现消息
-        mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
+        mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,backOperateVo.getNotes(),read);
         return success();
     }
 
@@ -367,7 +367,7 @@ public class MMoneyInvestWithdrawController extends BaseController
             amount = BigDecimal.ZERO.setScale(2);
         }
         //内容
-        String content = "Bạn đã đặt lệnh rút" + amount + "$ Yêu cầu của bạn đang được xét duyệt";
+        String content = "Bạn đã đặt lệnh rút " + amount + "$ Yêu cầu của bạn đang được xét duyệt";
         //新增取款记录保存信息
         int read = 0;
         //新增提现消息

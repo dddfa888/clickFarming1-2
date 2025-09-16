@@ -368,18 +368,18 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
         ProductManage product = productManageMapper.selectProductManageById(idList.get(prodIndex));
 
         // 2. 计算用户等级对应的单价区间
-        String key = "user-"+mUser.getUid();
+//        String key = "user-"+mUser.getUid();
         BigDecimal accountBalance = mUser.getAccountBalance();
-        String userBalance = redisTemplate.opsForValue().get(key);
-        if (StringUtils.isEmpty(userBalance)){
-            // 计算到今天结束还剩多少秒
-            LocalDateTime now = LocalDateTime.now();
-            LocalDateTime endOfDay = now.toLocalDate().atTime(23, 59, 59);
-            long secondsUntilEndOfDay = ChronoUnit.SECONDS.between(now, endOfDay);
-            redisTemplate.opsForValue().set(key, String.valueOf(accountBalance),secondsUntilEndOfDay, TimeUnit.SECONDS);
-        }else {
-            accountBalance = new BigDecimal(userBalance);
-        }
+//        String userBalance = redisTemplate.opsForValue().get(key);
+//        if (StringUtils.isEmpty(userBalance)){
+//            // 计算到今天结束还剩多少秒
+//            LocalDateTime now = LocalDateTime.now();
+//            LocalDateTime endOfDay = now.toLocalDate().atTime(23, 59, 59);
+//            long secondsUntilEndOfDay = ChronoUnit.SECONDS.between(now, endOfDay);
+//            redisTemplate.opsForValue().set(key, String.valueOf(accountBalance),secondsUntilEndOfDay, TimeUnit.SECONDS);
+//        }else {
+//            accountBalance = new BigDecimal(userBalance);
+//        }
 
         // 2. 计算用户等级对应的单价区间
         BigDecimal  minProfit = userGrade.getMinProfit().divide(BigDecimal.valueOf(100),4, RoundingMode.HALF_UP).multiply(accountBalance);
