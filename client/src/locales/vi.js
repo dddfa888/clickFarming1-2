@@ -258,5 +258,6 @@ export default {
     "一个账号只能升级一次等级，无法重复升级":"Một tài khoản chỉ có thể nâng cấp một lần, không thể nâng cấp lại",
     "订单奖励":"Phần thưởng đơn hàng",
     "返现升级资金":"Tiền thưởng nâng cấp",
-    "升级奖励":"Phần thưởng nâng cấp"
+    "升级奖励":"Phần thưởng nâng cấp",
+    "你的帐户已经被锁住": "Tài khoản của bạn đã bị khóa",
 };

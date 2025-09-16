@@ -256,5 +256,6 @@ export default {
     "一个账号只能升级一次等级，无法重复升级":"A single account can only upgrade once, and cannot be upgraded repeatedly",
     "订单奖励":"Order reward",
     "返现升级资金":"Cashback upgrade fund",
-    "升级奖励":"Upgrade reward"
+    "升级奖励":"Upgrade reward",
+    "你的帐户已经被锁住":"Your account has been locked"
 };
