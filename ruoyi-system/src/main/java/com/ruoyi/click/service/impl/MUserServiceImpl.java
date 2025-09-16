@@ -436,9 +436,9 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
         // ---------- 新增：等级升级唯一性校验 ----------
         MUser user = mUserMapper.selectMUserByUid(userId);
         // 假设初始等级为 1，若当前等级 > 1，说明已升级过
-        if (user.getLevel() > 1) {
-            throw new ServiceException("一个账号只能升级一次等级，无法重复升级");
-        }
+//        if (user.getLevel() > 1) {
+//            throw new ServiceException("一个账号只能升级一次等级，无法重复升级");
+//        }
         // ---------- 等级升级唯一性校验结束 ----------
 
         UserGrade userGrade = userGradeMapper.selectUserGradeById(gradeId);
