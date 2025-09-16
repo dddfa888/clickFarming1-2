@@ -19,6 +19,7 @@ import com.ruoyi.common.annotation.FrontAccess;
 import com.ruoyi.common.core.domain.entity.MUser;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.DecimalUtil;
+import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.framework.web.service.TokenService;
 import com.ruoyi.click.domain.MAccountChangeRecords;
 import com.ruoyi.click.domain.UserGrade;
@@ -104,112 +105,38 @@ public class MUserController extends BaseController {
         changeRecords.setAccountForward(accountForward);
         changeRecords.setAccountBack(accountBack);
         changeRecords.setUid(String.valueOf(balanceModel.getUid()));
-        //changeRecords.setDescription(userName+"[后台增减余额] "+balanceModel.getReason());
+        changeRecords.setDescription(userName+"[后台增减余额] "+balanceModel.getReason());
         changeRecords.setTransactionType(1);
         accountChangeRecordsService.insertMAccountChangeRecords(changeRecords);
 
-        // 处理 type1 = 1 的情况：充值或提现，插入 m_money_invest_withdraw 表
-        if (type1 == 1) {
-            MMoneyInvestWithdraw investWithdraw = new MMoneyInvestWithdraw();
-            investWithdraw.setUserId(balanceModel.getUid());
-            investWithdraw.setUserName(mUser.getLoginAccount());
-            //investWithdraw.setUserType(mUser.getUserType());
-            investWithdraw.setAmount(balanceModel.getBalance().abs());
-            investWithdraw.setType(balanceModel.getBalance().signum() > 0 ? "1" : "0");
-            investWithdraw.setStatus(1); // 充值中状态为1，提现中状态为0（可根据实际需求调整）
-            investWithdraw.setCreateTime(new Date());
-            investWithdraw.setUpdateTime(new Date());
-            investWithdraw.setIsRead(0); // 假设未读为0
-            mMoneyInvestWithdrawMapper.insert(investWithdraw);
+        //新增取款记录保存信息
+        int read = 0;
+        //金额格式转换
+        BigDecimal formattedAmount = balanceModel.getBalance().abs()
+                .setScale(2, RoundingMode.DOWN);
+        String title = "Thêm số dư ở phần mềm quản trị";
+        String content ="";
+        if (balanceModel.getBalance().compareTo(BigDecimal.ZERO)>0){
+            //内容消息
+            content = "Bạn đã nạp "+ formattedAmount + "$ thành công!";
 
-            // 原有扣减余额逻辑
-            if(balanceModel.getBalance().signum()<0){
-                int read = 0;
-                //金额格式转换
-                BigDecimal formattedAmount = balanceModel.getBalance().abs()
-                        .setScale(2, RoundingMode.DOWN);
-                //后台扣减余额
-                String title = "Trừ số dư ở phần mềm quản trị";
-                //内容
-                String content = "Hệ thống đã thanh toán" + formattedAmount + "$ cho bạn!";
-                //新增提现消息
-                mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
-            }
-
-            if(balanceModel.getBalance().signum()>0) {
-                //新增取款记录保存信息
-                int read = 0;
-                //金额格式转换
-                BigDecimal formattedAmount = balanceModel.getBalance().abs()
-                        .setScale(2, RoundingMode.DOWN);
-                //后台新增余额
-                String title = "Thêm số dư ở phần mềm quản trị";
-                //内容消息
-                String content = "Bạn đã nạp"+ formattedAmount + "$ thành công!";
-                //新增提现消息
-                mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
-            }
         }
+        if (StringUtils.isNotEmpty(balanceModel.getReason())){
+            content =  balanceModel.getReason();
+        }
+        if (StringUtils.isNotEmpty(content)){
+            //新增提现消息
+            mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
+        }
+
+
+
         // 处理 type1 = 2 的情况：奖励，插入 m_account_change_records 表
-        else if (type1 == 2) {
-            // 原有增加余额逻辑
-            if(balanceModel.getBalance().signum()>0){
-                MRewardRecord mRewardRecord= new MRewardRecord();
-                mRewardRecord.setUserId(mUser.getUid());
-                mRewardRecord.setUserName(mUser.getLoginAccount());
-                mRewardRecord.setRewardTime(DateUtils.getNowDate());
-                mRewardRecord.setRewardAmount(balanceModel.getBalance());
-                mRewardRecord.setBalanceBefore(accountForward);
-                mRewardRecord.setBalanceAfter(accountBack);
-                mRewardRecord.setDescription("返现升级资金");
-                //mRewardRecord.setDescription(balanceModel.getReason());
-                mRewardRecord.setCreateTime(mRewardRecord.getRewardTime());
-                mRewardRecordService.insertMRewardRecord(mRewardRecord);
-
-                //新增取款记录保存信息
-                int read = 0;
-                //金额格式转换
-                BigDecimal formattedAmount = balanceModel.getBalance().abs()
-                        .setScale(2, RoundingMode.DOWN);
-                //后台新增余额
-                String title = "Trả lại chi phí nâng cấp";
-                //内容消息
-                String content = "HOÀN TRẢ PHÍ CỌC"+ formattedAmount + "$";
-                //新增提现消息
-                mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
-            }
-        }else if (type1 == 3) {
-            // 原有增加余额逻辑
-            if(balanceModel.getBalance().signum()>0){
-                MRewardRecord mRewardRecord= new MRewardRecord();
-                mRewardRecord.setUserId(mUser.getUid());
-                mRewardRecord.setUserName(mUser.getLoginAccount());
-                mRewardRecord.setRewardTime(DateUtils.getNowDate());
-                mRewardRecord.setRewardAmount(balanceModel.getBalance());
-                mRewardRecord.setBalanceBefore(accountForward);
-                mRewardRecord.setBalanceAfter(accountBack);
-                mRewardRecord.setDescription("升级奖励");
-                //mRewardRecord.setDescription(balanceModel.getReason());
-                mRewardRecord.setCreateTime(mRewardRecord.getRewardTime());
-                mRewardRecordService.insertMRewardRecord(mRewardRecord);
-
-                //新增取款记录保存信息
-                int read = 0;
-                //金额格式转换
-                BigDecimal formattedAmount = balanceModel.getBalance().abs()
-                        .setScale(2, RoundingMode.DOWN);
-                //后台新增余额
-                String title = "Trả lại chi phí nâng cấp";
-                //内容消息
-                String content = "QUÀ THƯỞNG"+ formattedAmount + "$";
-                //新增提现消息
-                mNotifyMapper.insertNotify(mUser.getUid(),mUser.getLoginAccount(),title,content,read);
-            }
-        }
         // 升级等级
         //mUserService.upgrade(mUser.getUid());
         return success();
     }
+
 
     /**
      * 修改用户余额 前端直接输入余额新值
