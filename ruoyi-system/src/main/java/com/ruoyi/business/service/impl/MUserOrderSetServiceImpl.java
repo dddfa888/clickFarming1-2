@@ -148,5 +148,27 @@ public class MUserOrderSetServiceImpl implements IMUserOrderSetService
         }
         return mUserOrderSetMapper.insertBatch(list);
     }
+    /**
+     * 刷新用户每日任务
+     */
+    public void refreshDailyTasks() {
+        System.out.println("=== 开始执行用户每日任务刷新 ===");
+        System.out.println("执行时间: " + new java.util.Date());
 
+        // 添加一些实际的业务逻辑用于测试
+        try {
+            // 示例：查询所有用户的订单设置数量
+            List<MUserOrderSet> allOrderSets = mUserOrderSetMapper.selectMUserOrderSetList(new MUserOrderSet());
+            System.out.println("当前总订单设置数量: " + allOrderSets.size());
+
+            // 可以在这里添加实际的刷新逻辑
+            System.out.println("模拟刷新用户任务完成");
+
+        } catch (Exception e) {
+            System.err.println("刷新任务时发生错误: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        System.out.println("=== 用户每日任务刷新完成 ===");
+    }
 }
