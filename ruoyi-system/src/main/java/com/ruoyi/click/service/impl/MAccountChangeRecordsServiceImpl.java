@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
@@ -94,11 +95,20 @@ public class MAccountChangeRecordsServiceImpl implements IMAccountChangeRecordsS
         MUser mUser = mUserMapper.selectMUserByUid(getUserId());
         UserGrade userGrade = userGradeMapper.selectUserGradeBySortNum(mUser.getLevel());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.now();
-        String strYesterday = formatter.format(localDate.minusDays(1));
-        String strToday = formatter.format(localDate);
-        String strTomorrow = formatter.format(localDate.plusDays(1));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        // 如果当前时间在 0 点 - 1:59:59 之间，把日期减一天
+        if (now.getHour() < 2) {
+            now = now.minusDays(1);
+        }
+
+        // 昨天 02:00:00
+        String strYesterday = formatter.format(now.toLocalDate().minusDays(1).atTime(2, 0));
+        // 今天 02:00:00
+        String strToday = formatter.format(now.toLocalDate().atTime(2, 0));
+        // 明天 02:00:00
+        String strTomorrow = formatter.format(now.toLocalDate().plusDays(1).atTime(2, 0));
 
         //今日已付款订单数量
         Map<String, Object> param = new HashMap<>();

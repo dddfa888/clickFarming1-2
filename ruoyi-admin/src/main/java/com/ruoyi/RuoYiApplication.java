@@ -13,7 +13,7 @@ import java.util.TimeZone;
  * @author ruoyi
  */
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
-@EnableScheduling  // 添加这行来启用定时任务
+//@EnableScheduling  // 添加这行来启用定时任务
 public class RuoYiApplication
 {
     public static void main(String[] args)
