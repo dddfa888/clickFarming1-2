@@ -3,6 +3,7 @@ package com.ruoyi.web.controller.click;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -332,10 +333,19 @@ public class MMoneyInvestWithdrawController extends BaseController
         UserGrade userGrade = userGradeService.getOne(new LambdaQueryWrapper<UserGrade>().eq(UserGrade::getSortNum,mUser.getLevel()));
         Assert.notNull(userGrade, "用户等级不存在");//user
         //获取今天完成的订单
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.now();
-        String strToday = formatter.format(localDate);
-        String strTomorrow = formatter.format(localDate.plusDays(1));
+        //int todayCount = countNumByUserDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        // 如果当前时间在 0 点 - 1:59:59 之间，把日期减一天
+        if (now.getHour() < 2) {
+            now = now.minusDays(1);
+        }
+        // 今天 02:00:00
+        String strToday = formatter.format(now.toLocalDate().atTime(2, 0));
+        // 明天 02:00:00
+        String strTomorrow = formatter.format(now.toLocalDate().plusDays(1).atTime(2, 0));
+
         Map<String,Object> param = new HashMap<>();
         param.put("userId", getUserId());
         param.put("date1", strToday);
