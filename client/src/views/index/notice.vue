@@ -31,8 +31,7 @@ const formatCurrency = value => {
 
 <style scoped>
 .company-intro {
-  background: url("../../assets/img/back.jpg") no-repeat center
-    center;
+  background: url("../../assets/img/back.jpg") no-repeat center center;
   height: 100vh;
   overflow-y: auto;
   /* padding-bottom: 70px; */
@@ -41,6 +40,7 @@ const formatCurrency = value => {
 .content-box {
   margin: 8px;
   padding: 10px;
+  margin-bottom: 70px;
   color: white;
   font-size: 12px;
   overflow: auto;
@@ -60,8 +60,7 @@ const formatCurrency = value => {
 
 @media screen and (min-width: 768px) {
   .company-intro {
-    background: url("../../assets/img/back.jpg") no-repeat center
-      center;
+    background: url("../../assets/img/back.jpg") no-repeat center center;
     height: 100vh;
     overflow-y: auto;
     width: 540px;
@@ -74,6 +73,7 @@ const formatCurrency = value => {
     padding: 10px;
     color: white;
     font-size: 12px;
+    margin-bottom: 100px;
     overflow: auto;
     border-top: 1px solid #dad8da;
   }
