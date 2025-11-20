@@ -125,14 +125,23 @@ public class MMoneyInvestWithdrawServiceImpl extends ServiceImpl<MMoneyInvestWit
 
     @Override
     public MMoneyInvestWithdraw getTodayWithdraw(Long userId) {
-        LocalDateTime startOfDay = LocalDate.now().atStartOfDay();
-        LocalDateTime endOfDay = LocalDate.now().atTime(LocalTime.MAX);
+        LocalDateTime now = LocalDateTime.now();
+
+        // 如果在 0 点 ~ 0:59:59，把日期往前推一getTodayWithdraw天
+        if (now.getHour() < 2) {
+            now = now.minusDays(1);
+        }
+
+        LocalDateTime startTime = now.toLocalDate().atTime(2, 0);
+        LocalDateTime endTime = now.toLocalDate().plusDays(1).atTime(2, 0);
 
         return lambdaQuery()
                 .eq(MMoneyInvestWithdraw::getUserId, userId)
                 .eq(MMoneyInvestWithdraw::getStatus, 1)
                 .eq(MMoneyInvestWithdraw::getType, 0)
-                .between(MMoneyInvestWithdraw::getCreateTime, startOfDay, endOfDay)
+                .ge(MMoneyInvestWithdraw::getCreateTime, startTime)
+                .lt(MMoneyInvestWithdraw::getCreateTime, endTime)
+                .orderByDesc(MMoneyInvestWithdraw::getCreateTime)
                 .last("LIMIT 1")
                 .one();
     }

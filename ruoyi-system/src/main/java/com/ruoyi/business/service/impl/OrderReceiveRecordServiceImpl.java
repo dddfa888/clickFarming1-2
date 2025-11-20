@@ -272,12 +272,21 @@ public class OrderReceiveRecordServiceImpl implements IOrderReceiveRecordService
             return map;
         }
 
-        //int todayCount = countNumByUserDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.now();
         int numTarget = userGrade.getBuyProdNum();
-        String strToday = formatter.format(localDate);
-        String strTomorrow = formatter.format(localDate.plusDays(1));
+        //int todayCount = countNumByUserDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        // 如果当前时间在 0 点 - 1:59:59 之间，把日期减一天
+        if (now.getHour() < 2) {
+            now = now.minusDays(1);
+        }
+        // 今天 02:00:00
+        String strToday = formatter.format(now.toLocalDate().atTime(2, 0));
+        // 明天 02:00:00
+        String strTomorrow = formatter.format(now.toLocalDate().plusDays(1).atTime(2, 0));
+
+
         Map<String, Object> param = new HashMap<>();
         param.put("userId", getUserId());
         param.put("date1", strToday);
