@@ -26,7 +26,7 @@ getPartnership(langStore.locale).then((res) => {
 
 <style scoped>
 .company-intro {
-  background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
+  background: url("../../assets/img/back.jpg") no-repeat center
     center;
   height: 100vh;
   overflow-y: auto;
@@ -49,7 +49,7 @@ getPartnership(langStore.locale).then((res) => {
 
 @media screen and (min-width: 768px) {
   .company-intro {
-    background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
+    background: url("../../assets/img/back.jpg") no-repeat center
       center;
     height: 100vh;
     width: 540px;

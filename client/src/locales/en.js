@@ -29,7 +29,7 @@ export default {
   可用余额: "Available balance",
   提款: "Deposit",
   取款: "Withdraw",
-  "概述 Ingka Centres": "Overview Ingka Centres",
+  "概述 Dubai mall": "Overview Dubai mall",
   会员级别: "Membership level",
   开锁: "Unlock",
   升级费: "Upgrade fee",
@@ -46,14 +46,14 @@ export default {
   通知邮件: "Notification",
   rewardMessage: "Congratulations {username} received {amount}$ profit",
   发行历史: "Distribution history",
-  "数据提供者 Ingka Centres": "Data provider Ingka Centres",
+  "数据提供者 DubaiMall Centres": "Data provider DubaiMall Centres",
   剩余: "Balance",
   时间: "Time",
   代码: "Code",
   平台代理模式: "Platform agent mode",
-  "Ingka Centres会员可以成为电商平台的代理商":
-    "Members of Ingka Centres can become agents of e-commerce platforms.",
-  "通过推荐新会员成为 Ingka Centres 会员和代理商，可以获得价值 00.01%的额外奖金。直接推广会员级别佣金奖励从0.25%起，并投资资本来计算产品代码赚取的利润。":
+  "Dubai mall会员可以成为电商平台的代理商":
+    "Members of Dubai mall can become agents of e-commerce platforms.",
+  "通过推荐新会员成为 Dubai mall 会员和代理商，可以获得价值 00.01%的额外奖金。直接推广会员级别佣金奖励从0.25%起，并投资资本来计算产品代码赚取的利润。":
     "Members can also become agents of e-commerce platforms by promoting new members and agents. They can earn a 0.01% bonus on referrals and invest capital to calculate the profit from product codes.",
   分配总额: "Total allocation",
   退款金额: "Refund amount",
@@ -257,5 +257,19 @@ export default {
     "订单奖励":"Order reward",
     "返现升级资金":"Cashback upgrade fund",
     "升级奖励":"Upgrade reward",
-    "你的帐户已经被锁住":"Your account has been locked"
+    "你的帐户已经被锁住":"Your account has been locked",
+     "活动优惠项目": "Event Promotion Program",
+  "情人节活动": "Valentine’s Day Event",
+  "会员参加需输入新的情人节活动码": "Members must enter the new Valentine event code to participate",
+  "最低充值 500 美元可获得至少 500 美元奖励": "Deposit a minimum of 500 USD to receive at least 500 USD in rewards",
+  "升级为黄金会员：": "Upgrade to Gold Member:",
+  "可领取情人节礼包，最高可达 2,000 美元": "Receive a Valentine gift package up to 2,000 USD",
+  "升级为白金会员：": "Upgrade to Platinum Member:",
+  "可获得 价值 6,000 美元的欧洲旅游套餐": "Receive a European travel package worth 6,000 USD",
+  "特别奖励：": "Special Offer:",
+  "会员升级为钻石会员：": "Members upgrading to Diamond Member:",
+  "可获得 价值 10,000 美元的钻石专属礼包": "Receive an exclusive Diamond package worth 10,000 USD",
+  "DUBAIMALL CENTER敬呈": "Presented by DUBAIMALL CENTER",
+  "请您经常关注并更新平台资讯": "Please check platform updates regularly",
+  "以免错过我们的优惠活动": "So you won’t miss any of our promotions"
 };

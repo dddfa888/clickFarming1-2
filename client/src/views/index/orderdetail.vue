@@ -3,7 +3,7 @@
     <div class="order-header">
       <div>
         <p style="font-size: 15px">{{ t("订单详细信息") }}</p>
-        <div class="data-provider">{{ t("数据提供者 Ingka Centres") }}</div>
+        <div class="data-provider">{{ t("数据提供者 Dubai mall") }}</div>
       </div>
       <div class="amount-section">
         <div class="amount-display">{{ formatCurrency(order.userBalance) }}</div>
@@ -12,7 +12,7 @@
     </div>
 
     <div class="order-summary">
-      <img src="../../assets/img/banner1-8QRSYmQj.png" alt />
+      <img style="border-radius: 10px;" src="../../assets/img/orderdetail.jpg" alt />
       <div class="status-badge" @click="Sendbutton">{{ t("收到") }}</div>
     </div>
 
@@ -44,12 +44,12 @@
       <div class="rules-content" v-if="locale === 'vi'">
         <!-- 这里可以添加基金会规则的具体内容 -->
         <p>
-          Khi bạn trở thành thành viên Ingka Centres, bạn sẽ nhận được các mã
+          Khi bạn trở thành thành viên Dubai mall, bạn sẽ nhận được các mã
           sản phẩm có liên quan về đơn đặt hàng , bao gồm thông tin sản phẩm chi
           tiết đơn hàng , giá trị sản phẩm , số lượng ...vv..
         </p>
         <p>
-          Thành viên của Ingka Centres sẽ là nhà trung gian giúp xác nhận đơn
+          Thành viên của Dubai mall sẽ là nhà trung gian giúp xác nhận đơn
           hàng giữa các NHÀ SẢN XUẤT & QUÝ ĐỐI TÁC ( người đặt mua ).
         </p>
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home" :style="{ backgroundImage: `url(${bgImage})` }">
+  <div class="home" :style="{ background: `url(${bgImage}) no-repeat center center fixed`}">
     <!-- 顶部用户信息 -->
     <div class="user-info">
       <div class="user-info-avatar">
@@ -69,7 +69,7 @@
     <!-- 视频 -->
     <video class="videos" controls muted loop width="100%" height="200px" :src="videoUrl"></video>
 
-    <h5>{{ t("概述:") }} INGKA CENTRES</h5>
+    <h5>{{ t("概述:") }} DUBAI MALL</h5>
     <!-- 功能按钮 -->
     <div class="info-buttons">
       <div
@@ -174,9 +174,9 @@ import {
 } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 import { notify } from "../../utils/notify.js";
-import defaultAvatar from "../../assets/img/mylogo.png";
-const bgImage = new URL("../../assets/img/bg.png", import.meta.url).href;
-const videoUrl = new URL("../../assets/videos/INGKA.mp4", import.meta.url).href;
+import defaultAvatar from "../../assets/img/mylogo.jpg";
+const bgImage = new URL("../../assets/img/index_bg.jpg", import.meta.url).href;
+const videoUrl = new URL("../../assets/videos/DB.mp4", import.meta.url).href;
 
 const promoRef = ref();
 const router = useRouter();

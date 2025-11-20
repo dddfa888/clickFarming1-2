@@ -1,17 +1,24 @@
 <template to="body">
   <div v-if="visible" class="modal-overlay" @click="close">
     <div class="modal-content">
-      <img
-        v-if="locale === 'zh'"
-        src="../assets/img/mercado_promo.jpg"
-        class="modal-image"
-      />
-      <img
-        v-else-if="locale === 'vi'"
-        src="../assets/img/edqpdm4z34c737vtlhg8.jpg"
-        class="modal-image"
-      />
-      <img v-else src="../assets/img/1-英.jpg" class="modal-image" />
+      <img src="../assets/img/modal.jpg" class="modal-image" />
+    </div>
+    <div class="modal-text">
+      <h2 style="color:#BE9018">DUBAIMALL CENTER</h2>
+      <p style="color:#d7b33a">{{t("活动优惠项目")}}</p>
+      <h3 style="color:#cacaca">{{ t("情人节活动") }}</h3>
+      <p style="color:#cacaca">({{ t("会员参加需输入新的情人节活动码") }})</p>
+      <p>{{ t("最低充值 500 美元可获得至少 500 美元奖励") }}</p>
+      <p>{{ t("升级为黄金会员：") }}</p>
+      <p>{{ t("可领取情人节礼包，最高可达 2,000 美元") }}</p>
+      <p>{{ t("升级为白金会员：") }}</p>
+      <p>{{ t("可获得 价值 6,000 美元的欧洲旅游套餐") }}</p>
+      <p>{{ t("特别奖励：") }}</p>
+      <p>{{ t("会员升级为钻石会员：") }}</p>
+      <p>{{ t("可获得 价值 10,000 美元的钻石专属礼包") }}</p>
+      <p>{{ t("DUBAIMALL CENTER敬呈") }}!</p>
+      <p style="color:#9d8a8a">{{ t("请您经常关注并更新平台资讯") }}</p>
+      <p style="color:#9d8a8a">{{ t("以免错过我们的优惠活动") }}!!!</p>
     </div>
     <button class="modal-close" @click="close">×</button>
   </div>
@@ -21,7 +28,9 @@
 import { ref, defineExpose } from "vue";
 import { useLangStore } from "../store/useLangStore";
 import { storeToRefs } from "pinia";
+import { useI18n } from "vue-i18n";
 
+const { t } = useI18n();
 const visible = ref(false);
 const show = () => (visible.value = true);
 const close = () => (visible.value = false);
@@ -74,6 +83,18 @@ defineExpose({ show });
   z-index: 99;
   border-radius: 10px;
   margin-bottom: 13vh;
+}
+
+.modal-text {
+  position: absolute;
+  bottom: 27%;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  color: #a77e5f;
+  font-size: 3vw;
+  text-align: center;
+  z-index: 99;
 }
 
 .modal-close {
@@ -148,6 +169,19 @@ defineExpose({ show });
     z-index: 99;
     border-radius: 10px;
     margin-top: 10vh;
+  }
+
+  .modal-text {
+    position: absolute;
+    bottom: 25%;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    color: #a77e5f;
+    font-size: 3vw;
+    text-align: center;
+    z-index: 99;
+    font-size: 15px;
   }
 
   .modal-close {

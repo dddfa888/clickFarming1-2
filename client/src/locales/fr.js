@@ -29,7 +29,7 @@ export default {
   可用余额: "Solde disponible",
   提款: "Dépôt",
   取款: "Retirer",
-  概述IngkaCentres: "Vue d'ensemble Ingka Centres",
+  概述IngkaCentres: "Vue d'ensemble Dubai mall",
   会员级别: "Niveau d'adhésion",
   开锁: "Déverrouiller",
   升级费: "Frais de mise à niveau",
@@ -46,14 +46,14 @@ export default {
   通知邮件: "Notification",
   rewardMessage: "Félicitations {username} reçu {amount}$ bénéfice",
   发行历史: "Histoire de la distribution",
-  数据提供者IngkaCentres: "Fournisseur de données Ingka Centres",
-  "数据提供者 Ingka Centres": "数据提供者 Ingka Centres",
+  数据提供者Dubaimall: "Fournisseur de données Dubai mall",
+  "数据提供者 DubaiMall Centres": "数据提供者 DubaiMall Centres",
   剩余: "équilibre",
   时间: "Heure",
   代码: "Code",
   当前等级: "Niveau actuel",
   平台代理模式: "Mode agent de plateforme",
-  IngkaCentres会员可以成为电商平台的代理商:
+  Dubaimall会员可以成为电商平台的代理商:
     "Les membres des centres Ingka peuvent devenir agents de plateformes de commerce électronique.",
   "通过推荐新会员成为IngkaCentres会员和代理商，可以获得价值00.01%的额外奖金。直接推广会员级别佣金奖励从0.25%起，并投资资本来计算产品代码赚取的利润。":
     "Les membres peuvent également devenir agents de plateformes de commerce électronique en faisant la promotion de nouveaux membres et agents. Ils peuvent gagner un bonus de 0,01% sur les renvois et investir du capital pour calculer le bénéfice des codes de produits.",
@@ -264,5 +264,19 @@ export default {
     "订单奖励":"Order reward",
     "返现升级资金":"Cashback upgrade funds",
     "升级奖励":"Upgrade rewards",
-    "你的帐户已经被锁住":"Your account has been locked"
+    "你的帐户已经被锁住":"Your account has been locked",
+    "活动优惠项目": "Programme de promotions d'événements",
+  "情人节活动": "Événement de la Saint-Valentin",
+  "会员参加需输入新的情人节活动码": "Les membres doivent saisir le nouveau code de l'événement Saint-Valentin pour participer",
+  "最低充值 500 美元可获得至少 500 美元奖励": "Déposez au minimum 500 USD pour recevoir au moins 500 USD de récompense",
+  "升级为黄金会员：": "Passer au statut Membre Or :",
+  "可领取情人节礼包，最高可达 2,000 美元": "Recevez un coffret Saint-Valentin jusqu’à 2 000 USD",
+  "升级为白金会员：": "Passer au statut Membre Platine :",
+  "可获得 价值 6,000 美元的欧洲旅游套餐": "Recevez un voyage en Europe d’une valeur de 6 000 USD",
+  "特别奖励：": "Offre spéciale :",
+  "会员升级为钻石会员：": "Les membres passant au statut Diamant :",
+  "可获得 价值 10,000 美元的钻石专属礼包": "Recevez un coffret exclusif Diamant d’une valeur de 10 000 USD",
+  "DUBAIMALL CENTER敬呈": "Présenté par DUBAIMALL CENTER",
+  "请您经常关注并更新平台资讯": "Veuillez consulter les mises à jour de la plateforme régulièrement",
+  "以免错过我们的优惠活动": "Afin de ne manquer aucune de nos promotions"
   };

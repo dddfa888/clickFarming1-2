@@ -23,14 +23,14 @@ export default {
   请输入登陆密码: "Vui lòng nhập mật khẩu đăng nhập",
   请输入交易密码: "Vui lòng nhập mật khẩu giao dịch",
   邀请码: "Mã giới thiệu",
-  请输入邀请码: "Vui lòng nhập mã giới thiệu",
+  请输入邀请码: "Vui lòng nhập mã bảo lãnh",
   请输入密码: "Vui lòng nhập mật khẩu",
   请输入账号: "Vui lòng nhập tài khoản",
   你好: "Xin chào",
   可用余额: "Số dư khả dụng",
   提款: "Nạp tiền",
   取款: "Rút tiền",
-  "概述 Ingka Centres": "Giới thiệu Ingka Centres",
+  "概述 Dubai mall": "Giới thiệu Dubai mall",
   会员级别: "Cấp thành viên",
   开锁: "Mở khóa",
   升级费: "Phí nâng cấp",
@@ -47,17 +47,17 @@ export default {
   通知邮件: "Thư thông báo",
   rewardMessage: "Chúc mừng {username} đã nhận được {amount}$ lợi nhuận",
   平台代理模式: "Chế độ Proxy Platform",
-  "Ingka Centres会员可以成为电商平台的代理商":
+  "Dubai mall会员可以成为电商平台的代理商":
     "Thành viên Libre có thể trở thành đại lý của nền tảng thương mại điện tử",
-  "通过推荐新会员成为 Ingka Centres 会员和代理商，可以获得价值 00.01%的额外奖金。直接推广会员级别佣金奖励从0.25%起，并投资资本来计算产品代码赚取的利润。":
-    "Phần thưởng bổ sung trị giá 00,01% có sẵn bằng cách giới thiệu một thành viên mới để trở thành thành viên và đại lý Ingka Centres. Khuyến mãi trực tiếp phần thưởng hoa hồng cấp thành viên bắt đầu từ 0,25% và đầu tư vốn để tính toán lợi nhuận kiếm được từ mã sản phẩm.",
+  "通过推荐新会员成为 Dubai mall 会员和代理商，可以获得价值 00.01%的额外奖金。直接推广会员级别佣金奖励从0.25%起，并投资资本来计算产品代码赚取的利润。":
+    "Phần thưởng bổ sung trị giá 00,01% có sẵn bằng cách giới thiệu một thành viên mới để trở thành thành viên và đại lý Dubai mall. Khuyến mãi trực tiếp phần thưởng hoa hồng cấp thành viên bắt đầu từ 0,25% và đầu tư vốn để tính toán lợi nhuận kiếm được từ mã sản phẩm.",
   发行历史: "Lịch sử phân phối",
-  "通过推荐新会员成为 Ingka Centres 会员和代理商，可以获得价值 00.01%的额外奖金。直接推广会员级别佣金奖励从0.25%起，并投资资本来计算产品代码赚取的利润。":
-    "Phần thưởng bổ sung trị giá 00,01% có sẵn bằng cách giới thiệu một thành viên mới để trở thành thành viên và đại lý Ingka Centres. Khuyến mãi trực tiếp phần thưởng hoa hồng cấp thành viên bắt đầu từ 0,25% và đầu tư vốn để tính toán lợi nhuận kiếm được từ mã sản phẩm.",
+  "通过推荐新会员成为 Dubai mall 会员和代理商，可以获得价值 00.01%的额外奖金。直接推广会员级别佣金奖励从0.25%起，并投资资本来计算产品代码赚取的利润。":
+    "Phần thưởng bổ sung trị giá 00,01% có sẵn bằng cách giới thiệu một thành viên mới để trở thành thành viên và đại lý Dubai mall. Khuyến mãi trực tiếp phần thưởng hoa hồng cấp thành viên bắt đầu từ 0,25% và đầu tư vốn để tính toán lợi nhuận kiếm được từ mã sản phẩm.",
   平台代理模式: "Chế độ Proxy Platform",
-  "Ingka Centres会员可以成为电商平台的代理商":
+  "Dubai mall会员可以成为电商平台的代理商":
     "Thành viên Libre có thể trở thành đại lý của nền tảng thương mại điện tử",
-  "数据提供者 Ingka Centres": "Dữ liệu được cung cấp bởi Ingka Centres",
+  "数据提供者 DubaiMall Centres": "Dữ liệu được cung cấp bởi DubaiMall Centres",
   剩余: "Số dư",
   时间: "Thời gian",
   代码: "Mã số",
@@ -260,4 +260,18 @@ export default {
     "返现升级资金":"Tiền thưởng nâng cấp",
     "升级奖励":"Phần thưởng nâng cấp",
     "你的帐户已经被锁住": "Tài khoản của bạn đã bị khóa",
+     "活动优惠项目": "Chương trình ưu đãi sự kiện",
+  "情人节活动": "Sự kiện Lễ Tình Nhân",
+  "会员参加需输入新的情人节活动码": "Thành viên tham gia cần nhập mã sự kiện Lễ Tình Nhân mới",
+  "最低充值 500 美元可获得至少 500 美元奖励": "Nạp tối thiểu 500 USD để nhận thưởng ít nhất 500 USD",
+  "升级为黄金会员：": "Nâng cấp lên thành viên Vàng:",
+  "可领取情人节礼包，最高可达 2,000 美元": "Nhận gói quà Lễ Tình Nhân lên đến 2.000 USD",
+  "升级为白金会员：": "Nâng cấp lên thành viên Bạch Kim:",
+  "可获得 价值 6,000 美元的欧洲旅游套餐": "Nhận tour du lịch Châu Âu trị giá 6.000 USD",
+  "特别奖励：": "Ưu đãi đặc biệt:",
+  "会员升级为钻石会员：": "Thành viên nâng cấp lên Kim Cương:",
+  "可获得 价值 10,000 美元的钻石专属礼包": "Nhận gói quà Kim Cương trị giá 10.000 USD",
+  "DUBAIMALL CENTER敬呈": " DUBAI MALL trân trọng cảm ơn !!!",
+  "请您经常关注并更新平台资讯": "Hãy thường xuyên theo dõi và cập nhật thông tin trên nền tảng",
+  "以免错过我们的优惠活动": "Để không bỏ lỡ những ưu đãi của chúng tôi"
 };

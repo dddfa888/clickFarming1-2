@@ -16,13 +16,9 @@
     </div>
     <div class="overlay"></div>
     <div class="content">
-      <h1>INGKA CENTRES</h1>
+      <h1>DUBAIMALL CENTER</h1>
       <h2>E-commerce shopping center</h2>
-      <p>
-        We are 21 years old since the beginning of that adventure in a garage in
-        the Saavedra neighborhood, in the city of Buenos Aires. We have come a
-        long way, but we are convinced that the best is yet to come.
-      </p>
+      <p>Dubai Mall is a shopping mall in Dubai and the largest shopping mall in the world by total area. It is the 21st largest shopping mall in the world by total leasable area. Located in Dubai, United Arab Emirates, Dubai Mall is part of the $20 billion Downtown Dubai complex and includes 1,200 stores. In 2011, it was the most visited area on the planet, attracting over 54 million visitors per year. The entrance to the mall is on Doha Road, which was redeveloped into a two-lane road in April 2009.</p>
       <div class="buttons">
         <button @click="toLogin">{{ t("登录") }}</button>
         <button @click="toRegister">{{ t("注册") }}</button>

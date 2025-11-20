@@ -256,7 +256,7 @@ function toggleLangList() {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: url("../../assets/img/login-bg.png") no-repeat center center;
+  background: url("../../assets/img/login-bg.jpg") no-repeat center center;
   min-height: 100vh;
   width: 100%;
   padding: 20px;
@@ -451,7 +451,7 @@ function toggleLangList() {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    background: url("../../assets/img/login-bg.png") no-repeat center center;
+    background: url("../../assets/img/login-bg.jpg") no-repeat center center;
     min-height: 100vh;
     width: 540px;
     margin: 0 auto;
@@ -579,7 +579,7 @@ function toggleLangList() {
   }
   .language-selector .label {
     margin-right: 6px;
-    color: #000;
+    color: #fff;
   }
   .dropdown-wrapper {
     position: relative;
@@ -587,7 +587,7 @@ function toggleLangList() {
     padding: 5px 10px;
     border-radius: 6px;
     cursor: pointer;
-    color: #000;
+    color: #fff;
 
     user-select: none;
   }

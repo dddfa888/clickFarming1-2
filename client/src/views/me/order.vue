@@ -91,7 +91,7 @@ onMounted(() => {
 
 <style scoped>
 .distribution-history {
-  background-image: url("../../assets/img/background-D7o_xTde.png");
+  background-image: url("../../assets/img/back.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center top;
@@ -204,7 +204,7 @@ onMounted(() => {
 
 @media screen and (min-width: 768px) {
   .distribution-history {
-    background-image: url("../../assets/img/background-D7o_xTde.png");
+    background-image: url("../../assets/img/back.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center top;

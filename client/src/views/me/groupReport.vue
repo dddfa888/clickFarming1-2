@@ -71,7 +71,7 @@ function formatBankCard(cardNo) {
 
 <style scoped>
 .company-intro {
-  background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
+  background: url("../../assets/img/back.jpg") no-repeat center
     center;
   background-size: cover;
   height: 100vh;
@@ -125,7 +125,7 @@ function formatBankCard(cardNo) {
 
 @media screen and (min-width: 768px) {
   .company-intro {
-    background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
+    background: url("../../assets/img/back.jpg") no-repeat center
       center;
     background-size: cover;
     width: 540px;

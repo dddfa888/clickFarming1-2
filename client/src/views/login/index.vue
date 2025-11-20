@@ -187,7 +187,7 @@ function onSubmit(values) {
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
-  background: url("../../assets/img/login-bg.png") no-repeat center center /
+  background: url("../../assets/img/login-bg.jpg") no-repeat center center /
     cover;
 }
 
@@ -266,7 +266,7 @@ function onSubmit(values) {
 }
 .language-selector .label {
   margin-right: 6px;
-  color: #000;
+  color: #fff;
 }
 .dropdown-wrapper {
   position: relative;
@@ -274,7 +274,7 @@ function onSubmit(values) {
   padding: 5px 10px;
   border-radius: 6px;
   cursor: pointer;
-  color: #000;
+  color: #fff;
   user-select: none;
 }
 .lang-dropdown {
@@ -337,7 +337,7 @@ function onSubmit(values) {
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
-    background: url("../../assets/img/login-bg.png") no-repeat center center /
+    background: url("../../assets/img/login-bg.jpg") no-repeat center center /
       cover;
   }
 
@@ -430,7 +430,7 @@ function onSubmit(values) {
   }
   .language-selector .label {
     margin-right: 6px;
-    color: #000;
+    color: #fff;
   }
   .dropdown-wrapper {
     position: relative;
@@ -438,7 +438,7 @@ function onSubmit(values) {
     padding: 5px 10px;
     border-radius: 6px;
     cursor: pointer;
-    color: #000;
+    color: #fff;
     user-select: none;
   }
   .lang-dropdown {

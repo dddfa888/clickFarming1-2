@@ -6,7 +6,7 @@
         <span class="total-amount">{{ formatCurrency(totalAmount) }}</span>
       </h2>
       <div class="provider">
-        {{ t("数据提供者 Ingka Centres") }}
+        {{ t("数据提供者 DubaiMall Centres") }}
         <span class="remaining">{{ t("剩余") }}($)</span>
       </div>
     </div>
@@ -173,8 +173,8 @@ onMounted(async () => {
   height: 100vh;
   color: #fff;
   padding: 30px;
-  background: url("../../assets/img/BG-kho-B9q9tfZS.png") no-repeat center
-    center fixed;
+  background: url("../../assets/img/warehouse.jpg") no-repeat center center
+    fixed;
 }
 .loading-text {
   text-align: center;
@@ -312,7 +312,7 @@ onMounted(async () => {
     height: 100vh;
     color: #fff;
     padding: 30px;
-    background: url("../../assets/img/BG-kho-B9q9tfZS.png") no-repeat fixed;
+    background: url("../../assets/img/warehouse.jpg") no-repeat fixed;
     background-size: cover;
   }
   .loading-text {

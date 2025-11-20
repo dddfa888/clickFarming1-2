@@ -178,7 +178,7 @@ function formatBankCard(cardNo) {
 
 <style scoped>
 .withdraw-page {
-  background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
+  background: url("../../assets/img/back.jpg") no-repeat center
     center;
   height: 100vh;
   padding: 20px;
@@ -272,7 +272,7 @@ input[disabled] {
 }
 @media screen and (min-width: 768px) {
   .withdraw-page {
-    background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
+    background: url("../../assets/img/back.jpg") no-repeat center
       center;
     height: 100vh;
     padding: 20px;

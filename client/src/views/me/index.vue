@@ -3,7 +3,7 @@
     <!-- 用户信息头部 -->
     <div class="user-header">
       <div class="avatar">
-        <img src="../../assets/img/mylogo.png" alt />
+        <img src="../../assets/img/mylogo.jpg" alt />
       </div>
 
       <div class="user-info">
@@ -148,8 +148,7 @@ const handleLogout = () => {
   margin: 0 auto;
   padding: 20px;
   font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: url("../../assets/img/BG-canhan-B0_5I1_l.png") no-repeat center
-    center fixed;
+  background: url("../../assets/img/me_index.jpg") no-repeat center center fixed;
   background-size: cover;
   padding-bottom: 120px;
   min-height: 100vh;
@@ -188,6 +187,7 @@ const handleLogout = () => {
 .avatar > img {
   width: 50px;
   height: 50px;
+  border-radius: 9999%;
 }
 
 .level-name {
@@ -299,8 +299,7 @@ const handleLogout = () => {
     margin: 0 auto;
     padding: 20px;
     font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: url("../../assets/img/BG-canhan-B0_5I1_l.png") no-repeat center
-      center fixed;
+    background: url("../../assets/img/me_index.jpg") no-repeat;
     background-size: 100% 100%;
     padding-bottom: 120px;
     min-height: 100vh;
@@ -340,6 +339,7 @@ const handleLogout = () => {
   .avatar > img {
     width: 50px;
     height: 50px;
+    border-radius: 999%;
   }
 
   .level-name {
