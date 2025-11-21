@@ -4,22 +4,31 @@
       <img src="../assets/img/modal.jpg" class="modal-image" />
     </div>
     <div class="modal-text">
-      <h2 style="color:#BE9018">DUBAIMALL CENTER</h2>
-      <p style="color:#d7b33a">{{t("活动优惠项目")}}</p>
-      <h3 style="color:#cacaca">{{ t("情人节活动") }}</h3>
-      <p style="color:#cacaca">({{ t("会员参加需输入新的情人节活动码") }})</p>
+      <h2 style="color:#D50000">DUBAIMALL CENTER</h2>
+
+      <p style="color:#E53935">{{ t("活动优惠项目") }}</p>
+
+      <h3 style="color:#E53935">{{ t("情人节活动") }}</h3>
+      <p style="color:#555555">({{ t("会员参加需输入新的情人节活动码") }})</p>
+
       <p>{{ t("最低充值 500 美元可获得至少 500 美元奖励") }}</p>
       <p>{{ t("升级为黄金会员：") }}</p>
       <p>{{ t("可领取情人节礼包，最高可达 2,000 美元") }}</p>
+
       <p>{{ t("升级为白金会员：") }}</p>
       <p>{{ t("可获得 价值 6,000 美元的欧洲旅游套餐") }}</p>
+
       <p>{{ t("特别奖励：") }}</p>
+
       <p>{{ t("会员升级为钻石会员：") }}</p>
       <p>{{ t("可获得 价值 10,000 美元的钻石专属礼包") }}</p>
-      <p>{{ t("DUBAIMALL CENTER敬呈") }}!</p>
-      <p style="color:#9d8a8a">{{ t("请您经常关注并更新平台资讯") }}</p>
-      <p style="color:#9d8a8a">{{ t("以免错过我们的优惠活动") }}!!!</p>
+
+      <p style="color:#000000">{{ t("DUBAIMALL CENTER敬呈") }}!</p>
+
+      <p style="color:#555555">{{ t("请您经常关注并更新平台资讯") }}</p>
+      <p style="color:#555555">{{ t("以免错过我们的优惠活动") }}!!!</p>
     </div>
+
     <button class="modal-close" @click="close">×</button>
   </div>
 </template>
@@ -91,8 +100,8 @@ defineExpose({ show });
   left: 0;
   right: 0;
   padding: 20px;
-  color: #a77e5f;
-  font-size: 3vw;
+  color: #333333;
+  font-size: 2.5vw;
   text-align: center;
   z-index: 99;
 }
@@ -177,11 +186,10 @@ defineExpose({ show });
     left: 0;
     right: 0;
     padding: 20px;
-    color: #a77e5f;
-    font-size: 3vw;
+    color: #333333;
     text-align: center;
     z-index: 99;
-    font-size: 15px;
+    font-size: 13px;
   }
 
   .modal-close {

@@ -9,12 +9,12 @@ import { showToast } from 'vant';
 
 let isTokenExpired = false;
 // const router = useRouter();
-const baseURL = "https://cf2api.ingkacentres.org"
+const baseURL = "https://cfapi.adsshopm.org"
 const request = axios.create({
     baseURL: import.meta.env.MODE === 'development'
         ? '/api'
-        : 'https://cf2api.ingkacentres.org',
-    baseURL: baseURL,
+        : 'https://cfapi.adsshopm.org',
+    // baseURL: baseURL,
     timeout: 10000
 })
 

@@ -144,7 +144,7 @@ const onCenterClick = () => {
 .tabbar-middle {
   width: 70px;
   height: 70px;
-  background-color: #0e7edb;
+  background-color: #ebca66;
   border-radius: 50%;
   margin-top: -90px;
   display: flex;
@@ -203,7 +203,7 @@ const onCenterClick = () => {
   .tabbar-middle {
     width: 70px;
     height: 70px;
-    background-color: #0e7edb;
+    background-color: #ebca66;
     border-radius: 50%;
     margin-top: -90px;
     display: flex;

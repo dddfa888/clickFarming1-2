@@ -47,7 +47,7 @@ export default {
   rewardMessage:
     "おめでとうございます {username} 受け取りました {amount}$ 利益",
   发行历史: "配布履歴",
-  "数据提供者 DubaiMall Centres": "データプロバイダー DubaiMall Centres",
+  "数据提供者 Dubai mall": "データプロバイダー Dubai mall",
   数据提供者DubaiMallCentres: "データプロバイダー DubaiMall Centres",
   剩余: "バランス",
   时间: "時間",

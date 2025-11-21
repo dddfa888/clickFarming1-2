@@ -47,7 +47,7 @@ export default {
   rewardMessage: "Félicitations {username} reçu {amount}$ bénéfice",
   发行历史: "Histoire de la distribution",
   数据提供者Dubaimall: "Fournisseur de données Dubai mall",
-  "数据提供者 DubaiMall Centres": "数据提供者 DubaiMall Centres",
+  "数据提供者 Dubai mall": "数据提供者 Dubai mall",
   剩余: "équilibre",
   时间: "Heure",
   代码: "Code",

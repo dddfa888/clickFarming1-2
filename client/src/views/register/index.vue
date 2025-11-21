@@ -431,7 +431,7 @@ function toggleLangList() {
   width: 100%;
   padding: 12px;
   font-size: 16px;
-  background-color: #1989fa;
+  background-color: #ebca66;
   color: #fff;
   border: none;
   border-radius: 999px;
@@ -643,7 +643,7 @@ function toggleLangList() {
     width: 100%;
     padding: 12px;
     font-size: 16px;
-    background-color: #1989fa;
+    background-color: #ebca66;
     color: #fff;
     border: none;
     border-radius: 999px;

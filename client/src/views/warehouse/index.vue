@@ -6,7 +6,7 @@
         <span class="total-amount">{{ formatCurrency(totalAmount) }}</span>
       </h2>
       <div class="provider">
-        {{ t("数据提供者 DubaiMall Centres") }}
+        {{ t("数据提供者 Dubai mall") }}
         <span class="remaining">{{ t("剩余") }}($)</span>
       </div>
     </div>
@@ -293,7 +293,7 @@ onMounted(async () => {
   width: 30%;
   padding: 5px;
   font-size: 12px;
-  background-color: #3498db;
+  background-color: #ebca66;
   color: white;
   border: none;
   border-radius: 4px;
@@ -301,7 +301,7 @@ onMounted(async () => {
 }
 
 .send-button:hover {
-  background-color: #2980b9;
+  background-color: #ebca66;
 }
 
 @media screen and (min-width: 768px) {
@@ -434,7 +434,7 @@ onMounted(async () => {
     width: 30%;
     padding: 5px;
     font-size: 12px;
-    background-color: #3498db;
+    background-color: #ebca66;
     color: white;
     border: none;
     border-radius: 4px;
@@ -442,7 +442,7 @@ onMounted(async () => {
   }
 
   .send-button:hover {
-    background-color: #2980b9;
+    background-color: #ebca66;
   }
 }
 </style>

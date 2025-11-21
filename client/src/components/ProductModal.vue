@@ -123,7 +123,7 @@ const onPay = () => emit("pay");
 }
 
 .btn-pay {
-  background-color: #0094ff;
+  background-color: #ebca66;
   color: white;
 }
 
@@ -206,7 +206,7 @@ const onPay = () => emit("pay");
   }
 
   .btn-pay {
-    background-color: #0094ff;
+    background-color: #ebca66;
     color: white;
   }
 

@@ -47,7 +47,7 @@ export default {
   rewardMessage: "恭喜{username}收到{amount}欧元利润",
   发行历史: "发行历史",
   数据提供者IngkaCentres: "数据提供者IngkaCentres",
-  "数据提供者 DubaiMall Centres": "数据提供者 DubaiMall Centres",
+  "数据提供者 Dubai mall": "数据提供者 Dubai mall",
   剩余: "剩余",
   时间: "时间",
   银行名: "银行名",

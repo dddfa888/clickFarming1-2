@@ -106,14 +106,14 @@ const Sendbutton = debounce(() => {
     return;
   }
 
-  isProcessing.value = true; // ✅ 创建订单就上锁
+  isProcessing.value = true; // 创建订单就上锁
 
   createOrder()
     .then(res => {
       if (res.code === 200) {
         showModal.value = true;
         id.value = res.orderId;
-        // ❗不要解锁，等待支付成功后解锁
+        // 不要解锁，等待支付成功后解锁
       } else if (res.code === 5001) {
         globalThis.$notify({
           message: t("membership_requirement", {
@@ -123,14 +123,14 @@ const Sendbutton = debounce(() => {
           type: "error",
           duration: 4000
         });
-        isProcessing.value = false; // ❗失败立即解锁
+        isProcessing.value = false; // 失败立即解锁
       } else {
         globalThis.$notify({
           message: t(res.msg),
           type: "error",
           duration: 4000
         });
-        isProcessing.value = false; // ❗失败立即解锁
+        isProcessing.value = false; // 失败立即解锁
       }
     })
     .catch(() => {
@@ -208,8 +208,8 @@ getUserGradeAndBalanceAndDiscount().then(res => {
   color: #fff;
   padding: 30px;
   height: 100vh;
-  background: url("../../assets/img/BG-nhandon-B-V7rk8F.png") no-repeat center
-    center fixed;
+  background: url("../../assets/img/order_detail.jpg") no-repeat center center
+    fixed;
 }
 
 .order-header {
@@ -254,7 +254,7 @@ getUserGradeAndBalanceAndDiscount().then(res => {
 
 .status-badge {
   padding: 6px 59px;
-  background-color: #0262b0;
+  background-color: #ebca66;
   color: white;
   border-radius: 10px;
   font-size: 0.9rem;
@@ -312,8 +312,8 @@ getUserGradeAndBalanceAndDiscount().then(res => {
     color: #fff;
     padding: 10px;
     height: 100vh;
-    background: url("../../assets/img/BG-nhandon-B-V7rk8F.png") no-repeat center
-      center fixed;
+    background: url("../../assets/img/order_detail.jpg") no-repeat center center
+      fixed;
     background-size: 100% 100%;
   }
 
@@ -362,7 +362,7 @@ getUserGradeAndBalanceAndDiscount().then(res => {
 
   .status-badge {
     padding: 6px 59px;
-    background-color: #0262b0;
+    background-color: #ebca66;
     color: white;
     border-radius: 10px;
     font-size: 0.9rem;

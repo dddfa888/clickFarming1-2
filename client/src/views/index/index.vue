@@ -1,5 +1,13 @@
 <template>
-  <div class="home" :style="{ background: `url(${bgImage}) no-repeat center center fixed`}">
+  <div
+    class="home"
+    :style="{
+  backgroundImage: `url(${bgImage})`,
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+  backgroundSize: 'cover'
+  }"
+  >
     <!-- 顶部用户信息 -->
     <div class="user-info">
       <div class="user-info-avatar">
@@ -493,7 +501,7 @@ onMounted(async () => {
 }
 
 .username {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -637,6 +645,8 @@ onMounted(async () => {
   margin: 15px 0;
   z-index: 1;
   position: relative;
+  height: 200px;
+  object-fit: cover; /* 填满，会裁剪 */
 }
 
 .info-buttons {
@@ -772,7 +782,7 @@ onMounted(async () => {
   }
 
   .username {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
   }
 
@@ -915,6 +925,8 @@ onMounted(async () => {
     margin: 15px 0;
     z-index: 1;
     position: relative;
+    height: 200px;
+    object-fit: cover;
   }
 
   .info-buttons {

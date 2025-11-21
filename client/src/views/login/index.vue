@@ -233,7 +233,7 @@ function onSubmit(values) {
   padding: 10px;
   border: none;
   border-radius: 25px;
-  background-color: #1989fa;
+  background-color: #ebca66;
   color: white;
   font-size: 14px;
   cursor: pointer;
@@ -242,7 +242,7 @@ function onSubmit(values) {
 }
 
 .login-btn button:hover {
-  background-color: #147dd1;
+  background-color: #ebca66;
 }
 
 .login-footer {
@@ -396,7 +396,7 @@ function onSubmit(values) {
     padding: 10px;
     border: none;
     border-radius: 25px;
-    background-color: #1989fa;
+    background-color: #ebca66;
     color: white;
     font-size: 14px;
     cursor: pointer;
@@ -405,7 +405,7 @@ function onSubmit(values) {
   }
 
   .login-btn button:hover {
-    background-color: #147dd1;
+    background-color: #ebca66;
   }
 
   .login-footer {

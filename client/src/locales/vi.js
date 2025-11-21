@@ -57,7 +57,7 @@ export default {
   平台代理模式: "Chế độ Proxy Platform",
   "Dubai mall会员可以成为电商平台的代理商":
     "Thành viên Libre có thể trở thành đại lý của nền tảng thương mại điện tử",
-  "数据提供者 DubaiMall Centres": "Dữ liệu được cung cấp bởi DubaiMall Centres",
+  "数据提供者 Dubai mall": "Dữ liệu được cung cấp bởi Dubai mall",
   剩余: "Số dư",
   时间: "Thời gian",
   代码: "Mã số",

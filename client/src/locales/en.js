@@ -46,7 +46,7 @@ export default {
   通知邮件: "Notification",
   rewardMessage: "Congratulations {username} received {amount}$ profit",
   发行历史: "Distribution history",
-  "数据提供者 DubaiMall Centres": "Data provider DubaiMall Centres",
+  "数据提供者 Dubai mall": "Data provider Dubai mall",
   剩余: "Balance",
   时间: "Time",
   代码: "Code",

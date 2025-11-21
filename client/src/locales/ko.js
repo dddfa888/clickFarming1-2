@@ -49,7 +49,7 @@ export default {
   数据提供者IngkaCentres: "데이터 제공자 DubaiMall Centres",
   剩余: "균형",
   时间: "시간",
-  "数据提供者 DubaiMall Centres": "데이터 제공자 DubaiMall Centres",
+  "数据提供者 Dubai mall": "데이터 제공자 Dubai mall",
   代码: "코드",
   平台代理模式: "플랫폼 에이전트 모드",
   IngkaCentres会员可以成为电商平台的代理商:
