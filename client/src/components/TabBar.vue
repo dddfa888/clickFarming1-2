@@ -12,7 +12,7 @@
     </div>
 
     <div class="tabbar-middle" @click="onCenterClick">
-      <img :src="centerIcon" class="center-icon" />
+      <!--<img :src="centerIcon" class="center-icon" />-->
     </div>
 
     <div
@@ -79,7 +79,7 @@ const tabs = computed(() => [
   }
 ]);
 
-const centerIcon = getImageUrl("center.svg");
+const centerIcon = getImageUrl("center.png");
 const currentRoute = computed(() => route.path);
 
 const navigate = (path, name = "") => {
@@ -142,21 +142,21 @@ const onCenterClick = () => {
 }
 
 .tabbar-middle {
-  width: 70px;
-  height: 70px;
-  background-color: #ebca66;
+  width: 80px;
+  height: 80px;
+  background: url("../assets/img/center.png");
+  background-size: 100% 100%;
   border-radius: 50%;
   margin-top: -90px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #fff;
   cursor: pointer;
 }
 
 .center-icon {
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
 }
 
 /* PC端适配 */
@@ -201,15 +201,15 @@ const onCenterClick = () => {
   }
 
   .tabbar-middle {
-    width: 70px;
-    height: 70px;
-    background-color: #ebca66;
+    width: 80px;
+    height: 80px;
+    background: url("../assets/img/center.png");
+    background-size: 100% 100%;
     border-radius: 50%;
     margin-top: -90px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #fff;
     cursor: pointer;
   }
 
