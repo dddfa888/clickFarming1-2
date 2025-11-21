@@ -56,26 +56,26 @@ const tabs = computed(() => [
   {
     name: t("首页"),
     path: "/",
-    icon: getImageUrl("home.svg"),
-    iconActive: getImageUrl("home-active.svg")
+    icon: getImageUrl("home.png"),
+    iconActive: getImageUrl("home.png")
   },
   {
     name: t("仓库"),
     path: "/warehouse",
-    icon: getImageUrl("warehouse.svg"),
-    iconActive: getImageUrl("warehouse-active.svg")
+    icon: getImageUrl("warehouse.png"),
+    iconActive: getImageUrl("warehouse.png")
   },
   {
     name: "CSKH", // 客服，不跳转
     path: "",
-    icon: getImageUrl("service.svg"),
-    iconActive: getImageUrl("service-active.svg")
+    icon: getImageUrl("service.png"),
+    iconActive: getImageUrl("service.png")
   },
   {
     name: t("我"),
     path: "/me",
-    icon: getImageUrl("user.svg"),
-    iconActive: getImageUrl("user-active.svg")
+    icon: getImageUrl("user.png"),
+    iconActive: getImageUrl("user.png")
   }
 ]);
 
@@ -136,9 +136,8 @@ const onCenterClick = () => {
 }
 
 .tabbar-icon {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 4px;
+  width: 45px;
+  height: 45px;
 }
 
 .tabbar-middle {
@@ -195,9 +194,8 @@ const onCenterClick = () => {
   }
 
   .tabbar-icon {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 4px;
+    width: 45px;
+    height: 45px;
   }
 
   .tabbar-middle {

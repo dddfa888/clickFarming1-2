@@ -184,8 +184,7 @@ import { useI18n } from "vue-i18n";
 import { notify } from "../../utils/notify.js";
 import defaultAvatar from "../../assets/img/mylogo.jpg";
 const bgImage = new URL("../../assets/img/index_bg.jpg", import.meta.url).href;
-const videoUrl = new URL("../../assets/videos/11月21日(1).mp4", import.meta.url)
-  .href;
+const videoUrl = new URL("../../assets/videos/1.mp4", import.meta.url).href;
 
 const promoRef = ref();
 const router = useRouter();
