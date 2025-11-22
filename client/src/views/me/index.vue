@@ -256,16 +256,44 @@ const handleLogout = () => {
 }
 .user-level-info {
   width: 200px;
-  font-size: 12px;
   display: flex;
-  padding: 17px;
-  align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 15px 18px;
   border: 1px solid #ccc;
   border-radius: 20px;
-  text-align: center;
-  margin: 0 auto;
-  margin-bottom: 15px;
+  margin: 0 auto 15px;
+  font-size: 12px;
+}
+
+.member-level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.balance-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%; /* 两栏等宽，保证不乱 */
+}
+
+.label {
+  color: #666;
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.value {
+  font-weight: bold;
+  color: #000;
+  white-space: nowrap;
 }
 
 .language-dropdown {
@@ -408,17 +436,45 @@ const handleLogout = () => {
   }
 
   .user-level-info {
-    width: 8.66667vw;
-    height: 0.26667vw;
-    font-size: 15px;
+    width: 200px;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 15px 18px;
     border: 1px solid #ccc;
     border-radius: 20px;
-    text-align: center;
-    margin: 0 auto;
-    margin-bottom: 15px;
+    margin: 0 auto 15px;
+    font-size: 12px;
+  }
+
+  .member-level {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .balance-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%; /* 两栏等宽，保证不乱 */
+  }
+
+  .label {
+    color: #666;
+    margin-bottom: 4px;
+    white-space: nowrap;
+  }
+
+  .value {
+    font-weight: bold;
+    color: #000;
+    white-space: nowrap;
   }
 
   .level-name {
