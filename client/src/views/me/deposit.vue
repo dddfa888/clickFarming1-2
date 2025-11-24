@@ -71,7 +71,7 @@ loadData();
 
 <style scoped>
 .company-intro {
-  background: url("../../assets/img/back.jpg") no-repeat center
+  background: url("../../assets/img/bankinfo.jpg") no-repeat center
     center;
   height: 100vh;
   overflow-y: auto;
@@ -143,7 +143,7 @@ loadData();
 
 @media screen and (min-width: 768px) {
   .company-intro {
-    background: url("../../assets/img/back.jpg") no-repeat center
+    background: url("../../assets/img/bankinfo.jpg") no-repeat center
       center;
     height: 100vh;
     width: 540px;

@@ -87,7 +87,7 @@ const bankName = ref("");
 const amount = ref("");
 const password = ref("");
 const showPassword = ref(false);
-const loading = ref(false); // ✅ 新增 loading 状态
+const loading = ref(false);
 const router = useRouter();
 
 function togglePassword() {
@@ -115,7 +115,7 @@ function debounce(fn, delay) {
   };
 }
 const submit = debounce(function() {
-  if (loading.value) return; // ✅ 防止重复提交
+  if (loading.value) return;
   loading.value = true;
 
   withdraw({ amount: amount.value, fundPassword: password.value })
@@ -178,8 +178,7 @@ function formatBankCard(cardNo) {
 
 <style scoped>
 .withdraw-page {
-  background: url("../../assets/img/back.jpg") no-repeat center
-    center;
+  background: url("../../assets/img/bankinfo.jpg") no-repeat center center;
   height: 100vh;
   padding: 20px;
   color: white;
@@ -272,8 +271,7 @@ input[disabled] {
 }
 @media screen and (min-width: 768px) {
   .withdraw-page {
-    background: url("../../assets/img/back.jpg") no-repeat center
-      center;
+    background: url("../../assets/img/bankinfo.jpg") no-repeat center center;
     height: 100vh;
     padding: 20px;
     width: 500px;
