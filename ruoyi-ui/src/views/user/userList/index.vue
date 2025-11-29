@@ -331,9 +331,17 @@
       <el-form-item :label="$t('userPage.balForm.origin')">
         <el-input readonly v-model="balanceForm.originalBalance"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('userPage.balForm.newNum')" prop="balance">
-        <el-input v-model="balanceForm.balance" ref="balanceInput" ></el-input>
-      </el-form-item>
+      <el-form-item
+  :label="$t('userPage.balForm.newNum')"
+  prop="balance"
+>
+  <el-input
+    v-model="balanceForm.balance"
+    ref="balanceInput"
+    @keydown.enter.native="submitBalanceForm"
+  />
+</el-form-item>
+
        <el-form-item :label="$t('userPage.balForm.selectReason')">
       <el-select v-model="selectedReason" placeholder="" @change="changeReason">
         <el-option :label="$t('userPage.balForm.noReason')" :value="$t('userPage.balForm.noReason')"></el-option>
