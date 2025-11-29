@@ -185,7 +185,7 @@ public class MUserController extends BaseController {
     @GetMapping("/list")
     public TableDataInfo list(MUser mUser) {
         startPage();
-        List<MUser> list = mUserService.selectMUserList(mUser);
+        List<MUser> list = mUserService.selectMUserListLike(mUser);
         TableDataInfo dataTable = getDataTable(list);
         List<MUser> rows = (List<MUser>) dataTable.getRows();
         rows.forEach(item -> {

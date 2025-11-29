@@ -31,6 +31,10 @@ public interface IMUserService extends IService<MUser> {
      */
     public List<MUser> selectMUserList(MUser mUser);
 
+
+    public List<MUser> selectMUserListLike(MUser mUser);
+
+
     /**
      * 新增用户
      *

@@ -31,6 +31,9 @@ public interface MUserMapper extends BaseMapper<MUser> {
      */
     public List<MUser> selectMUserList(MUser mUser);
 
+    public List<MUser> selectMUserListLike(MUser mUser);
+
+
     /**
      * 新增用户
      *

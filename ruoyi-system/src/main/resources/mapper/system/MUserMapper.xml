@@ -64,6 +64,100 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
+    <select id="selectMUserListLike" parameterType="MUser" resultMap="MUserResult">
+        <include refid="selectMUserVo"/>
+        <where>
+            <if test="level != null">
+                and `level` = #{level}
+            </if>
+
+            <if test="loginAccount != null and loginAccount != ''">
+                and login_account like concat('%', #{loginAccount}, '%')
+            </if>
+
+            <if test="loginPassword != null and loginPassword != ''">
+                and login_password like concat('%', #{loginPassword}, '%')
+            </if>
+
+            <if test="fundPassword != null and fundPassword != ''">
+                and fund_password like concat('%', #{fundPassword}, '%')
+            </if>
+
+            <if test="withdrawalAddress != null and withdrawalAddress != ''">
+                and withdrawal_address like concat('%', #{withdrawalAddress}, '%')
+            </if>
+
+            <if test="registerType != null">
+                and register_type = #{registerType}
+            </if>
+
+            <if test="phoneNumber != null and phoneNumber != ''">
+                and phone_number like concat('%', #{phoneNumber}, '%')
+            </if>
+
+            <if test="phoneNumberType != null and phoneNumberType != ''">
+                and phone_number_type like concat('%', #{phoneNumberType}, '%')
+            </if>
+
+            <if test="accountBalance != null">
+                and account_balance = #{accountBalance}
+            </if>
+
+            <if test="invitationCode != null and invitationCode != ''">
+                and invitation_code like concat('%', #{invitationCode}, '%')
+            </if>
+
+            <if test="inviter != null and inviter != ''">
+                and inviter like concat('%', #{inviter}, '%')
+            </if>
+
+            <if test="inviterCode != null and inviterCode != ''">
+                and inviter_code like concat('%', #{inviterCode}, '%')
+            </if>
+
+            <if test="inviterName != null and inviterName != ''">
+                and inviter_name like concat('%', #{inviterName}, '%')
+            </if>
+
+            <if test="status != null">
+                and status = #{status}
+            </if>
+
+            <if test="bankName != null and bankName != ''">
+                and bank_name like concat('%', #{bankName}, '%')
+            </if>
+
+            <if test="bankAccountName != null and bankAccountName != ''">
+                and bank_account_name like concat('%', #{bankAccountName}, '%')
+            </if>
+
+            <if test="bankAccountNumber != null and bankAccountNumber != ''">
+                and bank_account_number like concat('%', #{bankAccountNumber}, '%')
+            </if>
+
+            <if test="higherUid != null">
+                and higher_uid = #{higherUid}
+            </if>
+
+            <if test="lastLoginIp != null and lastLoginIp != ''">
+                and last_login_ip like concat('%', #{lastLoginIp}, '%')
+            </if>
+
+            <if test="lastLoginIpAddress != null and lastLoginIpAddress != ''">
+                and last_login_ip_address like concat('%', #{lastLoginIpAddress}, '%')
+            </if>
+
+            <if test="brushNumber != null">
+                and brush_number = #{brushNumber}
+            </if>
+
+            <if test="multiOrderNum != null">
+                and multi_order_num = #{multiOrderNum}
+            </if>
+        </where>
+    </select>
+
+
     <select id="selectMUserByUid" parameterType="Long" resultMap="MUserResult">
         <include refid="selectMUserVo"/>
         where uid = #{uid}
