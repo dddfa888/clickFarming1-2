@@ -10,6 +10,15 @@
           @input="handleQuery"
         />
       </el-form-item>
+      <el-form-item :label="$t('userPage.phone')" prop="phoneNumber">
+        <el-input
+          v-model="queryParams.phoneNumber"
+          placeholder="请输入手机号"
+          clearable
+          @keyup.enter.native="handleQuery"
+          @input="handleQuery"
+        />
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">{{ $t("pageCommon.search") }}</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">{{ $t("pageCommon.reset") }}</el-button>
