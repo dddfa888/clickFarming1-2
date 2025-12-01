@@ -10,6 +10,15 @@
           @input="handleQuery"
         />
       </el-form-item>
+      <el-form-item :label="$t('userPage.phone')" prop="phoneNumber">
+        <el-input
+          v-model="queryParams.phoneNumber"
+          placeholder="请输入手机号"
+          clearable
+          @keyup.enter.native="handleQuery"
+          @input="handleQuery"
+        />
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">{{ $t("pageCommon.search") }}</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">{{ $t("pageCommon.reset") }}</el-button>
@@ -331,9 +340,17 @@
       <el-form-item :label="$t('userPage.balForm.origin')">
         <el-input readonly v-model="balanceForm.originalBalance"></el-input>
       </el-form-item>
-      <el-form-item :label="$t('userPage.balForm.newNum')" prop="balance">
-        <el-input v-model="balanceForm.balance" ref="balanceInput" ></el-input>
-      </el-form-item>
+      <el-form-item
+  :label="$t('userPage.balForm.newNum')"
+  prop="balance"
+>
+  <el-input
+    v-model="balanceForm.balance"
+    ref="balanceInput"
+    @keydown.enter.native="submitBalanceForm"
+  />
+</el-form-item>
+
        <el-form-item :label="$t('userPage.balForm.selectReason')">
       <el-select v-model="selectedReason" placeholder="" @change="changeReason">
         <el-option :label="$t('userPage.balForm.noReason')" :value="$t('userPage.balForm.noReason')"></el-option>

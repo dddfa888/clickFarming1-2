@@ -98,7 +98,7 @@ public class OrderReceiveRecord extends BaseEntity
     private String freezeStatus;
 
     /** 创建时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
     private Date createTime;
 
     // 新增用于前端展示的格式化字段

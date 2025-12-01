@@ -1,10 +1,7 @@
 package com.ruoyi.click.service.impl;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -74,6 +71,12 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser>  implement
     {
         return mUserMapper.selectMUserList(mUser);
     }
+
+    @Override
+    public List<MUser> selectMUserListLike(MUser mUser) {
+        return mUserMapper.selectMUserListLike(mUser);
+    }
+
     /**
      * 新增用户
      * @param mUser 用户

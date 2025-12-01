@@ -3,7 +3,7 @@
     <div class="modal-content">
       <img src="../assets/img/modal.jpg" class="modal-image" />
     </div>
-    <div class="modal-text">
+    <!--<div class="modal-text">
       <h2 style="color:#D50000">DUBAIMALL CENTER</h2>
 
       <p style="color:#E53935">{{ t("活动优惠项目") }}</p>
@@ -27,7 +27,7 @@
 
       <p style="color:#555555">{{ t("请您经常关注并更新平台资讯") }}</p>
       <p style="color:#555555">{{ t("以免错过我们的优惠活动") }}!!!</p>
-    </div>
+    </div>-->
 
     <button class="modal-close" @click="close">×</button>
   </div>
