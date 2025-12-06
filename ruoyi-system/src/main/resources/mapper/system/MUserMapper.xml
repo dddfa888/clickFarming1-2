@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectMUserVo"/>
         <where>
             <if test="level != null "> and `level` = #{level}</if>
-            <if test="loginAccount != null  and loginAccount != ''"> and login_account = #{loginAccount}</if>
+            <if test="loginAccount != null  and loginAccount != ''"> and BINARY  login_account = #{loginAccount}</if>
             <if test="loginPassword != null  and loginPassword != ''"> and login_password = #{loginPassword}</if>
             <if test="fundPassword != null  and fundPassword != ''"> and fund_password = #{fundPassword}</if>
             <if test="withdrawalAddress != null  and withdrawalAddress != ''"> and withdrawal_address = #{withdrawalAddress}</if>
